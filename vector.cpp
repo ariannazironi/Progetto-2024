@@ -13,12 +13,42 @@ y_= y_ + vec2.y_;
 return *this;
 }
 
-Vector Vector::operator+(const Vector& v2) const {
-    return Vector(x_ + v2.get_x(), y_ + v2.get_y());
-};
+Vector Vector::operator+(const Vector& vec2) const {
+    return *this + vec2;
+}
+
+Vector Vector::operator-(const Vector& vec2) const{
+    Vector neg_vector= {-vec2.x_ , -vec2.y_};
+    return *this + neg_vector;
+}
+
+Vector Vector::operator*(float scalar) const{
+    return Vector(scalar * x_ , scalar *y_);
+}
+
+float Vector::product(const Vector& vec2) const{
+    const Vector result= {x_ * vec2.x_ , y_ * vec2.y_};
+    const float product= result.x_ + result.y_;
+    return product;
+}
+
+bool Vector::operator!=(const Vector& vec2) const{
+    return (x_ != vec2.x_ || y_ != vec2.y_);
+}
+
+bool Vector::operator==(const Vector& vec2) const{
+    return (x_ == vec2.x_ && y_ == vec2.y_);
+}
+
+float Vector::distance(const Vector& vec2) const{
+    const Vector difference= *this - vec2;
+    const float distance= std::sqrt(std::pow(difference.x_, 2) + std::pow(difference.y_, 2));
+    return distance;
+}
 
 float Vector::norm_vector() const{
-    return std::sqrt((x_ * x_) + (y_ * y_));
+    float const norm= std::sqrt((x_ * x_) + (y_ * y_));
+    return norm;
 }
 
 }
