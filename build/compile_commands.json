@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/arianna-zironi/progetto24/build",
+  "command": "/usr/bin/c++    -Wall -Wextra -g -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS=1 -fsanitize=address,undefined -fno-omit-frame-pointer -std=c++17 -o CMakeFiles/boids.dir/vector.cpp.o -c /home/arianna-zironi/progetto24/vector.cpp",
+  "file": "/home/arianna-zironi/progetto24/vector.cpp"
+},
+{
+  "directory": "/home/arianna-zironi/progetto24/build",
+  "command": "/usr/bin/c++    -Wall -Wextra -g -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS=1 -fsanitize=address,undefined -fno-omit-frame-pointer -std=c++17 -o CMakeFiles/boids.dir/vector.test.cpp.o -c /home/arianna-zironi/progetto24/vector.test.cpp",
+  "file": "/home/arianna-zironi/progetto24/vector.test.cpp"
+},
+{
+  "directory": "/home/arianna-zironi/progetto24/build",
+  "command": "/usr/bin/c++    -Wall -Wextra -g -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS=1 -fsanitize=address,undefined -fno-omit-frame-pointer -std=c++17 -o CMakeFiles/vector.t.dir/vector.test.cpp.o -c /home/arianna-zironi/progetto24/vector.test.cpp",
+  "file": "/home/arianna-zironi/progetto24/vector.test.cpp"
+},
+{
+  "directory": "/home/arianna-zironi/progetto24/build",
+  "command": "/usr/bin/c++    -Wall -Wextra -g -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS=1 -fsanitize=address,undefined -fno-omit-frame-pointer -std=c++17 -o CMakeFiles/vector.t.dir/vector.cpp.o -c /home/arianna-zironi/progetto24/vector.cpp",
+  "file": "/home/arianna-zironi/progetto24/vector.cpp"
+}
+]

@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -g -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS=1 -fsanitize=address,undefined -fno-omit-frame-pointer  -fsanitize=address,undefined -fno-omit-frame-pointer CMakeFiles/boids.dir/vector.cpp.o CMakeFiles/boids.dir/vector.test.cpp.o -o boids 

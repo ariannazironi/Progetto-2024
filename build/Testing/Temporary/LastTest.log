@@ -1,0 +1,24 @@
+Start testing: Nov 07 15:27 CET
+----------------------------------------------------------
+1/1 Testing: vector.t
+1/1 Test: vector.t
+Command: "/home/arianna-zironi/progetto24/build/vector.t"
+Directory: /home/arianna-zironi/progetto24/build
+"vector.t" start time: Nov 07 15:27 CET
+Output:
+----------------------------------------------------------
+[doctest] doctest version is "2.4.11"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases: 1 | 1 passed | 0 failed | 0 skipped
+[doctest] assertions: 2 | 2 passed | 0 failed |
+[doctest] Status: SUCCESS!
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"vector.t" end time: Nov 07 15:27 CET
+"vector.t" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 07 15:27 CET
