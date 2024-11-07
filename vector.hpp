@@ -17,6 +17,7 @@ class Vector {
 
   // Somma vettoriale
   Vector operator+(const Vector&) const;
+
   Vector operator+=(const Vector&);
 
   Vector operator-(const Vector&) const;
@@ -30,6 +31,8 @@ class Vector {
   bool operator==(const Vector&) const;
 
   Vector operator*(float scalar) const;
+
+  float product(const Vector&) const;
 
 };
 }
