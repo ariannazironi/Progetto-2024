@@ -28,4 +28,8 @@ TEST_CASE("Testing operator +") {
     CHECK(sum.get_x() == 3);
     CHECK(sum.get_y() == 5);
   };
+
+  SUBCASE(""){
+
+  };
 }
