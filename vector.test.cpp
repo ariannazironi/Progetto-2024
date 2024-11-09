@@ -27,5 +27,5 @@ TEST_CASE("Testing operator +") {
     const sim::Vector sum{v1 + v2};
     CHECK(sum.get_x() == 3);
     CHECK(sum.get_y() == 5);
-  }
+  };
 }
