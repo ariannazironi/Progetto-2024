@@ -29,7 +29,6 @@ TEST_CASE("Testing operator +") {
     CHECK(sum.get_y() == 5);
   };
 
-  SUBCASE(""){
-
+  SUBCASE("") {
   };
 }
