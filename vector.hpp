@@ -1,7 +1,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-namespace sim{
+namespace sim {
 
 class Vector {
  private:
