@@ -14,7 +14,7 @@ return *this;
 }
 
 Vector Vector::operator+(const Vector& vec2) const {
-    return *this + vec2;
+    return Vector(x_ + vec2.x_ , y_ + vec2.y_);
 }
 
 Vector Vector::operator-(const Vector& vec2) const{
