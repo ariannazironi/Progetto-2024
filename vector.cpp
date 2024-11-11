@@ -1,7 +1,10 @@
 #include "vector.hpp"
+
+#include <cassert>
 #include <cmath>
 
 namespace sim{
+Vector::Vector() {};
 Vector::Vector(float x, float y) : x_{x}, y_{y} {};
 
 float Vector::get_x() const { return x_; };
@@ -43,11 +46,13 @@ bool Vector::operator==(const Vector& vec2) const{
 float Vector::distance(const Vector& vec2) const{
     const Vector difference= *this - vec2;
     const float distance= std::sqrt(std::pow(difference.x_, 2) + std::pow(difference.y_, 2));
+    assert(distance >= 0.);
     return distance;
 }
 
 float Vector::norm_vector() const{
     float const norm= std::sqrt((x_ * x_) + (y_ * y_));
+    assert(norm >= 0.);
     return norm;
 }
 

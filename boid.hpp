@@ -1,17 +1,25 @@
 #ifndef BOID_HPP
 #define BOID_HPP
 
+#include <vector>
 #include "vector.hpp"
 
-namespace pr{class Boid {
+namespace sim{
+    class Boid {
     private:
-    sim::Vector position_;
-    sim::Vector velocity_;
+    Vector position_;
+    Vector velocity_;
 
     public:
-    Boid(sim::Vector position, sim::Vector velocity);
-    sim::Vector get_pos() const;
-    sim::Vector get_vel() const;
+    Boid();
+    Boid(Vector position, Vector velocity);
+    Vector get_pos() const;
+    Vector get_vel() const;
+    std::vector<Boid> find_near(const std::vector<Boid>& boids, float d) const;
+    Vector separation(const float s, const float ds, std::vector<Boid> const&) const;
+    Vector alignment(const float a, std::vector<Boid> const&) const;
+    Vector cohesion(const float c, std::vector<Boid> const&) const;
+
 };
 }
 

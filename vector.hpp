@@ -9,6 +9,7 @@ class Vector {
   float y_;
 
  public:
+  Vector();
   Vector(float x, float y);
 
   // metodi get per accedere alle coordinate del vettore
