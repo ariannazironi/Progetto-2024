@@ -516,6 +516,33 @@ vector.t/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/build
 .PHONY : vector.t/fast
 
+boid.o: boid.cpp.o
+.PHONY : boid.o
+
+# target to build an object file
+boid.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/boid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.cpp.o
+.PHONY : boid.cpp.o
+
+boid.i: boid.cpp.i
+.PHONY : boid.i
+
+# target to preprocess a source file
+boid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/boid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.cpp.i
+.PHONY : boid.cpp.i
+
+boid.s: boid.cpp.s
+.PHONY : boid.s
+
+# target to generate assembly for a file
+boid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/boid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.cpp.s
+.PHONY : boid.cpp.s
+
 vector.o: vector.cpp.o
 .PHONY : vector.o
 
@@ -609,6 +636,9 @@ help:
 	@echo "... NightlyUpdate"
 	@echo "... boids"
 	@echo "... vector.t"
+	@echo "... boid.o"
+	@echo "... boid.i"
+	@echo "... boid.s"
 	@echo "... vector.o"
 	@echo "... vector.i"
 	@echo "... vector.s"

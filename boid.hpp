@@ -3,21 +3,21 @@
 
 #include "vector.hpp"
 
-namespace pr {
+namespace sim {
 class Boid {
  private:
-  sim::Vector position_;
-  sim::Vector velocity_;
+  Vector position_;
+  Vector velocity_;
 
  public:
-  Boid(sim::Vector position, sim::Vector velocity);
-  sim::Vector get_pos() const;
-  sim::Vector get_vel() const;
+  Boid(Vector position, Vector velocity);
+  Vector get_pos() const;
+  Vector get_vel() const;
 
   // Metodi per le regole di volo
-  sim::Vector separation(const std::vector<Boid>& boid);
-  sim::Vector alignment();
-  sim::Vector cohesion();
+  Vector separation(const std::vector<Boid>& boid);
+  Vector alignment();
+  Vector cohesion();
 };
 }  // namespace pr
 
