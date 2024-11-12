@@ -1,8 +1,13 @@
 #include "boid.hpp"
 #include <vector>
 
+#include <cmath>
+#include <numeric>
+
+namespace sim {
 namespace sim {
 
+Boid::Boid() : position_{Vector{}}, velocity_{Vector{}} {};
 Boid::Boid(Vector position, Vector velocity)
     : position_(position), velocity_(velocity) {};
 
