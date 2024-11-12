@@ -52,4 +52,5 @@ Vector Boid::cohesion(const float c, std::vector<Boid> const& near) const {
    Vector v3= (x_sum * (1/near.size()) - position_) * c;
    return v3;
 }
-}  // namespace sim
+
+}  

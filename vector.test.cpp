@@ -105,12 +105,83 @@ TEST_CASE("Testing distance") {
   };
 }
 
-/*TEST_CASE("Testing norm_vector"){}
+TEST_CASE("Testing norm_vector") {
+  SUBCASE("Positive components") {
+    const sim::Vector v1{3,4};
+    float norm = v1.norm_vector();
+    CHECK(norm == 5);
+  };
 
-TEST_CASE("Testing operator!=") {}
+  SUBCASE("Negative components") {
+    const sim::Vector v1{-4,-3};
+    float norm = v1.norm_vector();
+    CHECK(norm == 5);
+  };
 
-TEST_CASE("Testing operator ==") {}
+  SUBCASE("Null components") {
+    const sim::Vector v1{0,0};
+    float norm = v1.norm_vector();
+    CHECK(norm == 0);
+  };
+}
 
-TEST_CASE("Testing operator*") {}
+TEST_CASE("Testing operator!=") {
+    const sim::Vector v1{2,3};
+    const sim::Vector v2{2,4};
+    CHECK(v1 != v2);
+}
 
-TEST_CASE("Testing product") {}*/
+TEST_CASE("Testing operator ==") {
+    const sim::Vector v1{2,3};
+    const sim::Vector v2{2,3};
+    CHECK(v1 == v2);
+}
+
+TEST_CASE("Testing operator*") {
+  SUBCASE("Positive scalar") {
+    const sim::Vector v1{1,0};
+    const float f = 2;
+    sim::Vector dot_scalar{v1*f};
+    CHECK(dot_scalar.get_x() == 2);
+    CHECK(dot_scalar.get_y() == 0);
+  };
+
+  SUBCASE("Negative scalar") {
+    const sim::Vector v1{1,-2};
+    const float f = -2;
+    sim::Vector dot_scalar{v1*f};
+    CHECK(dot_scalar.get_x() == -2);
+    CHECK(dot_scalar.get_y() == 4);
+  };
+
+  SUBCASE("Null scalar") {
+    const sim::Vector v1{1,-2};
+    const float f = 0;
+    sim::Vector dot_scalar{v1*f};
+    CHECK(dot_scalar.get_x() == 0);
+    CHECK(dot_scalar.get_y() == 0);
+  };
+}
+
+TEST_CASE("Testing product") {
+  SUBCASE("Positive components") {
+    const sim::Vector v1{1,1};
+    const sim::Vector v2{2,2};
+    float dot_product = v1.product(v2);
+    CHECK(dot_product == 4);
+  };
+
+  SUBCASE("Negative components") {
+    const sim::Vector v1{-1,-1};
+    const sim::Vector v2{-2,-2};
+    float dot_product = v1.product(v2);
+    CHECK(dot_product == 4);
+  };
+
+  SUBCASE("Null components") {
+    const sim::Vector v1{0,1};
+    const sim::Vector v2{2,0};
+    float dot_product = v1.product(v2);
+    CHECK(dot_product == 0);
+  };
+}

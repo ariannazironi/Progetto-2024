@@ -4,8 +4,9 @@
 #include <vector>
 #include "vector.hpp"
 
-namespace sim{
-    class Boid {
+namespace sim {
+
+class Boid {
     private:
     Vector position_;
     Vector velocity_;
@@ -21,6 +22,7 @@ namespace sim{
     Vector cohesion(const float c, std::vector<Boid> const&) const;
 
 };
+
 }
 
 #endif
