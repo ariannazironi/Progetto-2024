@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/boids.dir/boid.cpp.o"
   "CMakeFiles/boids.dir/boid.cpp.o.d"
+  "CMakeFiles/boids.dir/boid.test.cpp.o"
+  "CMakeFiles/boids.dir/boid.test.cpp.o.d"
   "CMakeFiles/boids.dir/vector.cpp.o"
   "CMakeFiles/boids.dir/vector.cpp.o.d"
   "CMakeFiles/boids.dir/vector.test.cpp.o"

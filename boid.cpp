@@ -1,10 +1,9 @@
 #include "boid.hpp"
-#include <vector>
 
 #include <cmath>
+#include <iostream>
 #include <numeric>
 
-namespace sim {
 namespace sim {
 
 Boid::Boid() : position_{Vector{}}, velocity_{Vector{}} {};
@@ -14,12 +13,45 @@ Boid::Boid(Vector position, Vector velocity)
 Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
 
-//Regola di separazione
-Vector Boid::separation(const std::vector<Boid>& boids){
+std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
+                                  float d) const {
+  std::vector<Boid> near;
 
-    for(int i = 0; i < boids.size(); ++i ) {
-        //calcolo distanza da boid corrente a ciascuno
+  for (const auto& boid : boids) {
+    Vector x = boid.get_pos();
+    if (this != &boid && x.distance(position_) < d) {
+      near.push_back(boid);
     }
-};
+  }
+  return near;
+}
 
-}  // namespace pr
+Vector Boid::separation(float s, float ds,
+                        std::vector<Boid> const& near) const {
+  Vector v1{0., 0.};
+
+  for (auto it = near.begin(); it != near.end(); it++) {
+    Vector x1 = it->get_pos();  // vettore posizione di un boid
+    if (x1.distance(position_) < ds) {
+      v1 += (x1 - position_) * (-s);
+    }
+  }
+  return v1;
+}
+
+Vector Boid::alignment(const float a, std::vector<Boid> const& near) const {
+  Vector v_sum = std::accumulate(
+      near.begin(), near.end(), Vector{0., 0.},
+      [](Vector res, Boid const& b) { return res + b.get_vel(); });
+  Vector v2 = (v_sum * (1 / near.size()) - velocity_) * a;
+  return v2;
+}
+
+Vector Boid::cohesion(const float c, std::vector<Boid> const& near) const {
+  Vector x_sum = std::accumulate(
+      near.begin(), near.end(), Vector{0., 0.},
+      [](Vector res, Boid const& b) { return res + b.get_pos(); });
+  Vector v3 = (x_sum * (1 / near.size()) - position_) * c;
+  return v3;
+}
+}  // namespace sim

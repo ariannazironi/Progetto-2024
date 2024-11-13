@@ -543,6 +543,33 @@ boid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.cpp.s
 .PHONY : boid.cpp.s
 
+boid.test.o: boid.test.cpp.o
+.PHONY : boid.test.o
+
+# target to build an object file
+boid.test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/boid.test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.test.cpp.o
+.PHONY : boid.test.cpp.o
+
+boid.test.i: boid.test.cpp.i
+.PHONY : boid.test.i
+
+# target to preprocess a source file
+boid.test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/boid.test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.test.cpp.i
+.PHONY : boid.test.cpp.i
+
+boid.test.s: boid.test.cpp.s
+.PHONY : boid.test.s
+
+# target to generate assembly for a file
+boid.test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/boid.test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vector.t.dir/build.make CMakeFiles/vector.t.dir/boid.test.cpp.s
+.PHONY : boid.test.cpp.s
+
 vector.o: vector.cpp.o
 .PHONY : vector.o
 
@@ -639,6 +666,9 @@ help:
 	@echo "... boid.o"
 	@echo "... boid.i"
 	@echo "... boid.s"
+	@echo "... boid.test.o"
+	@echo "... boid.test.i"
+	@echo "... boid.test.s"
 	@echo "... vector.o"
 	@echo "... vector.i"
 	@echo "... vector.s"
