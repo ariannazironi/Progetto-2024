@@ -19,7 +19,7 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
 
   for (const auto& boid : boids) {
     Vector x = boid.get_pos();
-    if (this != &boid && x.distance(position_) < d) {
+    if (x.distance(position_) >0 && x.distance(position_) < d) {
       near.push_back(boid);
     }
   }
@@ -54,4 +54,5 @@ Vector Boid::cohesion(const float c, std::vector<Boid> const& near) const {
   Vector v3 = (x_sum * (1 / near.size()) - position_) * c;
   return v3;
 }
-}  // namespace sim
+
+}  

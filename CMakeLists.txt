@@ -22,14 +22,14 @@ string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS_DEBUG " -D_GLIBCXX_ASSERTIONS -D_LIBCPP_ENABLE_ASSERTIONS=1 -fsanitize=address,undefined -fno-omit-frame-pointer")
 string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 
-add_executable(boids boid.cpp vector.cpp vector.test.cpp boid.test.cpp)
+add_executable(boids boid.cpp vector.cpp vector.test.cpp)
 
 # se il testing e' abilitato...
 #   per disabilitare il testing, passare -DBUILD_TESTING=OFF a cmake durante la fase di configurazione
 if (BUILD_TESTING)
 
   # aggiungi l'eseguibile sample.t
-  add_executable(vector.t boid.cpp vector.test.cpp vector.cpp boid.test.cpp)
+  add_executable(vector.t boid.cpp vector.test.cpp vector.cpp)
   # aggiungi l'eseguibile vector.t alla lista dei test
   add_test(NAME vector.t COMMAND vector.t)
 

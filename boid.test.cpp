@@ -1,36 +1,46 @@
-//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
+#include "vector.hpp"
+#include <vector>
 
 #include "doctest.h"
 
-namespace sim {
-TEST_CASE("Testing the boid class") {
-    SUBCASE("Testing getter") {
-        Vector pos(9., 5.);
-        Vector vel(3., 2.);
-        Boid boid(pos, vel);
-        CHECK(boid.get_pos() == pos);
-        CHECK(boid.get_vel() == vel);
-    }
+TEST_CASE("Testing Boid class") {
+const sim::Vector pos0{0.,0.};
+const sim::Vector vel0{0.,0.};
 
-    SUBCASE("Testing the find_near method") {
-        Vector pos1(0., 0.);
-        Vector pos2(1., 1.);
-        Vector pos3(5., 5.);
+const sim::Vector pos1{3., 4.};
+const sim::Vector vel1{1.,1.};
 
-        Vector vel(1, 1);
+const sim::Vector pos2(1., 8.);
+const sim::Vector vel2(5., -6.);
 
-        Boid boid1(pos1, vel);
-        Boid boid2(pos2, vel);
-        Boid boid3(pos3, vel);
+const sim::Vector pos3(2., 2.);
+const sim::Vector vel3(7., 2.5);
 
-        std::vector<sim::Boid> boids = {boid1, boid2, boid3};
-        
-        auto near_boids = boid1.find_near(boids, 2.0f);
+const sim::Boid b0(pos0, vel0);
+const sim::Boid b1(pos1, vel1);
+const sim::Boid b2(pos2, vel2);
+const sim::Boid b3(pos3, vel3);
 
-        CHECK(near_boids.size() == 1);
-        CHECK(near_boids[0].get_pos() == pos2);
-    }
+const std::vector<sim::Boid> boids{b0, b1, b2, b3};
+
+SUBCASE("Testing getters") {
+    CHECK(b0.get_pos().get_x() == 0.);
+    CHECK(b0.get_pos().get_y() == 0.);
+    CHECK(b0.get_vel().get_x() == 0.);
+    CHECK(b0.get_vel().get_y() == 0.);
+
+    CHECK(b1.get_pos().get_x() == 3.);
+    CHECK(b1.get_pos().get_y() == 4.);
+    CHECK(b1.get_vel().get_x() == 1.);
+    CHECK(b1.get_vel().get_y() == 1.);
+  }
+
+SUBCASE("Testing find_near method") {
+auto near = b0.find_near(boids, 5.); // Trova i boid vicini
+CHECK(near.size() == 1); 
+CHECK(near[0].get_pos() == pos3);
 }
 }
