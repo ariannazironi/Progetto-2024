@@ -54,18 +54,10 @@ Vector Boid::alignment(const float a, std::vector<Boid> const& near) const {
 }
 
 Vector Boid::cohesion(const float c, std::vector<Boid> const& near) const {
-<<<<<<< HEAD
-  Vector x_sum = std::accumulate(
-      near.begin(), near.end(), Vector{0., 0.},
-      [](Vector res, Boid const& b) { return res + b.get_pos(); });
-  Vector v3 = (x_sum * (1 / near.size()) - position_) * c;
-  return v3;
-=======
     Vector x_sum = std::accumulate( near.begin(), near.end(), Vector{0.,0.},
     [](Vector res, Boid const& b){ return res + b.get_pos();});
    Vector v3= (x_sum * (1.0f /near.size()) - position_) * c;
    return v3;
->>>>>>> 839ec7991cdd3a278fc464506bfbda086a01c38d
 }
 
 }  
