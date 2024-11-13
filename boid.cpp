@@ -42,7 +42,7 @@ Vector Boid::alignment(const float a, std::vector<Boid> const& near) const {
   Vector v_sum = std::accumulate( //algoritmo che somma vettori, voglio solo somma su velocità
       near.begin(), near.end(), Vector{0., 0.},
       [](Vector res, Boid const& b) { return res + b.get_vel(); }); //lambda function che modifica algoritmo e prende solo la velocità
-  Vector v2 = (v_sum * (1 / near.size()) - velocity_) * a;
+  Vector v2 = (v_sum * (1.0f / near.size()) - velocity_) * a;
   return v2;
 }
 
