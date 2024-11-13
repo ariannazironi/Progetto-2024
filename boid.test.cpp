@@ -76,4 +76,14 @@ SUBCASE("Testing alignment method") {
   CHECK(b0.alignment(0.5, near_2).get_y() == doctest::Approx(al2_y));
   
 }
+
+SUBCASE("Testing cohesion method") {
+  const float c = 2.; 
+  float coh0_x = c * ((b3.get_pos().get_x() / near.size()) - b0.get_pos().get_x());
+  float coh0_y = c * ((b3.get_pos().get_y()) / near.size() - b0.get_pos().get_y());
+
+
+ CHECK(b0.cohesion(c, near).get_x() == doctest::Approx(coh0_x));
+ CHECK(b0.cohesion(c, near).get_y() == doctest::Approx(coh0_y));
+}
 }
