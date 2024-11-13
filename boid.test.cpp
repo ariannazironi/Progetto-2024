@@ -24,7 +24,7 @@ const sim::Boid b1(pos1, vel1);
 const sim::Boid b2(pos2, vel2);
 const sim::Boid b3(pos3, vel3);
 
-const std::vector<sim::Boid> boids{b1, b2, b3};
+const std::vector<sim::Boid> boids{b0, b1, b2, b3};
 
 SUBCASE("Testing getters") {
     CHECK(b0.get_pos().get_x() == 0.);
@@ -41,5 +41,6 @@ SUBCASE("Testing getters") {
 SUBCASE("Testing find_near method") {
 auto near = b0.find_near(boids, 5.); // Trova i boid vicini
 CHECK(near.size() == 1); 
+CHECK(near[0].get_pos() == pos3);
 }
 }

@@ -18,7 +18,7 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
 
   for (const auto& boid : boids) {
     Vector x = boid.get_pos();
-    if (this != &boid && x.distance(position_) < d) {
+    if (x.distance(position_) >0 && x.distance(position_) < d) {
       near.push_back(boid);
     }
   }
