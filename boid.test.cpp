@@ -43,4 +43,5 @@ auto near = b0.find_near(boids, 5.); // Trova i boid vicini
 CHECK(near.size() == 1); 
 CHECK(near[0].get_pos() == pos3);
 }
+
 }
