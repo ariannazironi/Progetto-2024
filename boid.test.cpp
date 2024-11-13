@@ -50,23 +50,22 @@ TEST_CASE("Testing Boid class") {
   }
 
   SUBCASE("Testing alignment method") {
-    const float a= 0.5;
-  
+    const float a = 0.5;
+
     CHECK(b0.alignment(a, near).get_x() == doctest::Approx(2.5).epsilon(0.1));
     CHECK(b0.alignment(a, near).get_y() == doctest::Approx(1.25).epsilon(0.1));
 
     CHECK(b0.alignment(a, near_1).get_x() == doctest::Approx(1).epsilon(0.1));
-    CHECK(b0.alignment(a, near_1).get_y() == doctest::Approx(0.875).epsilon(0.001));
+    CHECK(b0.alignment(a, near_1).get_y() ==
+          doctest::Approx(0.875).epsilon(0.001));
 
-    CHECK(b0.alignment(a, near_2).get_x() == doctest::Approx(1.166).epsilon(0.001));
-    CHECK(b0.alignment(a, near_2).get_y() == doctest::Approx(-0.4161).epsilon(0.001));
+    CHECK(b0.alignment(a, near_2).get_x() ==
+          doctest::Approx(1.166).epsilon(0.001));
+    CHECK(b0.alignment(a, near_2).get_y() ==
+          doctest::Approx(-0.4161).epsilon(0.001));
   }
 
   SUBCASE("Testing the separation method") {
-    auto near = b0.find_near(boids, 5.);
-    auto near_1 = b0.find_near(boids, 6.);
-    auto near_2 = b0.find_near(boids, 9.);
-
     sim::Vector separation_vector = b0.separation(1.0f, 5.0f, near);
 
     CHECK(separation_vector.get_x() == doctest::Approx(-2.0f).epsilon(0.1));
