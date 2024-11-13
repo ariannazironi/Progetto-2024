@@ -20,6 +20,7 @@ class Boid {
     Vector separation(const float s, const float ds, std::vector<Boid> const&) const;
     Vector alignment(const float a, std::vector<Boid> const&) const;
     Vector cohesion(const float c, std::vector<Boid> const&) const;
+    void limit_velocity(const float max_speed);
 
 };
 

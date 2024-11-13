@@ -26,6 +26,12 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids, const
   return near;
 }
 
+void Boid::limit_velocity(const float max_speed) {
+  if(velocity_.norm_vector() > max_speed) {
+    velocity_ = velocity_ * 0.5;
+  }
+}
+
 Vector Boid::separation(float s, float ds,
                         std::vector<Boid> const& near) const {
   Vector v1{0., 0.};
