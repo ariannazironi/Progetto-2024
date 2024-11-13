@@ -1,4 +1,4 @@
-// #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
 
@@ -50,39 +50,40 @@ TEST_CASE("Testing Boid class") {
   }
 
   SUBCASE("Testing alignment method") {
+    const float a= 0.5;
     float al0_x =
-        0.5 * ((b3.get_vel().get_x()) / near.size() - b0.get_vel().get_x());
+        a * ((b3.get_vel().get_x()) / near.size() - b0.get_vel().get_x());
 
     float al0_y =
-        0.5 * ((b3.get_vel().get_y()) / near.size() - b0.get_vel().get_y());
+        a * ((b3.get_vel().get_y()) / near.size() - b0.get_vel().get_y());
 
     float al1_x =
-        0.5 * ((b3.get_vel().get_x() + b1.get_vel().get_x()) / near_1.size() -
+        a * ((b3.get_vel().get_x() + b1.get_vel().get_x()) / near_1.size() -
                b0.get_vel().get_x());
 
     float al1_y =
-        0.5 * ((b3.get_vel().get_y() + b1.get_vel().get_y()) / near_1.size() -
+        a * ((b3.get_vel().get_y() + b1.get_vel().get_y()) / near_1.size() -
                b0.get_vel().get_y());
     float al2_x =
-        0.5 *
+        a *
         ((b3.get_vel().get_x() + b1.get_vel().get_x() + b2.get_vel().get_x()) /
              near_2.size() -
          b0.get_vel().get_x());
 
     float al2_y =
-        0.5 *
+        a *
         ((b3.get_vel().get_y() + b1.get_vel().get_y() + b2.get_vel().get_y()) /
              near_2.size() -
          b0.get_vel().get_y());
 
-    CHECK(b0.alignment(0.5, near).get_x() == doctest::Approx(al0_x));
-    CHECK(b0.alignment(0.5, near).get_y() == doctest::Approx(al0_y));
+    CHECK(b0.alignment(a, near).get_x() == doctest::Approx(al0_x));
+    CHECK(b0.alignment(a, near).get_y() == doctest::Approx(al0_y));
 
-    CHECK(b0.alignment(0.5, near_1).get_x() == doctest::Approx(al1_x));
-    CHECK(b0.alignment(0.5, near_1).get_y() == doctest::Approx(al1_y));
+    CHECK(b0.alignment(a, near_1).get_x() == doctest::Approx(al1_x));
+    CHECK(b0.alignment(a, near_1).get_y() == doctest::Approx(al1_y));
 
-    CHECK(b0.alignment(0.5, near_2).get_x() == doctest::Approx(al2_x));
-    CHECK(b0.alignment(0.5, near_2).get_y() == doctest::Approx(al2_y));
+    CHECK(b0.alignment(a, near_2).get_x() == doctest::Approx(al2_x));
+    CHECK(b0.alignment(a, near_2).get_y() == doctest::Approx(al2_y));
   }
 
   SUBCASE("Testing the separation method") {
