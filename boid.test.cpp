@@ -122,4 +122,21 @@ TEST_CASE("Testing Boid class") {
   CHECK(separation_vector_2.get_y() ==
         doctest::Approx(expected_vector_2.get_y()));
 }
+
+SUBCASE("Testing cohesion method") {
+  const float c = 2.0f; 
+  float coh0_x = c * ((b3.get_pos().get_x() / near.size()) - b0.get_pos().get_x());
+  float coh0_y = c * ((b3.get_pos().get_y()) / near.size() - b0.get_pos().get_y());
+  float coh1_x = c * ((b3.get_pos().get_x() + b1.get_pos().get_x() / near_1.size()) - b0.get_pos().get_x());
+  float coh1_y = c * ((b3.get_pos().get_y() + b1.get_pos().get_y() / near_1.size()) - b0.get_pos().get_y());
+  float coh2_x = c * ((b3.get_pos().get_x() + b1.get_pos().get_x() +b2.get_pos().get_x() / near_2.size()) - b0.get_pos().get_x());
+  float coh2_y = c * ((b3.get_pos().get_y() + b1.get_pos().get_y() +b2.get_pos().get_y()/ near_2.size()) - b0.get_pos().get_y());
+ CHECK(b0.cohesion(c, near).get_x() == doctest::Approx(coh0_x));
+ CHECK(b0.cohesion(c, near).get_y() == doctest::Approx(coh0_y));
+ CHECK(b0.cohesion(c, near_1).get_x() == doctest::Approx(coh1_x));
+ CHECK(b0.cohesion(c, near_1).get_y() == doctest::Approx(coh1_y));
+ CHECK(b0.cohesion(c, near_2).get_x() == doctest::Approx(coh2_x));
+ CHECK(b0.cohesion(c, near_2).get_y() == doctest::Approx(coh2_y));
+}
+
 }
