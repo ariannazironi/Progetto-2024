@@ -1,4 +1,4 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
 
@@ -109,5 +109,16 @@ TEST_CASE("Testing Boid class") {
     b3.limit_velocity(2.5f);
     CHECK(b3.get_vel().get_x() == doctest::Approx(3.5).epsilon(0.1));
     CHECK(b3.get_vel().get_y() == doctest::Approx(1.25).epsilon(0.01));
+  }
+
+  SUBCASE("Testing the set_vel and set_pos method") {
+    sim::Vector new_vel = {5.0f ,4.0f};
+    sim::Vector new_pos = {2.0f, 6.0f};
+    b1.set_vel(new_vel);
+    b1.set_pos(new_pos);
+    CHECK(b1.get_vel().get_x() == doctest::Approx(5.0f).epsilon(0.1));
+    CHECK(b1.get_vel().get_y() == doctest::Approx(4.0f).epsilon(0.01));
+    CHECK(b1.get_pos().get_x() == doctest::Approx(2.0f).epsilon(0.1));
+    CHECK(b1.get_pos().get_y() == doctest::Approx(6.0f).epsilon(0.01));
   }
 }

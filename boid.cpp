@@ -36,6 +36,10 @@ void Boid::set_vel(const Vector& new_velocity) {
     velocity_ = new_velocity;
 }
 
+void Boid::set_pos(const Vector& new_position) {
+  position_ = new_position;
+}
+
 Vector Boid::separation(const float s_parameter, const float ds_parameter,
                         std::vector<Boid> const& near) const {
   Vector v1{0., 0.};
