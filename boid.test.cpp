@@ -1,4 +1,4 @@
-// #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
 
@@ -21,9 +21,9 @@ TEST_CASE("Testing Boid class") {
   const sim::Vector vel3(7., 2.5);
 
   const sim::Boid b0(pos0, vel0);
-  const sim::Boid b1(pos1, vel1);
-  const sim::Boid b2(pos2, vel2);
-  const sim::Boid b3(pos3, vel3);
+  sim::Boid b1(pos1, vel1);
+  sim::Boid b2(pos2, vel2);
+  sim::Boid b3(pos3, vel3);
 
   const std::vector<sim::Boid> boids{b0, b1, b2, b3};
   auto near = b0.find_near(boids, 5.);
@@ -50,19 +50,21 @@ TEST_CASE("Testing Boid class") {
   }
 
   SUBCASE("Testing alignment method") {
-    const float a = 0.5;
+    const float a = 0.5f;
+    sim::Vector alignment_vector = b0.alignment(a, near);
+    CHECK(alignment_vector.get_x() == doctest::Approx(2.5f).epsilon(0.1));
+    CHECK(alignment_vector.get_y() == doctest::Approx(1.25f).epsilon(0.01));
 
-    CHECK(b0.alignment(a, near).get_x() == doctest::Approx(2.5).epsilon(0.1));
-    CHECK(b0.alignment(a, near).get_y() == doctest::Approx(1.25).epsilon(0.1));
+    sim::Vector alignment_vector_1 = b0.alignment(a, near_1);
+    CHECK(alignment_vector_1.get_x() == doctest::Approx(1.0f).epsilon(0.1));
+    CHECK(alignment_vector_1.get_y() ==
+          doctest::Approx(0.875f).epsilon(0.001));
 
-    CHECK(b0.alignment(a, near_1).get_x() == doctest::Approx(1).epsilon(0.1));
-    CHECK(b0.alignment(a, near_1).get_y() ==
-          doctest::Approx(0.875).epsilon(0.001));
-
-    CHECK(b0.alignment(a, near_2).get_x() ==
-          doctest::Approx(1.166).epsilon(0.001));
-    CHECK(b0.alignment(a, near_2).get_y() ==
-          doctest::Approx(-0.4161).epsilon(0.001));
+    sim::Vector alignment_vector_2 = b0.alignment(a, near_2);
+    CHECK(alignment_vector_2.get_x() ==
+          doctest::Approx(1.16f).epsilon(0.01));
+    CHECK(alignment_vector_2.get_y() ==
+          doctest::Approx(-0.416f).epsilon(0.01));
   }
 
   SUBCASE("Testing the separation method") {
@@ -84,27 +86,28 @@ TEST_CASE("Testing Boid class") {
 
   SUBCASE("Testing cohesion method") {
     const float c = 2.0f;
-    float coh0_x =
-        c * ((b3.get_pos().get_x() / near.size()) - b0.get_pos().get_x());
-    float coh0_y =
-        c * ((b3.get_pos().get_y()) / near.size() - b0.get_pos().get_y());
-    float coh1_x =
-        c * ((b3.get_pos().get_x() + b1.get_pos().get_x() / near_1.size()) -
-             b0.get_pos().get_x());
-    float coh1_y =
-        c * ((b3.get_pos().get_y() + b1.get_pos().get_y() / near_1.size()) -
-             b0.get_pos().get_y());
-    float coh2_x = c * ((b3.get_pos().get_x() + b1.get_pos().get_x() +
-                         b2.get_pos().get_x() / near_2.size()) -
-                        b0.get_pos().get_x());
-    float coh2_y = c * ((b3.get_pos().get_y() + b1.get_pos().get_y() +
-                         b2.get_pos().get_y() / near_2.size()) -
-                        b0.get_pos().get_y());
-    CHECK(b0.cohesion(c, near).get_x() == doctest::Approx(coh0_x));
-    CHECK(b0.cohesion(c, near).get_y() == doctest::Approx(coh0_y));
-    CHECK(b0.cohesion(c, near_1).get_x() == doctest::Approx(coh1_x));
-    CHECK(b0.cohesion(c, near_1).get_y() == doctest::Approx(coh1_y));
-    CHECK(b0.cohesion(c, near_2).get_x() == doctest::Approx(coh2_x));
-    CHECK(b0.cohesion(c, near_2).get_y() == doctest::Approx(coh2_y));
+
+    sim::Vector choesion_vector = b0.cohesion(c, near);
+    CHECK(choesion_vector.get_x() == doctest::Approx(4.0f).epsilon(0.1));
+    CHECK(choesion_vector.get_y() == doctest::Approx(4.0f).epsilon(0.1));
+
+    sim::Vector choesion_vector_1 = b0.cohesion(c, near_1);
+    CHECK(choesion_vector_1.get_x() == doctest::Approx(5.0f).epsilon(0.1));
+    CHECK(choesion_vector_1.get_y() == doctest::Approx(6.0f).epsilon(0.1));
+
+    sim::Vector choesion_vector_2 = b0.cohesion(c, near_2);
+    CHECK(choesion_vector_2.get_x() == doctest::Approx(4.0f).epsilon(0.1));
+    CHECK(choesion_vector_2.get_y() == doctest::Approx(9.33f).epsilon(0.01));
+  }
+
+  SUBCASE("Testing limit_velocity method"){
+    b2.limit_velocity(3);
+
+    CHECK(b2.get_vel().get_x() == doctest::Approx(2.2).epsilon(0.1));
+    CHECK(b2.get_vel().get_y() == doctest::Approx(-3.0).epsilon(0.1));
+
+    b3.limit_velocity(2.5f);
+    CHECK(b3.get_vel().get_x() == doctest::Approx(3.5).epsilon(0.1));
+    CHECK(b3.get_vel().get_y() == doctest::Approx(1.25).epsilon(0.01));
   }
 }
