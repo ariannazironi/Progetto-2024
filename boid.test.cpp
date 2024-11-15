@@ -101,7 +101,7 @@ TEST_CASE("Testing Boid class") {
   }
 
   SUBCASE("Testing limit_velocity method"){
-    b2.limit_velocity(3);
+    b2.limit_velocity(3.0f);
 
     CHECK(b2.get_vel().get_x() == doctest::Approx(2.2).epsilon(0.1));
     CHECK(b2.get_vel().get_y() == doctest::Approx(-3.0).epsilon(0.1));
