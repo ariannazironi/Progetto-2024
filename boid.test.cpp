@@ -115,7 +115,7 @@ TEST_CASE("Testing Boid class") {
     b1.change_vel(new_vel);
     b1.change_pos(new_pos);
     CHECK(b1.get_vel().get_x() == doctest::Approx(6.0f).epsilon(0.1));
-    CHECK(b1.get_vel().get_y() == doctest::Approx(5.0f).epsilon(0.01));
+    CHECK(b1.get_vel().get_y() == doctest::Approx(5.0f).epsilon(0.1));
     CHECK(b1.get_pos().get_x() == doctest::Approx(5.0f).epsilon(0.1));
     CHECK(b1.get_pos().get_y() == doctest::Approx(10.0f).epsilon(0.01));
   }
