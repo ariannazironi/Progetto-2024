@@ -1,4 +1,4 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "flock.hpp"
 
@@ -50,6 +50,7 @@ TEST_CASE("Testing Flock class") {
 
     CHECK(flock.get_boids().size() == 4);
 
+    CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
     CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
     CHECK(flock.find_centermass(b0).get_y() ==
           doctest::Approx(4.667).epsilon(0.001));

@@ -79,4 +79,5 @@ Vector Flock::find_offset(const Boid& chosen_boid) const {
   return velocity_offset;
 }
 }  // namespace sim
-  
+
+// namespace sim
