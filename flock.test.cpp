@@ -1,4 +1,4 @@
-// #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "flock.hpp"
 
@@ -54,12 +54,14 @@ TEST_CASE("Testing the update boids method") {
 
     const auto& updated_boids = flock.get_boids();
 
-    auto near_b0 = b0.find_near(flock.get_boids(), distance_of_separation_);
+    std::vector<sim::Boid> near = b0.find_near(flock.get_boids(), distance_of_separation_);
 
-    CHECK(near_b0.size() == 3);
+    CHECK(near.size() == 3);
+    CHECK(near[0].get_pos() == pos1);
 
     CHECK(flock.get_boids().size() == 4);
 
+    CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
     CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
     CHECK(flock.find_centermass(b0).get_y() ==
           doctest::Approx(4.667).epsilon(0.001));
