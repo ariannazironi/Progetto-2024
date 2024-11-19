@@ -20,16 +20,14 @@ void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 void Flock::update_boids(const float& delta_t){
     for(auto& boid: boids_){
      auto near = boid.find_near(boids_, closeness_parameter_ );
-     Vector v= boid.get_vel();
-     Vector v1= boid.separation(separation_parameter_, distance_of_separation_, boids_);
-     Vector v2= boid.cohesion(closeness_parameter_, boids_);
-     Vector v3= boid.alignment(allignment_parameter_, boids_);
-     Vector new_vel= v + v1 + v2 + v3;
-     boid.set_vel(new_vel);
-     Vector new_pos = boid.get_pos() + (new_vel * delta_t);
-     boid.set_pos(new_pos);
+     boid.change_vel(find_offset(boid));
+     boid.limit_velocity(max_speed_);
+     const Vector position_off = boid.get_vel() * delta_t;
+     boid.change_pos(position_off);
+  
     }
 }
+
  std::vector<Boid> Flock::get_boids() const { return boids_; };
   Vector Flock::find_centermass(const Boid& chosen_boid) const {
   std::vector<Vector> pos_boid;
@@ -55,6 +53,30 @@ Vector Flock::find_separation(const Boid& chosen_boid) const {
                                  near_boid);
 
   return null;
+}
+
+Vector Flock::find_alignment(const Boid& chosen_boid) const {
+  Vector null{};
+    auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
+    null = chosen_boid.alignment(allignment_parameter_, near_boid);
+
+  return null;
+}
+
+Vector Flock::find_cohesion(const Boid& chosen_boid) const {
+  auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
+  Vector null{};
+  null = chosen_boid.cohesion(cohesion_parameter_, near_boid);
+
+  return null;
+}
+
+Vector Flock::find_offset(const Boid& chosen_boid) const {
+  const Vector velocity_offset =
+      find_separation(chosen_boid) + find_alignment(chosen_boid) +
+      find_cohesion(chosen_boid);
+
+  return velocity_offset;
 }
 }  // namespace sim
   
