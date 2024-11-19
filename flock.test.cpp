@@ -1,4 +1,4 @@
-// #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "flock.hpp"
 
@@ -52,7 +52,7 @@ TEST_CASE("Testing the update boids method") {
 
     //flock.update_boids(delta_t);
 
-    //const auto& updated_boids = flock.get_boids();
+    const auto& updated_boids = flock.get_boids();
 
     auto near_b0 = b0.find_near(flock.get_boids(), distance_of_separation_);
 
