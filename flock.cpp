@@ -23,6 +23,8 @@ void Flock::update_boids(){
      Vector v3= boid.alignment(allignment_parameter_, boids_);
      Vector new_v= v + v1 + v2 + v3;
      boid.set_vel(new_v);
+     boid.limit_velocity(max_speed_);
     }
+    
 };
 }  // namespace sim
