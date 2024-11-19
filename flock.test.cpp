@@ -48,11 +48,11 @@ TEST_CASE("Testing the update boids method") {
     flock.add_boids(b2);
     flock.add_boids(b3);
 
-    //const float delta_t = 0.5f;
+    const float delta_t = 0.5f;
 
-    //flock.update_boids(delta_t);
+    flock.update_boids(delta_t);
 
-    //const auto& updated_boids = flock.get_boids();
+    const auto& updated_boids = flock.get_boids();
 
     auto near_b0 = b0.find_near(flock.get_boids(), distance_of_separation_);
 
@@ -60,7 +60,7 @@ TEST_CASE("Testing the update boids method") {
 
     CHECK(flock.get_boids().size() == 4);
 
-    /*CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
+    CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
     CHECK(flock.find_centermass(b0).get_y() ==
           doctest::Approx(4.667).epsilon(0.001));
 
@@ -75,6 +75,6 @@ TEST_CASE("Testing the update boids method") {
           doctest::Approx(1.6333).epsilon(0.0001));
     CHECK(updated_boids[0].get_pos().get_y() ==
           doctest::Approx(0.7166).epsilon(0.0001));
-          */
+          
   }
 }
