@@ -37,7 +37,7 @@ void Boid::change_vel(const Vector& off_velocity) {
 }
 
 void Boid::change_pos(const Vector& off_position) {
-  position_ = off_position;
+  position_ += off_position;
 }
 
 Vector Boid::separation(const float s_parameter, const float ds_parameter,

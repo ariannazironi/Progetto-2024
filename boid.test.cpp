@@ -112,11 +112,11 @@ TEST_CASE("Testing Boid class") {
   SUBCASE("Testing the set_vel and set_pos method") {
     sim::Vector new_vel = {5.0f ,4.0f};
     sim::Vector new_pos = {2.0f, 6.0f};
-    b1.set_vel(new_vel);
-    b1.set_pos(new_pos);
-    CHECK(b1.get_vel().get_x() == doctest::Approx(5.0f).epsilon(0.1));
-    CHECK(b1.get_vel().get_y() == doctest::Approx(4.0f).epsilon(0.01));
-    CHECK(b1.get_pos().get_x() == doctest::Approx(2.0f).epsilon(0.1));
-    CHECK(b1.get_pos().get_y() == doctest::Approx(6.0f).epsilon(0.01));
+    b1.change_vel(new_vel);
+    b1.change_pos(new_pos);
+    CHECK(b1.get_vel().get_x() == doctest::Approx(6.0f).epsilon(0.1));
+    CHECK(b1.get_vel().get_y() == doctest::Approx(5.0f).epsilon(0.1));
+    CHECK(b1.get_pos().get_x() == doctest::Approx(5.0f).epsilon(0.1));
+    CHECK(b1.get_pos().get_y() == doctest::Approx(10.0f).epsilon(0.01));
   }
 }
