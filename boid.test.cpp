@@ -1,9 +1,7 @@
-//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
-
 #include <vector>
-
 #include "doctest.h"
 #include "vector.hpp"
 

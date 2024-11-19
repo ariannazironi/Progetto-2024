@@ -31,5 +31,7 @@ class Flock {
   Vector find_centermass(const Boid& chosen_boid) const;
   Vector find_separation(const Boid& chosen_boid) const;
 };
+
 }
+
 #endif
