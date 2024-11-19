@@ -26,7 +26,10 @@ class Flock {
   Flock(const float distance, const float ds_parameter, const float s_parameter,
         const float a_parameter, const float c_parameter, const float max_speed);
   void add_boids(const Boid& new_boid);
+  std::vector<Boid> get_boids() const;
   void update_boids(const float& delta_t);
+  Vector find_centermass(const Boid& chosen_boid) const;
+  Vector find_separation(const Boid& chosen_boid) const;
 };
 }
 #endif
