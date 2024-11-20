@@ -22,9 +22,10 @@ class Flock {
 
   std::vector<Boid> boids_;
 
-  public:
+ public:
   Flock(const float distance, const float ds_parameter, const float s_parameter,
-        const float a_parameter, const float c_parameter, const float max_speed);
+        const float a_parameter, const float c_parameter,
+        const float max_speed);
   void add_boids(const Boid& new_boid);
   std::vector<Boid> get_boids() const;
   void update_boids(const float& delta_t);
@@ -32,6 +33,6 @@ class Flock {
   Vector find_separation(const Boid& chosen_boid) const;
 };
 
-}
+}  // namespace sim
 
 #endif

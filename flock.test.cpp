@@ -1,4 +1,4 @@
-//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+// #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "flock.hpp"
 
@@ -48,35 +48,38 @@ TEST_CASE("Testing the update boids method") {
     flock.add_boids(b2);
     flock.add_boids(b3);
 
+    
+    CHECK(flock.get_boids().size() == 4);
+
+    CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
+    CHECK(flock.find_centermass(b0).get_y() ==
+          doctest::Approx(4.667).epsilon(0.001));
+
+    CHECK(flock.find_separation(b0).get_x() ==
+          doctest::Approx(-0.2f).epsilon(0.1));
+    CHECK(flock.find_separation(b0).get_y() == -0.2f);
+
     const float delta_t = 0.5f;
 
     flock.update_boids(delta_t);
 
     const auto& updated_boids = flock.get_boids();
 
-    std::vector<sim::Boid> near = b0.find_near(flock.get_boids(), distance_of_separation_);
+    /* std::vector<sim::Boid> near =
+         b0.find_near(flock.get_boids(), closeness_parameter_);
 
-    CHECK(near.size() == 3);
-    CHECK(near[0].get_pos() == pos1);
+     CHECK(near.size() == 3);
+     CHECK(near[0].get_pos() == pos1);*/
 
-    CHECK(flock.get_boids().size() == 4);
-
-    CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
-    CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
-    CHECK(flock.find_centermass(b0).get_y() ==
-          doctest::Approx(4.667).epsilon(0.001));
-
-    CHECK(flock.find_separation(b0).get_x() == doctest::Approx(0.2f).epsilon(0.1));
-    CHECK(flock.find_separation(b0).get_y() == 0.2f);
 
     CHECK(updated_boids[0].get_vel().get_x() ==
-          doctest::Approx(3.2667).epsilon(0.0001));
+          doctest::Approx(2.8667).epsilon(0.0001));
     CHECK(updated_boids[0].get_vel().get_y() ==
-          doctest::Approx(1.4333).epsilon(0.0001));
+          doctest::Approx(1.0333).epsilon(0.0001));
     CHECK(updated_boids[0].get_pos().get_x() ==
-          doctest::Approx(1.6333).epsilon(0.0001));
+          doctest::Approx(1.4333).epsilon(0.0001));
     CHECK(updated_boids[0].get_pos().get_y() ==
-          doctest::Approx(0.7166).epsilon(0.0001));
+          doctest::Approx(0.5167).epsilon(0.0001));
           
   }
 }

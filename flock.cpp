@@ -21,7 +21,7 @@ void Flock::update_boids(const float& delta_t) {
     Vector v = boid.get_vel();
     Vector v1 =
         boid.separation(separation_parameter_, distance_of_separation_, near);
-    Vector v2 = boid.cohesion(closeness_parameter_, near);
+    Vector v2 = boid.cohesion(cohesion_parameter_, near);
     Vector v3 = boid.alignment(allignment_parameter_, near);
     Vector new_vel = v + v1 + v2 + v3;
     boid.set_vel(new_vel);
@@ -50,12 +50,9 @@ Vector Flock::find_centermass(const Boid& chosen_boid) const {
 }
 
 Vector Flock::find_separation(const Boid& chosen_boid) const {
-  Vector null{};
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
-  null = chosen_boid.separation(separation_parameter_, distance_of_separation_,
-                                 near_boid);
-
-  return null;
+  return chosen_boid.separation(separation_parameter_, distance_of_separation_,
+                                near_boid);
 }
 }  // namespace sim
 
