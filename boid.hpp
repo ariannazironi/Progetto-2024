@@ -21,8 +21,8 @@ class Boid {
     Vector alignment(const float a_parameter, std::vector<Boid> const&) const;
     Vector cohesion(const float c_parameter, std::vector<Boid> const&) const;
     void limit_velocity(const float max_speed);
-    void change_vel(const Vector& new_velocity);
-    void change_pos(const Vector& new_position);
+    void change_vel(const Vector& delta_velocity);
+    void change_pos(const Vector& delta_position);
 
 };
 

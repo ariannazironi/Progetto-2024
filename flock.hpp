@@ -28,12 +28,12 @@ class Flock {
         const float max_speed);
   void add_boids(const Boid& new_boid);
   std::vector<Boid> get_boids() const;
-  void update_boids( const float& delta_t);
+  void update_boids(const float& delta_t);
   Vector find_centermass(const Boid& chosen_boid) const;
   Vector find_separation(const Boid& chosen_boid) const;
   Vector find_alignment(const Boid& chosen_boid) const;
   Vector find_cohesion(const Boid& chosen_boid) const;
-  Vector find_offset(const Boid& chosen_boid) const;
+  Vector find_deltav(const Boid& chosen_boid) const;
 };
 
 }  // namespace sim

@@ -32,12 +32,12 @@ void Boid::limit_velocity( const float max_speed) {
   }
 }
 
-void Boid::change_vel(const Vector& off_velocity) {
-    velocity_ += off_velocity;
+void Boid::change_vel(const Vector& delta_velocity) {
+    velocity_ += delta_velocity;
 }
 
-void Boid::change_pos(const Vector& off_position) {
-  position_ += off_position;
+void Boid::change_pos(const Vector& delta_position) {
+  position_ += delta_position;
 }
 
 Vector Boid::separation(const float s_parameter, const float ds_parameter,
