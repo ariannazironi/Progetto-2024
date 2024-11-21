@@ -1,4 +1,4 @@
-//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
 #include <vector>
@@ -25,6 +25,7 @@ TEST_CASE("Testing Boid class") {
 
   const std::vector<sim::Boid> boids{b0, b1, b2, b3};
   auto near = b0.find_near(boids, 5.);
+  auto near_0 = b0.find_near(boids, 2.);
   auto near_1 = b0.find_near(boids, 6.);
   auto near_2 = b0.find_near(boids, 9.);
 
@@ -42,7 +43,7 @@ TEST_CASE("Testing Boid class") {
 
   SUBCASE("Testing find_near method") {
     CHECK(near.size() == 1);
-    CHECK(near[0].get_pos() == pos3);
+    CHECK(near_0.size() == 0);
     CHECK(near_1.size() == 2);
     CHECK(near_2.size() == 3);
   }
@@ -52,6 +53,10 @@ TEST_CASE("Testing Boid class") {
     sim::Vector alignment_vector = b0.alignment(a, near);
     CHECK(alignment_vector.get_x() == doctest::Approx(2.5f).epsilon(0.1));
     CHECK(alignment_vector.get_y() == doctest::Approx(1.25f).epsilon(0.01));
+
+    sim::Vector alignment_vector_0 = b0.alignment(a, near_0);
+    CHECK(alignment_vector_0.get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(alignment_vector_0.get_y() == doctest::Approx(0.f).epsilon(0.01));
 
     sim::Vector alignment_vector_1 = b0.alignment(a, near_1);
     CHECK(alignment_vector_1.get_x() == doctest::Approx(1.0f).epsilon(0.1));
@@ -71,6 +76,11 @@ TEST_CASE("Testing Boid class") {
     CHECK(separation_vector.get_x() == doctest::Approx(-2.0f).epsilon(0.1));
     CHECK(separation_vector.get_y() == doctest::Approx(-2.0f).epsilon(0.1));
 
+     sim::Vector separation_vector_0 = b0.separation(1.0f, 5.0f, near_0);
+
+    CHECK(separation_vector_0.get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(separation_vector_0.get_y() == doctest::Approx(0.f).epsilon(0.1));
+
     sim::Vector separation_vector_1 = b0.separation(1.0f, 5.5f, near_1);
 
     CHECK(separation_vector_1.get_x() == doctest::Approx(-5.0f).epsilon(0.1));
@@ -88,6 +98,10 @@ TEST_CASE("Testing Boid class") {
     sim::Vector choesion_vector = b0.cohesion(c, near);
     CHECK(choesion_vector.get_x() == doctest::Approx(4.0f).epsilon(0.1));
     CHECK(choesion_vector.get_y() == doctest::Approx(4.0f).epsilon(0.1));
+
+    sim::Vector choesion_vector_0 = b0.cohesion(c, near_0);
+    CHECK(choesion_vector_0.get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(choesion_vector_0.get_y() == doctest::Approx(0.f).epsilon(0.1));
 
     sim::Vector choesion_vector_1 = b0.cohesion(c, near_1);
     CHECK(choesion_vector_1.get_x() == doctest::Approx(5.0f).epsilon(0.1));

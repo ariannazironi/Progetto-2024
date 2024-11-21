@@ -42,6 +42,7 @@ void Boid::change_pos(const Vector& delta_position) {
 
 Vector Boid::separation(const float s_parameter, const float ds_parameter,
                         std::vector<Boid> const& near) const {
+  if( near.size() != 0){
   Vector v1{0., 0.};
 
   for (auto it = near.begin(); it != near.end(); it++) {
@@ -51,21 +52,38 @@ Vector Boid::separation(const float s_parameter, const float ds_parameter,
     }
   }
   return v1;
+  }
+  else{
+  Vector null{0. , 0.};
+  return null;
+  }
 }
 
 Vector Boid::alignment(const float a_parameter, std::vector<Boid> const& near) const {
+  if(near.size() !=0){
   Vector v_sum = std::accumulate( 
       near.begin(), near.end(), Vector{0., 0.},
       [](Vector res, Boid const& b) { return res + b.get_vel(); }); 
   Vector v2 = (v_sum * (1.0f / near.size()) - velocity_) * a_parameter;
   return v2;
+  }
+  else{
+  Vector null={0. ,0.};
+  return null;
+  }
 }
 
 Vector Boid::cohesion(const float c_parameter, std::vector<Boid> const& near) const {
+  if(near.size() != 0){
     Vector x_sum = std::accumulate( near.begin(), near.end(), Vector{0.,0.},
     [](Vector res, Boid const& b){ return res + b.get_pos();});
    Vector v3= (x_sum * (1.0f /near.size()) - position_) * c_parameter;
    return v3;
+}
+else{
+  Vector null{0. , 0.};
+  return null;
+  }
 }
 
 }  

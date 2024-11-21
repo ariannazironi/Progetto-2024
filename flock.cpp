@@ -2,6 +2,7 @@
 
 #include <numeric>
 #include <vector>
+#include <cassert>
 
 namespace sim {
 Flock::Flock(const float distance, const float ds_parameter,
@@ -18,7 +19,6 @@ void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 
 void Flock::update_boids(const float& delta_t) {
   for (auto& boid : boids_) {
-    auto near = boid.find_near(boids_, closeness_parameter_);
     boid.change_vel(find_deltav(boid));
     boid.limit_velocity(max_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
@@ -27,25 +27,11 @@ void Flock::update_boids(const float& delta_t) {
 }
 
 std::vector<Boid> Flock::get_boids() const { return boids_; };
-Vector Flock::find_centermass(const Boid& chosen_boid) const {
-  std::vector<Vector> pos_boid;
-  auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
-  for (const auto& boid : near_boid) {
-    pos_boid.push_back(boid.get_pos());
-  }
-  Vector x_sum = std::accumulate(pos_boid.begin(), pos_boid.end(),
-                                 Vector{0.f, 0.f}, [](Vector a, Vector b) {
-                                   Vector result = a + b;
-
-                                   return result;
-                                 });
-  Vector mass_center = x_sum * (1.0f / pos_boid.size());
-  return mass_center;
-}
 
 Vector Flock::find_separation(const Boid& chosen_boid) const {
   Vector null{};
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
+  assert(near_boid.size() <= boids_.size());
   null = chosen_boid.separation(separation_parameter_, distance_of_separation_,
                                 near_boid);
 
@@ -55,6 +41,7 @@ Vector Flock::find_separation(const Boid& chosen_boid) const {
 Vector Flock::find_alignment(const Boid& chosen_boid) const {
   Vector null{};
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
+  assert(near_boid.size() <= boids_.size());
   null = chosen_boid.alignment(allignment_parameter_, near_boid);
 
   return null;
@@ -62,6 +49,7 @@ Vector Flock::find_alignment(const Boid& chosen_boid) const {
 
 Vector Flock::find_cohesion(const Boid& chosen_boid) const {
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
+  assert(near_boid.size() <= boids_.size());
   Vector null{};
   null = chosen_boid.cohesion(cohesion_parameter_, near_boid);
 
@@ -74,7 +62,7 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
                                 find_cohesion(chosen_boid);
 
   return delta_velocity;
-}
-}  // namespace sim
 
-// namespace sim
+}  
+}// namespace sim
+
