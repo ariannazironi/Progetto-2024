@@ -72,7 +72,7 @@ Vector Boid::cohesion(const float c_parameter, std::vector<Boid> const& near) co
   }
 }
 
-void Boid::limit_velocity( const float max_speed) {
+void Boid::limit_velocity(const float max_speed) {
   if(velocity_.norm_vector() > max_speed) {
     velocity_ = velocity_ * 0.5;
   }
