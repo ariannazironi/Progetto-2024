@@ -2,31 +2,25 @@
 #define FLOCK_HPP
 
 #include <vector>
-
 #include "boid.hpp"
 
 namespace sim {
 
-struct Statistics{
-    double mean_dist;
-    double dev_dist;
-    double mean_speed;
-    double dev_speed;
+struct Statistics {
+  double mean_dist;
+  double dev_dist;
+  double mean_speed;
+  double dev_speed;
 };
 
 class Flock {
+  private:
   const float closeness_parameter_;
-
   const float distance_of_separation_;
-
   const float separation_parameter_;
-
   const float allignment_parameter_;
-
   const float cohesion_parameter_;
-
   const float max_speed_;
-
   std::vector<Boid> boids_;
 
  public:
@@ -45,8 +39,9 @@ class Flock {
   Vector find_deltav(const Boid& chosen_boid) const;
 
   Statistics state() const;
+
 };
 
-}  // namespace sim
+} 
 
 #endif

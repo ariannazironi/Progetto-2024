@@ -1,9 +1,7 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "flock.hpp"
-
 #include <vector>
-
 #include "boid.hpp"
 #include "doctest.h"
 #include "vector.hpp"
@@ -46,48 +44,33 @@ TEST_CASE("Testing three close boids") {
   flock.add_boids(b1);
   flock.add_boids(b2);
   flock.add_boids(b3);
-  SUBCASE("Testing find methods") {
-    CHECK(flock.get_boids().size() == 4);
 
-    //CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
-    //CHECK(flock.find_centermass(b0).get_x() == doctest::Approx(2.0f));
-    //CHECK(flock.find_centermass(b0).get_y() == doctest::Approx(4.667).epsilon(0.001));
+SUBCASE("Testing find method") {
+      CHECK(flock.get_boids().size() == 4);
 
-    CHECK(flock.find_separation(b0).get_x() ==
-          doctest::Approx(-0.2f).epsilon(0.1));
-    CHECK(flock.find_separation(b0).get_y() ==
-          doctest::Approx(-0.2f).epsilon(0.1));
+      CHECK(flock.find_separation(b0).get_x() == doctest::Approx(-0.2f).epsilon(0.1));
+      CHECK(flock.find_separation(b0).get_y() == doctest::Approx(-0.2f).epsilon(0.1));
 
-    CHECK(flock.find_alignment(b0).get_x() ==
-          doctest::Approx(0.466f).epsilon(0.001));
-    CHECK(flock.find_alignment(b0).get_y() ==
-          doctest::Approx(-0.166f).epsilon(0.001));
+      CHECK(flock.find_alignment(b0).get_x() == doctest::Approx(0.466f).epsilon(0.001));
+      CHECK(flock.find_alignment(b0).get_y() == doctest::Approx(-0.166f).epsilon(0.001));
 
-    CHECK(flock.find_cohesion(b0).get_x() ==
-          doctest::Approx(0.6f).epsilon(0.1));
-    CHECK(flock.find_cohesion(b0).get_y() ==
-          doctest::Approx(1.4f).epsilon(0.1));
+      CHECK(flock.find_cohesion(b0).get_x() == doctest::Approx(0.6f).epsilon(0.1));
+      CHECK(flock.find_cohesion(b0).get_y() == doctest::Approx(1.4f).epsilon(0.1));
 
-    CHECK(flock.find_deltav(b0).get_x() ==
-          doctest::Approx(0.866f).epsilon(0.001));
-    CHECK(flock.find_deltav(b0).get_y() ==
-          doctest::Approx(1.033f).epsilon(0.001));
-  }
+      CHECK(flock.find_deltav(b0).get_x() == doctest::Approx(0.866f).epsilon(0.001));
+      CHECK(flock.find_deltav(b0).get_y() == doctest::Approx(1.033f).epsilon(0.001));
+      }
 
-  SUBCASE("Testing update method") {
-    const float delta_t = 0.5f;
-    flock.update_boids(delta_t);
+SUBCASE("Testing update method") {
+      const float delta_t = 0.5f;
+      flock.update_boids(delta_t);
+      auto updated_boids = flock.get_boids();
 
-    auto updated_boids = flock.get_boids();
-    CHECK(updated_boids[0].get_vel().get_x() ==
-          doctest::Approx(2.866).epsilon(0.001));
-    CHECK(updated_boids[0].get_vel().get_y() ==
-          doctest::Approx(1.033).epsilon(0.001));
-    CHECK(updated_boids[0].get_pos().get_x() ==
-          doctest::Approx(1.4333).epsilon(0.0001));
-    CHECK(updated_boids[0].get_pos().get_y() ==
-          doctest::Approx(0.5166).epsilon(0.0001));
-  }
+      CHECK(updated_boids[0].get_vel().get_x() == doctest::Approx(2.866).epsilon(0.001));
+      CHECK(updated_boids[0].get_vel().get_y() == doctest::Approx(1.033).epsilon(0.001));
+      CHECK(updated_boids[0].get_pos().get_x() == doctest::Approx(1.4333).epsilon(0.0001));
+      CHECK(updated_boids[0].get_pos().get_y() == doctest::Approx(0.5166).epsilon(0.0001));
+      }
 }
 
 TEST_CASE("Testing no close boids") {
@@ -124,27 +107,20 @@ TEST_CASE("Testing no close boids") {
   flock.add_boids(b1);
   flock.add_boids(b2);
 
-SUBCASE("Testing find methods") {
+SUBCASE("Testing find method") {
     CHECK(flock.get_boids().size() == 3);
 
-    CHECK(flock.find_separation(b0).get_x() ==
-          doctest::Approx(0.f).epsilon(0.1));
-    CHECK(flock.find_separation(b0).get_y() ==
-          doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_separation(b0).get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_separation(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
 
-    CHECK(flock.find_alignment(b0).get_x() ==
-          doctest::Approx(0.f).epsilon(0.1));
-    CHECK(flock.find_alignment(b0).get_y() ==
-          doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_alignment(b0).get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_alignment(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
 
-    CHECK(flock.find_cohesion(b0).get_x() ==
-          doctest::Approx(0.f).epsilon(0.1));
-    CHECK(flock.find_cohesion(b0).get_y() ==
-          doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_cohesion(b0).get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_cohesion(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
 
-    CHECK(flock.find_deltav(b0).get_x() ==
-          doctest::Approx(0.f).epsilon(0.1));
-    CHECK(flock.find_deltav(b0).get_y() ==
-          doctest::Approx(0.f).epsilon(0.1));
-  }
+    CHECK(flock.find_deltav(b0).get_x() == doctest::Approx(0.f).epsilon(0.1));
+    CHECK(flock.find_deltav(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
+    }
+
 }

@@ -5,6 +5,7 @@
 #include <cassert>
 
 namespace sim {
+  
 Flock::Flock(const float distance, const float ds_parameter,
              const float s_parameter, const float a_parameter,
              const float c_parameter, const float max_speed)
@@ -63,6 +64,7 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
 
   return delta_velocity;
 
-}  
-}// namespace sim
+}
+
+}
 
