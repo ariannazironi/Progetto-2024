@@ -2,6 +2,7 @@
 
 #include <numeric>
 #include <cmath>
+#include <algorithm>
 #include <vector>
 #include <cassert>
 
@@ -71,17 +72,43 @@ Statistics Flock::state() const{
   if (boids_.size() > 2){
     const float sum_vel = std::accumulate(boids_.begin(), boids_.end(), 0., 
                               [](float res, Boid const& b){
-                                return b.get_vel().norm_vector();
+                                return res + b.get_vel().norm_vector();
                               });
     const float medium_speed = sum_vel / boids_.size();
 
     const float sum_vel2= std::accumulate(boids_.begin(), boids_.end(), 0., 
                               [](float res, Boid const& b){
-                                return std::pow(b.get_vel().norm_vector(),2);
+                                return res + std::pow(b.get_vel().norm_vector(),2);
                               });
-    const float medium_speed_2 = sum_vel / boids_.size();
+    const float medium_speed_2 = sum_vel2 / boids_.size();
 
     const float dev_speed = std::sqrt( medium_speed_2 - std::pow(medium_speed,2));
+
+    float sum_distance = 0.;
+    float sum_distance2 = 0.;
+
+  std::for_each(boids_.begin(), boids_.end(), [&](Boid &b) {
+    float min_distance = 0.; 
+    bool first = true;
+     for (const auto &other : boids_) {
+        if (&b != &other) {
+         const double distance = (other.get_pos() - b.get_pos()).norm_vector();
+            if (first) {
+                min_distance = distance;
+                first = false;
+            } else if (distance < min_distance) {
+                min_distance = distance;
+            }
+        }
+      }
+    sum_distance += min_distance;
+    sum_distance2 += std::pow(min_distance, 2);
+  });
+    const float medium_dist = sum_distance / boids_.size();
+    const float medium_dist_2 = sum_distance2 / boids_.size();
+    const float dev_dist = std::sqrt(medium_dist_2- pow(medium_dist, 2));
+
+    return {medium_speed, dev_speed, medium_dist, dev_dist};
   }
 else {
   return {0., 0., 0., 0.};
