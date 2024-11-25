@@ -1,6 +1,7 @@
 #include "flock.hpp"
 
 #include <numeric>
+#include <cmath>
 #include <vector>
 #include <cassert>
 
@@ -66,5 +67,25 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
 
 }
 
+Statistics Flock::state() const{
+  if (boids_.size() > 2){
+    const float sum_vel = std::accumulate(boids_.begin(), boids_.end(), 0., 
+                              [](float res, Boid const& b){
+                                return b.get_vel().norm_vector();
+                              });
+    const float medium_speed = sum_vel / boids_.size();
+
+    const float sum_vel2= std::accumulate(boids_.begin(), boids_.end(), 0., 
+                              [](float res, Boid const& b){
+                                return std::pow(b.get_vel().norm_vector(),2);
+                              });
+    const float medium_speed_2 = sum_vel / boids_.size();
+
+    const float dev_speed = std::sqrt( medium_speed_2 - std::pow(medium_speed,2));
+  }
+else {
+  return {0., 0., 0., 0.};
+}
+}
 }
 

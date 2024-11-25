@@ -7,10 +7,10 @@
 namespace sim {
 
 struct Statistics {
-  double mean_dist;
-  double dev_dist;
-  double mean_speed;
-  double dev_speed;
+  float mean_dist;
+  float dev_dist;
+  float mean_speed;
+  float dev_speed;
 };
 
 class Flock {
