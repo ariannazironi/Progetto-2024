@@ -4,34 +4,23 @@
 namespace sim {
 
 class Vector {
- private:
+  private:
   float x_;
   float y_;
 
- public:
+  public:
   Vector();
   Vector(float x, float y);
-
-  // metodi get per accedere alle coordinate del vettore
   float get_x() const;
   float get_y() const;
-
   Vector operator+(const Vector&) const;
-
   Vector operator+=(const Vector&);
-
   Vector operator-(const Vector&) const;
-
   float distance(const Vector&) const;
-
   float norm_vector() const;
-
   bool operator!=(const Vector&) const;
-
   bool operator==(const Vector&) const;
-
   Vector operator*(float scalar) const;
-
   float product(const Vector&) const;
 
 };

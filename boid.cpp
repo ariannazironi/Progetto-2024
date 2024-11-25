@@ -26,20 +26,6 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids, const
   return near;
 }
 
-void Boid::limit_velocity( const float max_speed) {
-  if(velocity_.norm_vector() > max_speed) {
-    velocity_ = velocity_ * 0.5;
-  }
-}
-
-void Boid::change_vel(const Vector& delta_velocity) {
-    velocity_ += delta_velocity;
-}
-
-void Boid::change_pos(const Vector& delta_position) {
-  position_ += delta_position;
-}
-
 Vector Boid::separation(const float s_parameter, const float ds_parameter,
                         std::vector<Boid> const& near) const {
   if( near.size() != 0){
@@ -79,11 +65,25 @@ Vector Boid::cohesion(const float c_parameter, std::vector<Boid> const& near) co
     [](Vector res, Boid const& b){ return res + b.get_pos();});
    Vector v3= (x_sum * (1.0f /near.size()) - position_) * c_parameter;
    return v3;
-}
-else{
+  }
+  else{
   Vector null{0. , 0.};
   return null;
   }
+}
+
+void Boid::limit_velocity(const float max_speed) {
+  if(velocity_.norm_vector() > max_speed) {
+    velocity_ = velocity_ * 0.5;
+  }
+}
+
+void Boid::change_vel(const Vector& delta_velocity) {
+  velocity_ += delta_velocity;
+}
+
+void Boid::change_pos(const Vector& delta_position) {
+  position_ += delta_position;
 }
 
 }  

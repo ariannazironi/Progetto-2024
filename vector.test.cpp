@@ -62,23 +62,23 @@ TEST_CASE("Testing operator -") {
     const sim::Vector difference{v1 - v2};
     CHECK(difference.get_x() == doctest::Approx(1.0).epsilon(0.1));
     CHECK(difference.get_y() == doctest::Approx(3.0).epsilon(0.1));
-};
+  };
 
-SUBCASE("Negative components") {
-  const sim::Vector v1{-3,-2};
-  const sim::Vector v2{-2,-1};
-  const sim::Vector difference{v1-v2};
-  CHECK(difference.get_x() == doctest::Approx(-1.0).epsilon(0.1));
-  CHECK(difference.get_y() == doctest::Approx(-1.0).epsilon(0.1));
-};
+  SUBCASE("Negative components") {
+    const sim::Vector v1{-3,-2};
+    const sim::Vector v2{-2,-1};
+    const sim::Vector difference{v1-v2};
+    CHECK(difference.get_x() == doctest::Approx(-1.0).epsilon(0.1));
+    CHECK(difference.get_y() == doctest::Approx(-1.0).epsilon(0.1));
+  };
 
-SUBCASE("Null components") {
-  const sim::Vector v1{0,1};
-  const sim::Vector v2{0,0};
-  const sim::Vector difference{v1-v2};
-  CHECK(difference.get_x() == doctest::Approx(0.).epsilon(0.1));
-  CHECK(difference.get_y() == doctest::Approx(1.0).epsilon(0.1));
-};
+  SUBCASE("Null components") {
+    const sim::Vector v1{0,1};
+    const sim::Vector v2{0,0};
+    const sim::Vector difference{v1-v2};
+    CHECK(difference.get_x() == doctest::Approx(0.).epsilon(0.1));
+    CHECK(difference.get_y() == doctest::Approx(1.0).epsilon(0.1));
+  };
 }
 
 TEST_CASE("Testing distance") {
@@ -89,14 +89,14 @@ TEST_CASE("Testing distance") {
     CHECK(distance == doctest::Approx(5.0).epsilon(0.1));
   };
 
-   SUBCASE("Negative components") {
+  SUBCASE("Negative components") {
     const sim::Vector v1{-1,-1};
     const sim::Vector v2{-6,-1};
     const float distance= v1.distance(v2);
     CHECK(distance == doctest::Approx(5.0).epsilon(0.1));
   };
 
-    SUBCASE("Null components") {
+  SUBCASE("Null components") {
     const sim::Vector v1{-1,0};
     const sim::Vector v2{0,0};
     const float distance= v1.distance(v2);
