@@ -23,6 +23,7 @@ class Boid {
     void limit_velocity(const float max_speed);
     void change_vel(const Vector& delta_velocity);
     void change_pos(const Vector& delta_position);
+    void border(const float x_min, const float x_max, const float y_min, const float y_max);
 
 };
 

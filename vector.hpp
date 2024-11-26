@@ -13,6 +13,8 @@ class Vector {
   Vector(float x, float y);
   float get_x() const;
   float get_y() const;
+  float set_x(const float new_x);
+  float set_y(const float new_y);
   Vector operator+(const Vector&) const;
   Vector operator+=(const Vector&);
   Vector operator-(const Vector&) const;

@@ -3,6 +3,7 @@
 #include <cassert>
 #include <cmath>
 #include <numeric>
+#include <random>
 #include <vector>
 
 namespace sim {
@@ -19,12 +20,15 @@ Flock::Flock(const float distance, const float ds_parameter,
 
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 
-void Flock::update_boids(const float& delta_t) {
+void Flock::update_boids(const float& delta_t, const float x_min,
+                         const float x_max, const float y_min,
+                         const float y_max) {
   for (auto& boid : boids_) {
     boid.change_vel(find_deltav(boid));
     boid.limit_velocity(max_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
     boid.change_pos(delta_pos);
+    boid.border(x_min, x_max, y_min, y_max);
   }
 }
 
@@ -66,6 +70,24 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
   return delta_velocity;
 };
 
+Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
+                                 float y_max, float vx_min, float vx_max,
+                                 float vy_min, float vy_max) {
+  // Generatore casuale
+  std::random_device rd;   // Seed
+  std::mt19937 gen(rd());  // Mersenne Twister engine
+
+  // Distribuzioni uniformi per posizione e velocità
+  std::uniform_real_distribution<float> dist_x(x_min, x_max);
+  std::uniform_real_distribution<float> dist_y(y_min, y_max);
+  std::uniform_real_distribution<float> dist_vx(vx_min, vx_max);
+  std::uniform_real_distribution<float> dist_vy(vy_min, vy_max);
+
+  // Crea un boid con valori casuali
+  return sim::Boid(sim::Vector(dist_x(gen), dist_y(gen)),
+                   sim::Vector(dist_vx(gen), dist_vy(gen)));
+}
+
 Statistics Flock::state() const {
   if (boids_.size() > 2) {
     size_t n = boids_.size();
@@ -81,7 +103,6 @@ Statistics Flock::state() const {
     const float medium_dist = sum_dist / num_pairs;
 
     float sum_dist2 = 0.0f;
-
     for (size_t i = 0; i < boids_.size(); ++i) {
       for (size_t j = i + 1; j < boids_.size(); ++j) {
         sum_dist2 +=
@@ -104,7 +125,8 @@ Statistics Flock::state() const {
         });
     const float medium_speed_2 = sum_vel2 / boids_.size();
 
-    const float dev_speed = std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
+    const float dev_speed =
+        std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
 
     return {medium_dist, dev_dist, medium_speed, dev_speed};
   } else {

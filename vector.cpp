@@ -11,6 +11,10 @@ Vector::Vector(float x, float y) : x_{x}, y_{y} {};
 float Vector::get_x() const { return x_; };
 float Vector::get_y() const { return y_; };
 
+float Vector::set_x(const float new_x) { return new_x; };
+float Vector::set_y(const float new_y) { return new_y; };
+
+
 Vector Vector::operator+(const Vector& vec2) const{
     return Vector(x_ + vec2.x_ , y_ + vec2.y_);
 }
