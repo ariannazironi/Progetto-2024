@@ -78,10 +78,10 @@ Statistics Flock::state() const {
     
     const float medium_dist = sum_dist / boids_.size();
 
-    const float sum_dist2 = 0.0f;
+    float sum_dist2 = 0.0f;
     for(size_t i = 0; i < boids_.size(); ++i) {
       for(size_t j = i + 1; j < boids_.size(); ++j) {
-        sum_dist += std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
+        sum_dist2 += std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
       }
     }
     const float medium_dist_2 = sum_dist2 / boids_.size();
