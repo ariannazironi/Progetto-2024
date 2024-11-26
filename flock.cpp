@@ -89,8 +89,8 @@ Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
 }
 
 Statistics Flock::state() const {
-  if (boids_.size() > 2) {
-    size_t n = boids_.size();
+  size_t n = boids_.size();
+  if (n > 2) {
     size_t num_pairs = (n * (n - 1)) / 2;
 
     float sum_dist = 0.0f;
@@ -133,4 +133,4 @@ Statistics Flock::state() const {
     return {0., 0., 0., 0.};
   }
 }
-}  // namespace sim
+}   // namespace sim
