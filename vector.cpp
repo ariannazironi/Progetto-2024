@@ -11,8 +11,8 @@ Vector::Vector(float x, float y) : x_{x}, y_{y} {};
 float Vector::get_x() const { return x_; };
 float Vector::get_y() const { return y_; };
 
-float Vector::set_x(const float new_x) { return new_x; };
-float Vector::set_y(const float new_y) { return new_y; };
+void Vector::set_x(const float new_x) { x_= new_x; };
+void Vector::set_y(const float new_y) { y_ = new_y; };
 
 
 Vector Vector::operator+(const Vector& vec2) const{
