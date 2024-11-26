@@ -78,12 +78,6 @@ Statistics Flock::state() const {
       }
     }
 
-<<<<<<< HEAD
-    float sum_dist2 = 0.0f;
-    for(size_t i = 0; i < boids_.size(); ++i) {
-      for(size_t j = i + 1; j < boids_.size(); ++j) {
-        sum_dist2 += std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
-=======
     const float medium_dist = sum_dist / num_pairs;
 
     float sum_dist2 = 0.0f;
@@ -92,7 +86,6 @@ Statistics Flock::state() const {
       for (size_t j = i + 1; j < boids_.size(); ++j) {
         sum_dist2 +=
             std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
->>>>>>> fd95a0d1006e6a0880359df6615177e2354838cb
       }
     }
     const float medium_dist_2 = sum_dist2 / num_pairs;
@@ -111,8 +104,7 @@ Statistics Flock::state() const {
         });
     const float medium_speed_2 = sum_vel2 / boids_.size();
 
-    const float dev_speed =
-        std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
+    const float dev_speed = std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
 
     return {medium_dist, dev_dist, medium_speed, dev_speed};
   } else {
