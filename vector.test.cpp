@@ -184,3 +184,19 @@ TEST_CASE("Testing product") {
     CHECK(dot_product == doctest::Approx(0.).epsilon(0.1));
   };
 }
+
+TEST_CASE("Testing get methods "){
+    const sim::Vector v1{1.6,-2};
+    CHECK(v1.get_x() == doctest::Approx(1.6).epsilon(0.1));
+    CHECK(v1.get_y() == doctest::Approx(-2.0).epsilon(0.1));
+}
+
+TEST_CASE("Testing set methods "){
+    sim::Vector v1{4,-3};
+    const float new_y = 1.5;
+    const float new_x = 2.0;
+    v1.set_x(new_x);
+    v1.set_y(new_y);
+    CHECK(v1.get_x() == doctest::Approx(2.0).epsilon(0.1));
+    CHECK(v1.get_y() == doctest::Approx(1.5).epsilon(0.1));
+}
