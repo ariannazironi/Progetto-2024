@@ -100,8 +100,7 @@ Statistics Flock::state() const {
         });
     const float medium_speed_2 = sum_vel2 / boids_.size();
 
-    const float dev_speed =
-        std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
+    const float dev_speed = std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
 
     return {medium_dist, dev_dist, medium_speed, dev_speed};
   } else {
