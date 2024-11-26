@@ -68,23 +68,34 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
 
 Statistics Flock::state() const {
   if (boids_.size() > 2) {
-    
+    size_t n = boids_.size();
+    size_t num_pairs = (n * (n - 1)) / 2;
+
     float sum_dist = 0.0f;
-    for(size_t i = 0; i < boids_.size(); ++i) {
-      for(size_t j = i + 1; j < boids_.size(); ++j) {
+    for (size_t i = 0; i < boids_.size(); ++i) {
+      for (size_t j = i + 1; j < boids_.size(); ++j) {
         sum_dist += boids_[i].get_pos().distance(boids_[j].get_pos());
       }
     }
-    
-    const float medium_dist = sum_dist / boids_.size();
 
+<<<<<<< HEAD
     float sum_dist2 = 0.0f;
     for(size_t i = 0; i < boids_.size(); ++i) {
       for(size_t j = i + 1; j < boids_.size(); ++j) {
         sum_dist2 += std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
+=======
+    const float medium_dist = sum_dist / num_pairs;
+
+    float sum_dist2 = 0.0f;
+
+    for (size_t i = 0; i < boids_.size(); ++i) {
+      for (size_t j = i + 1; j < boids_.size(); ++j) {
+        sum_dist2 +=
+            std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
+>>>>>>> fd95a0d1006e6a0880359df6615177e2354838cb
       }
     }
-    const float medium_dist_2 = sum_dist2 / boids_.size();
+    const float medium_dist_2 = sum_dist2 / num_pairs;
 
     const float dev_dist = std::sqrt(medium_dist_2 - std::pow(medium_dist, 2));
 

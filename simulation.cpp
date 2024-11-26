@@ -33,7 +33,7 @@ int main() {
   sim::Vector pos2{1.0f, 8.0f};
   sim::Vector vel2{5.0f, -6.0f};
 
-  sim::Vector pos3{2.0f, 2.0f};
+  sim::Vector pos3{10.0f, 10.0f};
   sim::Vector vel3{7.0f, 2.5f};
 
   // Aggiunta dei boid al flock
