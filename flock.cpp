@@ -1,12 +1,12 @@
 #include "flock.hpp"
 
-#include <numeric>
-#include <cmath>
-#include <vector>
 #include <cassert>
+#include <cmath>
+#include <numeric>
+#include <vector>
 
 namespace sim {
-  
+
 Flock::Flock(const float distance, const float ds_parameter,
              const float s_parameter, const float a_parameter,
              const float c_parameter, const float max_speed)
@@ -64,28 +64,48 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
                                 find_cohesion(chosen_boid);
 
   return delta_velocity;
+};
 
-}
+Statistics Flock::state() const {
+  if (boids_.size() > 2) {
+    
+    float sum_dist = 0.0f;
+    for(size_t i = 0; i < boids_.size(); ++i) {
+      for(size_t j = i + 1; j < boids_.size(); ++j) {
+        sum_dist += boids_[i].get_pos().distance(boids_[j].get_pos());
+      }
+    }
+    
+    const float medium_dist = sum_dist / boids_.size();
 
-Statistics Flock::state() const{
-  if (boids_.size() > 2){
-    const float sum_vel = std::accumulate(boids_.begin(), boids_.end(), 0., 
-                              [](float res, Boid const& b){
-                                return b.get_vel().norm_vector();
-                              });
+    const float sum_dist2 = 0.0f;
+    for(size_t i = 0; i < boids_.size(); ++i) {
+      for(size_t j = i + 1; j < boids_.size(); ++j) {
+        sum_dist += std::pow(boids_[i].get_pos().distance(boids_[j].get_pos()), 2);
+      }
+    }
+    const float medium_dist_2 = sum_dist2 / boids_.size();
+
+    const float dev_dist = std::sqrt(medium_dist_2 - std::pow(medium_dist, 2));
+
+    const float sum_vel = std::accumulate(
+        boids_.begin(), boids_.end(), 0.,
+        [](float res, Boid const& b) { return b.get_vel().norm_vector(); });
+
     const float medium_speed = sum_vel / boids_.size();
 
-    const float sum_vel2= std::accumulate(boids_.begin(), boids_.end(), 0., 
-                              [](float res, Boid const& b){
-                                return std::pow(b.get_vel().norm_vector(),2);
-                              });
-    const float medium_speed_2 = sum_vel / boids_.size();
+    const float sum_vel2 = std::accumulate(
+        boids_.begin(), boids_.end(), 0., [](float res, Boid const& b) {
+          return std::pow(b.get_vel().norm_vector(), 2);
+        });
+    const float medium_speed_2 = sum_vel2 / boids_.size();
 
-    const float dev_speed = std::sqrt( medium_speed_2 - std::pow(medium_speed,2));
+    const float dev_speed =
+        std::sqrt(medium_speed_2 - std::pow(medium_speed, 2));
+
+    return {medium_dist, dev_dist, medium_speed, dev_speed};
+  } else {
+    return {0., 0., 0., 0.};
   }
-else {
-  return {0., 0., 0., 0.};
 }
-}
-}
-
+}  // namespace sim

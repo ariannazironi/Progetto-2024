@@ -11,7 +11,7 @@ int main() {
       sf::VideoMode(600, 800),
       "Boid Simulation");  // apro finestra nera 600 x 600 con titolo dato
 
-  sim::Flock flock(80.0f, 20.0f, 0.2f, 0.2f, 0.3f, 5.0f);
+  sim::Flock flock(80.0f, 20.0f, 0.1f, 0.2f, 0.3f, 5.0f);
 
   flock.add_boids(
       sim::Boid(sim::Vector(100.0f, 150.0f), sim::Vector(3.5f, 1.0f)));

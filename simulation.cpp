@@ -9,38 +9,6 @@
 #include "flock.hpp"
 #include "vector.hpp"  // Include Vector, Boid, Flock
 
-// Calcola la distanza media tra i boid
-float compute_average_distance(const std::vector<sim::Boid>& boids) {
-  float total_distance = 0.0f;
-  int count = 0;
-  for (size_t i = 0; i < boids.size(); ++i) {
-    for (size_t j = i + 1; j < boids.size(); ++j) {
-      total_distance += boids[i].get_pos().distance(boids[j].get_pos());
-      ++count;
-    }
-  }
-  return count > 0 ? total_distance / count : 0.0f;
-}
-
-// Calcola la velocità media dei boid
-float compute_average_speed(const std::vector<sim::Boid>& boids) {
-  float total_speed = 0.0f;
-  for (const auto& boid : boids) {
-    total_speed += boid.get_vel().norm_vector();
-  }
-  return boids.size() > 0 ? total_speed / boids.size() : 0.0f;
-}
-
-// Calcola la deviazione standard di un vettore di valori
-float compute_standard_deviation(const std::vector<float>& values, float mean) {
-  float variance = 0.0f;
-  for (const auto& value : values) {
-    variance += std::pow(value - mean, 2);
-  }
-  variance /= values.size();
-  return std::sqrt(variance);
-}
-
 int main() {
   // Parametri del Flock
   const float d = 10.0f;          // Closeness parameter
@@ -82,21 +50,12 @@ int main() {
 
     const auto& boids = flock.get_boids();
 
-    float avg_pos = compute_average_distance(boids);
+    sim::Statistics statistics = flock.state();
 
-    float avg_vel = compute_average_speed(boids);
-
-    std::vector<float> position;
-    std::vector<float> velocities;
-
-    for (int i = 0; i < boids.size(); ++i) {
-      velocities.push_back(boids[i].get_vel().norm_vector());
-      for (int j = i + 1; j < boids.size(); ++j) {
-        position.push_back(boids[i].get_pos().distance(boids[j].get_pos()));
-      }
-    }
-
-    float dev_pos = compute_standard_deviation(position, avg_pos);
-    float dev_vel = compute_standard_deviation(velocities, avg_vel);
+    std::cout << "  Mean Distance: " << statistics.mean_dist << " ± "
+              << statistics.dev_dist << '\n';
+    std::cout << "  Mean Speed: " << statistics.mean_speed << " ± "
+              << statistics.dev_speed << '\n';
+    std::cout << "-----------------------------\n";
   }
 }
