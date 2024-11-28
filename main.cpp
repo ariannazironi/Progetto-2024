@@ -19,15 +19,12 @@ int main() {
   const float x_min = 0.0f;
   const float x_max = 600.0f;  // Larghezza della finestra
   const float y_min = 0.0f;
-  const float y_max = 600.0f;     // Altezza della finestra
+  const float y_max = 600.0f;  // Altezza della finestra
 
   for (int i = 0; i < 15; ++i) {  // Aggiungi 10 boid casuali
     sim::Boid b = flock.generate_random_boid(0, 600, 0, 600, -5, 5, -5, 5);
     flock.add_boids(b);
   };
-
-  sf::CircleShape boid_shape(5);
-  boid_shape.setFillColor(sf::Color::White);
 
   const float time_step = 0.1f;
 
@@ -46,8 +43,22 @@ int main() {
 
     for (const auto& boid : flock.get_boids()) {
       auto pos = boid.get_pos();
-      boid_shape.setPosition(pos.get_x(), pos.get_y());
-      window.draw(boid_shape);
+      auto vel = boid.get_vel();
+
+      sf::ConvexShape triangle;
+      triangle.setPointCount(3);  // creo poligono covesso con 3 vertici
+      triangle.setPoint(0, sf::Vector2f(0, -7));
+      triangle.setPoint(1, sf::Vector2f(-5, 5));
+      triangle.setPoint(2, sf::Vector2f(5, 5));
+      triangle.setFillColor(sf::Color::Green);
+
+      triangle.setPosition(pos.get_x(), pos.get_y());
+      if (vel.norm_vector() > 0) {
+        float angle = std::atan2(vel.get_y(), vel.get_x()) * 180.0f / 3.14159f;
+        triangle.setRotation(angle + 90.0f);
+      }
+
+      window.draw(triangle);
     }
     window.display();  // metto su display ciò che disegno
   }
