@@ -89,17 +89,16 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-void Boid::border(const float x_min, const float x_max, const float y_min,
-                  const float y_max) {
-  if (position_.get_x() <= x_min) {
-    position_.set_x(x_min);
+void Boid::border(const float x_max, const float y_max) {
+  if (position_.get_x() <= 0.) {
+    position_.set_x(0.);
     velocity_.set_x(-2.0f * velocity_.get_x());
   } else if (position_.get_x() >= x_max) {
     position_.set_x(x_max);
     velocity_.set_x(-2.0f * velocity_.get_x());
   }
-  if (position_.get_y() <= y_min) {
-    position_.set_y(y_min);
+  if (position_.get_y() <= 0.) {
+    position_.set_y(0.);
     velocity_.set_y(-2.0f * velocity_.get_y());
   } else if (position_.get_y() >= y_max) {
     position_.set_y(y_max);

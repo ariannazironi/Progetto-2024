@@ -20,15 +20,13 @@ Flock::Flock(const float distance, const float ds_parameter,
 
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 
-void Flock::update_boids(const float& delta_t, const float x_min,
-                         const float x_max, const float y_min,
-                         const float y_max) {
+void Flock::update_boids(const float& delta_t, const float x_max, const float y_max) {
   for (auto& boid : boids_) {
     boid.change_vel(find_deltav(boid));
     boid.limit_velocity(max_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
     boid.change_pos(delta_pos);
-    boid.border(x_min, x_max, y_min, y_max);
+    boid.border( x_max, y_max);
   }
 }
 

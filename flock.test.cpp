@@ -61,16 +61,16 @@ TEST_CASE("Testing three close boids") {
     CHECK(flock.find_deltav(b0).get_y() == doctest::Approx(1.033f).epsilon(0.001));
   }
 
-  /*SUBCASE("Testing update method") {
+  SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
-    flock.update_boids(delta_t);
+    flock.update_boids(delta_t,300.f,300.f);
     auto updated_boids = flock.get_boids();
 
     CHECK(updated_boids[0].get_vel().get_x() == doctest::Approx(2.866).epsilon(0.001));
     CHECK(updated_boids[0].get_vel().get_y() == doctest::Approx(1.033).epsilon(0.001));
     CHECK(updated_boids[0].get_pos().get_x() == doctest::Approx(1.4333).epsilon(0.0001));
     CHECK(updated_boids[0].get_pos().get_y() == doctest::Approx(0.5166).epsilon(0.0001));
-  }*/
+  }
 }
 
 TEST_CASE("Testing no close boids") {
@@ -123,9 +123,9 @@ TEST_CASE("Testing no close boids") {
     CHECK(flock.find_deltav(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
   }
 
-  /*SUBCASE("Testing update method") {
+  SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
-    flock.update_boids(delta_t);
+    flock.update_boids(delta_t,300.f,300.f);
     auto updated_boids = flock.get_boids();
 
     CHECK(updated_boids[0].get_vel().get_x() == doctest::Approx(2.f).epsilon(0.001));
@@ -142,7 +142,7 @@ TEST_CASE("Testing no close boids") {
     CHECK(updated_boids[2].get_vel().get_y() == doctest::Approx(-3.f).epsilon(0.001));
     CHECK(updated_boids[2].get_pos().get_x() == doctest::Approx(3.5f).epsilon(0.001));
     CHECK(updated_boids[2].get_pos().get_y() == doctest::Approx(5.5f).epsilon(0.001));
-  }*/ 
+  }
 }
 
 TEST_CASE("Testing one close boids") {
@@ -190,25 +190,25 @@ TEST_CASE("Testing one close boids") {
     CHECK(flock.find_separation(b3).get_x() == doctest::Approx(0.2f).epsilon(0.1));
     CHECK(flock.find_separation(b3).get_y() == doctest::Approx(0.2f).epsilon(0.1));
 
-    /*CHECK(flock.find_alignment(b3).get_x() == doctest::Approx(f).epsilon());
-    CHECK(flock.find_alignment(b3).get_y() == doctest::Approx(f).epsilon());
+    CHECK(flock.find_alignment(b3).get_x() == doctest::Approx(-1.2f).epsilon(0.1));
+    CHECK(flock.find_alignment(b3).get_y() == doctest::Approx(0.2f).epsilon(0.1));
 
-    CHECK(flock.find_cohesion(b3).get_x() == doctest::Approx(f).epsilon());
-    CHECK(flock.find_cohesion(b3).get_y() == doctest::Approx(f).epsilon());
+    CHECK(flock.find_cohesion(b3).get_x() == doctest::Approx(-0.6f).epsilon(0.1));
+    CHECK(flock.find_cohesion(b3).get_y() == doctest::Approx(-0.6f).epsilon(0.1));
 
-    CHECK(flock.find_deltav(b3).get_x() == doctest::Approx(f).epsilon());
-    CHECK(flock.find_deltav(b3).get_y() == doctest::Approx(f).epsilon());
+    CHECK(flock.find_deltav(b3).get_x() == doctest::Approx(-1.6f).epsilon(0.1));
+    CHECK(flock.find_deltav(b3).get_y() == doctest::Approx(-0.2f).epsilon(0.1));
   }
 
   SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
-    flock.update_boids(delta_t);
+    flock.update_boids(delta_t,300.f,300.f);
     auto updated_boids = flock.get_boids();
 
-    CHECK(updated_boids[3].get_vel().get_x() == doctest::Approx().epsilon());
-    CHECK(updated_boids[3].get_vel().get_y() == doctest::Approx().epsilon());
-    CHECK(updated_boids[3].get_pos().get_x() == doctest::Approx().epsilon());
-    CHECK(updated_boids[3].get_pos().get_y() == doctest::Approx().epsilon());*/
+    CHECK(updated_boids[3].get_vel().get_x() == doctest::Approx(5.4f).epsilon(0.1));
+    CHECK(updated_boids[3].get_vel().get_y() == doctest::Approx(-0.2f).epsilon(0.1));
+    CHECK(updated_boids[3].get_pos().get_x() == doctest::Approx(4.7f).epsilon(0.1));
+    CHECK(updated_boids[3].get_pos().get_y() == doctest::Approx(1.9f).epsilon(0.1));
   }
 }
 

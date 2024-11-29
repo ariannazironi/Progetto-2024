@@ -16,9 +16,7 @@ int main() {
 
   sim::Flock flock(150.0f, 50.0f, 3.0f, 0.4f, 0.3f, 20.0f);
 
-  const float x_min = 0.0f;
   const float x_max = 600.0f;  // Larghezza della finestra
-  const float y_min = 0.0f;
   const float y_max = 600.0f;  // Altezza della finestra
 
   for (int i = 0; i < 15; ++i) {  // Aggiungi 10 boid casuali
@@ -26,7 +24,7 @@ int main() {
     flock.add_boids(b);
   };
 
-  const float time_step = 0.1f;
+  const float time_step = 0.015f;
 
   while (window.isOpen()) {
     sf::Event event;
@@ -37,7 +35,7 @@ int main() {
 
     float delta_t = clock.restart().asSeconds();
 
-    flock.update_boids(delta_t, x_min, x_max, y_min, y_max);
+    flock.update_boids(delta_t, x_max, y_max);
 
     window.clear(sf::Color::Black);  // pulisce la scena
 
