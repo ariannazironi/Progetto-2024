@@ -10,6 +10,7 @@ class Boid {
     private:
     Vector position_;
     Vector velocity_;
+    float previous_angle_;
 
     public:
     Boid();
@@ -24,7 +25,7 @@ class Boid {
     void change_vel(const Vector& delta_velocity);
     void change_pos(const Vector& delta_position);
     void border(const float x_min, const float x_max, const float y_min, const float y_max);
-
+    float get_previous_angle() const;
 };
 
 }

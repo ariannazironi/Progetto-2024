@@ -11,7 +11,7 @@ namespace sim {
 
 Boid::Boid() : position_{Vector{}}, velocity_{Vector{}} {};
 Boid::Boid(Vector position, Vector velocity)
-    : position_(position), velocity_(velocity) {};
+    : position_(position), velocity_(velocity), previous_angle_(0.0f) {};
 
 Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
@@ -106,5 +106,6 @@ void Boid::border(const float x_min, const float x_max, const float y_min,
     velocity_.set_y(-2.0f * velocity_.get_y());
   }
 }
+float Boid::get_previous_angle() const { return previous_angle_; };
 
 }  // namespace sim

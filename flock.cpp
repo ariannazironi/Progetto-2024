@@ -133,4 +133,7 @@ Statistics Flock::state() const {
     return {0., 0., 0., 0.};
   }
 }
-}   // namespace sim
+
+void set_previous_angle(float angle) { previous_angle_ = angle; };
+
+}  // namespace sim
