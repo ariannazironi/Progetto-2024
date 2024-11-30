@@ -190,7 +190,7 @@ TEST_CASE("Testing one close boids") {
     CHECK(flock.find_separation(b3).get_x() == doctest::Approx(0.2f).epsilon(0.1));
     CHECK(flock.find_separation(b3).get_y() == doctest::Approx(0.2f).epsilon(0.1));
 
-    /*CHECK(flock.find_alignment(b3).get_x() == doctest::Approx(f).epsilon());
+    CHECK(flock.find_alignment(b3).get_x() == doctest::Approx(f).epsilon());
     CHECK(flock.find_alignment(b3).get_y() == doctest::Approx(f).epsilon());
 
     CHECK(flock.find_cohesion(b3).get_x() == doctest::Approx(f).epsilon());

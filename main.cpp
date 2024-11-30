@@ -14,14 +14,14 @@ int main() {
       sf::VideoMode(600, 600),
       "Boid Simulation");  // apro finestra nera 600 x 600 con titolo dato
 
-  sim::Flock flock(150.0f, 50.0f, 0.3f, 0.2f, 0.3f, 20.0f);
+  sim::Flock flock(150.0f, 50.0f, 2.0f, 0.2f, 0.3f, 20.0f);
 
   const float x_min = 0.0f;
   const float x_max = 600.0f;  // Larghezza della finestra
   const float y_min = 0.0f;
   const float y_max = 600.0f;     // Altezza della finestra
 
-  for (int i = 0; i < 10; ++i) {  // Aggiungi 10 boid casuali
+  for (int i = 0; i < 20; ++i) {  // Aggiungi 10 boid casuali
     sim::Boid b = flock.generate_random_boid(0, 600, 0, 600, -2, 2, -2, 2);
     flock.add_boids(b);
   };
