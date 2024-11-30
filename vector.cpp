@@ -14,7 +14,6 @@ float Vector::get_y() const { return y_; };
 void Vector::set_x(const float new_x) { x_= new_x; };
 void Vector::set_y(const float new_y) { y_ = new_y; };
 
-
 Vector Vector::operator+(const Vector& vec2) const{
     return Vector(x_ + vec2.x_ , y_ + vec2.y_);
 }
