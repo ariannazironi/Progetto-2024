@@ -49,8 +49,6 @@ int main() {
       triangle.setPoint(1, sf::Vector2f(-5, 5));
       triangle.setPoint(2, sf::Vector2f(5, 5));
       triangle.setFillColor(sf::Color::Green);
-
-      triangle.setPosition(pos.get_x(), pos.get_y());
       if (vel.norm_vector() > 0) {
         float angle = std::atan2(vel.get_y(), vel.get_x()) * 180.0f / 3.14159f;
         triangle.setRotation(angle + 90.0f);
