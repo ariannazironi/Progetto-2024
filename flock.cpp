@@ -83,7 +83,7 @@ Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
 
   // Crea un boid con valori casuali
   return sim::Boid(sim::Vector(dist_x(gen), dist_y(gen)),
-                   sim::Vector(dist_vx(gen), dist_vy(gen)), 50.f);
+                   sim::Vector(dist_vx(gen), dist_vy(gen)), 180.f);
 }
 
 Statistics Flock::state() const {
