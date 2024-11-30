@@ -11,7 +11,7 @@ namespace sim {
 
 Boid::Boid() : position_{Vector{}}, velocity_{Vector{}} {};
 Boid::Boid(Vector position, Vector velocity)
-    : position_(position), velocity_(velocity), previous_angle_(0.0f) {};
+    : position_(position), velocity_(velocity) {};
 
 Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
@@ -89,23 +89,28 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-void Boid::border(const float x_min, const float x_max, const float y_min,
-                  const float y_max) {
-  if (position_.get_x() <= x_min) {
-    position_.set_x(x_min);
+void Boid::border(const float x_max, const float y_max) {
+  if (position_.get_x() <= 0.) {
+    position_.set_x(0.);
     velocity_.set_x(-2.0f * velocity_.get_x());
   } else if (position_.get_x() >= x_max) {
     position_.set_x(x_max);
     velocity_.set_x(-2.0f * velocity_.get_x());
   }
-  if (position_.get_y() <= y_min) {
-    position_.set_y(y_min);
+  if (position_.get_y() <= 0.) {
+    position_.set_y(0.);
     velocity_.set_y(-2.0f * velocity_.get_y());
   } else if (position_.get_y() >= y_max) {
     position_.set_y(y_max);
     velocity_.set_y(-2.0f * velocity_.get_y());
   }
 }
-float Boid::get_previous_angle() const { return previous_angle_; };
 
-}  // namespace sim
+/*float Boid::get_vel_angle () const {
+  if(velocity_.get_x() >= 0.f && velocity_.get_y() >= 0.f) {
+    const float angle = std::atan(std::abs(velocity_.get_y()/velocity_.get_x()))
+  * (180.f/M_PI)
+  } */
+};
+
+ // namespace sim

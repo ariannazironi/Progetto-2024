@@ -20,15 +20,13 @@ Flock::Flock(const float distance, const float ds_parameter,
 
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 
-void Flock::update_boids(const float& delta_t, const float x_min,
-                         const float x_max, const float y_min,
-                         const float y_max) {
+void Flock::update_boids(const float& delta_t, const float x_max, const float y_max) {
   for (auto& boid : boids_) {
     boid.change_vel(find_deltav(boid));
     boid.limit_velocity(max_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
     boid.change_pos(delta_pos);
-    boid.border(x_min, x_max, y_min, y_max);
+    boid.border( x_max, y_max);
   }
 }
 
@@ -115,13 +113,13 @@ Statistics Flock::state() const {
 
     const float sum_vel = std::accumulate(
         boids_.begin(), boids_.end(), 0.,
-        [](float res, Boid const& b) { return b.get_vel().norm_vector(); });
+        [](float res, Boid const& b) { return  res+ b.get_vel().norm_vector(); });
 
     const float medium_speed = sum_vel / boids_.size();
 
     const float sum_vel2 = std::accumulate(
         boids_.begin(), boids_.end(), 0., [](float res, Boid const& b) {
-          return std::pow(b.get_vel().norm_vector(), 2);
+          return res + std::pow(b.get_vel().norm_vector(), 2);
         });
     const float medium_speed_2 = sum_vel2 / boids_.size();
 
@@ -133,7 +131,5 @@ Statistics Flock::state() const {
     return {0., 0., 0., 0.};
   }
 }
-
-void set_previous_angle(float angle) { previous_angle_ = angle; };
 
 }  // namespace sim

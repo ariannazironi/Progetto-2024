@@ -32,8 +32,7 @@ class Flock {
   void add_boids(const Boid& new_boid);
   std::vector<Boid> get_boids() const;
 
-  void update_boids(const float& delta_t, const float x_min, const float x_max,
-                    const float y_min, const float y_max);
+  void update_boids(const float& delta_t, const float x_max, const float y_max);
 
   Vector find_separation(const Boid& chosen_boid) const;
   Vector find_alignment(const Boid& chosen_boid) const;
@@ -46,7 +45,6 @@ class Flock {
 
   Statistics state() const;
   
-  void set_previous_angle(const Boid& b, float angle);
 };
 
 }  // namespace sim
