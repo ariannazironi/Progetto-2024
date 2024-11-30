@@ -10,11 +10,11 @@ class Boid {
     private:
     Vector position_;
     Vector velocity_;
-    const float angle_view_;
+    const float view_angle;
 
     public:
     Boid();
-    Boid(Vector position, Vector velocity, const float angle_view);
+    Boid(Vector position, Vector velocity, const float view_angle);
     Vector get_pos() const;
     Vector get_vel() const;
     float get_angle() const;

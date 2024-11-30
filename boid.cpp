@@ -10,13 +10,13 @@
 
 namespace sim {
 
-Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, angle_view_(){};
-Boid::Boid(Vector position, Vector velocity, const float angle_view)
-    : position_(position), velocity_(velocity), angle_view_(angle_view) {};
+Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, view_angle(){};
+Boid::Boid(Vector position, Vector velocity, const float view_angle)
+    : position_(position), velocity_(velocity), view_angle(view_angle) {};
 
 Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
-float Boid::get_angle() const {return angle_view_;};
+float Boid::get_angle() const {return view_angle;};
 
 float Boid::diff_angle(const Boid& other) const {
     sim::Vector direction = other.get_pos() - position_;
@@ -43,7 +43,7 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
 
   for (const auto& boid : boids) {
     Vector x = boid.get_pos();
-    if (x.distance(position_) > 0 && x.distance(position_) < distance && diff_angle(boid) <= angle_view_) {
+    if (x.distance(position_) > 0 && x.distance(position_) < distance && diff_angle(boid) <= view_angle) {
       near.push_back(boid);
     }
   }
