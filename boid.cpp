@@ -106,4 +106,11 @@ void Boid::border(const float x_max, const float y_max) {
   }
 }
 
-}  // namespace sim
+/*float Boid::get_vel_angle () const {
+  if(velocity_.get_x() >= 0.f && velocity_.get_y() >= 0.f) {
+    const float angle = std::atan(std::abs(velocity_.get_y()/velocity_.get_x()))
+  * (180.f/M_PI)
+  } */
+};
+
+ // namespace sim

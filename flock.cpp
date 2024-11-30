@@ -131,4 +131,5 @@ Statistics Flock::state() const {
     return {0., 0., 0., 0.};
   }
 }
-}   // namespace sim
+
+}  // namespace sim
