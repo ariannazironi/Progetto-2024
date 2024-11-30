@@ -13,7 +13,8 @@ int main() {
   sf::RenderWindow window(
       sf::VideoMode(600, 600),
       "Boid Simulation");  // apro finestra nera 600 x 600 con titolo dato
-  window.setVerticalSyncEnabled(false);
+  //window.setVerticalSyncEnabled(false);
+  window.setFramerateLimit(60);
   sim::Flock flock(130.0f, 20.0f, 3.2f, 1.4f, 0.6f, 20.0f);
   // Limita il frame rate a 60 FPS
 
@@ -48,11 +49,14 @@ int main() {
       const sf::Vector2f point2(-5, 5);  // Base sinistra
       const sf::Vector2f point3(5, 5);   // Base destra
 
-      // Calcola l'angolo di rotazione basato sulla velocità
+      
       float angle = 0;
       if (vel.norm_vector() > 0) {
         angle = std::atan2(vel.get_y(), vel.get_x()) * 180.0f / 3.14159f;
       }
+
+    // Arrotondamento dell'angolo
+    angle = std::round(angle * 10.0f) / 10.0f;
 
       // Posizione centrale del triangolo
       sf::Vector2f center(pos.get_x(), pos.get_y());
@@ -80,8 +84,9 @@ int main() {
       triangle[5].color = sf::Color::Green;
 
       window.draw(triangle);
-      window.display();
     }
-    return 0;
+    window.display();
   }
+    return 0;
+
 }

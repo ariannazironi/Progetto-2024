@@ -10,13 +10,16 @@ class Boid {
     private:
     Vector position_;
     Vector velocity_;
+    const float angle_view_;
 
     public:
     Boid();
-    Boid(Vector position, Vector velocity);
+    Boid(Vector position, Vector velocity, const float angle_view);
     Vector get_pos() const;
     Vector get_vel() const;
-    std::vector<Boid> find_near(const std::vector<Boid>& boids, float distance) const;
+    float get_angle() const;
+    float diff_angle(const Boid& other) const;
+    std::vector<Boid> find_near(const std::vector<Boid>& boids, const float distance) const;
     Vector separation(const float s_parameter, const float ds_parameter, std::vector<Boid> const&) const;
     Vector alignment(const float a_parameter, std::vector<Boid> const&) const;
     Vector cohesion(const float c_parameter, std::vector<Boid> const&) const;

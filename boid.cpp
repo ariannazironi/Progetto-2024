@@ -4,17 +4,38 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
+#include <cassert>
 #include <iostream>
 #include <numeric>
 
 namespace sim {
 
-Boid::Boid() : position_{Vector{}}, velocity_{Vector{}} {};
-Boid::Boid(Vector position, Vector velocity)
-    : position_(position), velocity_(velocity) {};
+Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, angle_view_(){};
+Boid::Boid(Vector position, Vector velocity, const float angle_view)
+    : position_(position), velocity_(velocity), angle_view_(angle_view) {};
 
 Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
+float Boid::get_angle() const {return angle_view_;};
+
+float Boid::diff_angle(const Boid& other) const {
+    sim::Vector direction = other.get_pos() - position_;
+    const float dot_product = velocity_.product(direction);
+    const float norm_direction = direction.norm_vector();
+    const float norm_velocity = velocity_.norm_vector();
+    
+    if (norm_velocity == 0.0f || norm_direction == 0.0f) {
+        return 0.0f;
+    }
+    else{
+    float cos_angle = dot_product / (norm_direction * norm_velocity);
+    cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
+    float rad_angle = std::acos(cos_angle);
+    const float degree_angle = (rad_angle * 180.f) / M_PI;
+
+    return degree_angle;
+    }
+}
 
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
                                   const float distance) const {
@@ -22,7 +43,7 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
 
   for (const auto& boid : boids) {
     Vector x = boid.get_pos();
-    if (x.distance(position_) > 0 && x.distance(position_) < distance) {
+    if (x.distance(position_) > 0 && x.distance(position_) < distance && diff_angle(boid) <= angle_view_) {
       near.push_back(boid);
     }
   }
