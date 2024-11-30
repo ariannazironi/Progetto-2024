@@ -5,6 +5,40 @@
 #include "doctest.h"
 #include "vector.hpp"
 
+TEST_CASE("Testing diff angle method") {
+  SUBCASE("Boid ahead the other") { 
+    const sim::Vector pos1{4.f, 4.f};
+    const sim::Vector vel1{3.f, -1.f};
+    const sim::Vector pos2{5.f, 1.f};
+    const sim::Vector vel2{-1.f, -1.f};
+
+    const sim::Boid b1{pos1, vel1, 100.f};
+    const sim::Boid b2{pos2, vel2, 150.f};
+    const std::vector<sim::Boid> boids{b1, b2};
+    float diff_angle = b1.diff_angle(b2);
+    auto near = b1.find_near(boids, 10.);
+
+    CHECK(diff_angle == doctest::Approx(53.13).epsilon(0.01));
+    CHECK(near.size() == 1);
+  }
+
+  SUBCASE("Boid behind the other:"){
+    const sim::Vector pos1{3.f, 3.f};
+    const sim::Vector vel1{-2.f, -1.f};
+    const sim::Vector pos2{5.f, 5.f};
+    const sim::Vector vel2{-1.f, -1.f};
+
+    const sim::Boid b1{pos1, vel1, 150.f};
+    const sim::Boid b2{pos2, vel2, 100.f};
+    const std::vector<sim::Boid> boids{b1, b2};
+    float diff_angle = b1.diff_angle(b2);
+    auto near = b1.find_near(boids, 10.);
+
+    CHECK(diff_angle == doctest::Approx(161.565).epsilon(0.001));
+    CHECK(near.size() == 0);
+}
+  }
+
 TEST_CASE("Testing Boid class") {
   const sim::Vector pos0{0., 0.};
   const sim::Vector vel0{2., 0.};
