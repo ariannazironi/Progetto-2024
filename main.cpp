@@ -46,16 +46,17 @@ int main() {
         boid.set_position(position_f);
         flock.add_boids(boid);
       }
-
-      const float delta_t = 0.1f;
-      flock.update_boids(delta_t, x_max, y_max);
-      window.clear(sf::Color::Black);  // pulisce la scena
-
-      for (auto& boid : flock.get_boids()) {
-        window.draw(boid.set_shape());
-      }
-      window.display();
     }
+    const float delta_t = 0.1f;
+
+    flock.update_boids(delta_t, x_max, y_max);
+
+    window.clear(sf::Color::Black);  // pulisce la scena
+
+    for (auto& boid : flock.get_boids()) {
+      window.draw(boid.set_shape());
+    }
+    window.display();
   }
   return 0;
 }
