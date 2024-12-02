@@ -10,23 +10,27 @@ namespace sim {
 
 Flock::Flock(const float distance, const float ds_parameter,
              const float s_parameter, const float a_parameter,
-             const float c_parameter, const float max_speed)
+             const float c_parameter, const float max_speed,
+             const float min_speed)
     : closeness_parameter_(distance),
       distance_of_separation_(ds_parameter),
       separation_parameter_(s_parameter),
       allignment_parameter_(a_parameter),
       cohesion_parameter_(c_parameter),
-      max_speed_(max_speed) {};
+      max_speed_(max_speed),
+      min_speed_(min_speed) {};
 
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 
-void Flock::update_boids(const float& delta_t, const float x_max, const float y_max) {
+void Flock::update_boids(const float& delta_t, const float x_max,
+                         const float y_max) {
   for (auto& boid : boids_) {
     boid.change_vel(find_deltav(boid));
     boid.limit_velocity(max_speed_);
+    boid.min_velocity(min_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
     boid.change_pos(delta_pos);
-    boid.border( x_max, y_max);
+    boid.border(x_max - 10.0f, y_max - 10.0f);
   }
 }
 
@@ -68,12 +72,12 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
   return delta_velocity;
 };
 
-Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
+/*Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
                                  float y_max, float vx_min, float vx_max,
                                  float vy_min, float vy_max) {
   // Generatore casuale
-  std::random_device rd;   // Seed
-  std::mt19937 gen(rd());  // Mersenne Twister engine
+  std::random_device rd;  // Seed
+  std::default_random_engine gen(rd());
 
   // Distribuzioni uniformi per posizione e velocità
   std::uniform_real_distribution<float> dist_x(x_min, x_max);
@@ -83,8 +87,8 @@ Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
 
   // Crea un boid con valori casuali
   return sim::Boid(sim::Vector(dist_x(gen), dist_y(gen)),
-                   sim::Vector(dist_vx(gen), dist_vy(gen)));
-}
+                   sim::Vector(dist_vx(gen), dist_vy(gen)), 180.0f);
+} */
 
 Statistics Flock::state() const {
   size_t n = boids_.size();
@@ -112,8 +116,9 @@ Statistics Flock::state() const {
     const float dev_dist = std::sqrt(medium_dist_2 - std::pow(medium_dist, 2));
 
     const float sum_vel = std::accumulate(
-        boids_.begin(), boids_.end(), 0.,
-        [](float res, Boid const& b) { return  res+ b.get_vel().norm_vector(); });
+        boids_.begin(), boids_.end(), 0., [](float res, Boid const& b) {
+          return res + b.get_vel().norm_vector();
+        });
 
     const float medium_speed = sum_vel / boids_.size();
 
