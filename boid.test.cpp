@@ -213,6 +213,6 @@ TEST_CASE("Testing the get_rotation_angle() method") {
     const sim::Vector vel{-3.f, -2.f};
     const sim::Boid b4{pos, vel, 180.f};
 
-    CHECK(b4.get_rotation_angle() ==doctest::Approx(303.69).epsilon(0.01) );
+    CHECK(b4.get_rotation_angle() ==doctest::Approx(-56.31).epsilon(0.01) );
   }
 }

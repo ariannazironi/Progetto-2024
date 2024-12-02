@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
+#include <cassert>
 #include <iostream>
 #include <numeric>
 
