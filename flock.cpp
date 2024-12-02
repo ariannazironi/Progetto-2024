@@ -30,6 +30,7 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     boid.min_velocity(min_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
     boid.change_pos(delta_pos);
+    boid.border(x_max, y_max);
   }
 }
 
