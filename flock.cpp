@@ -10,7 +10,7 @@ namespace sim {
 
 Flock::Flock(const float distance, const float ds_parameter,
              const float s_parameter, const float a_parameter,
-             const float c_parameter, const float max_speed,
+             const float c_parameter, const float max_speed, 
              const float min_speed)
     : closeness_parameter_(distance),
       distance_of_separation_(ds_parameter),
@@ -30,7 +30,6 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     boid.min_velocity(min_speed_);
     const Vector delta_pos = boid.get_vel() * delta_t;
     boid.change_pos(delta_pos);
-    boid.border(x_max - 10.0f, y_max - 10.0f);
   }
 }
 

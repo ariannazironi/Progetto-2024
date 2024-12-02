@@ -48,9 +48,7 @@ int main() {
       }
 
       const float delta_t = 0.1f;
-
       flock.update_boids(delta_t, x_max, y_max);
-
       window.clear(sf::Color::Black);  // pulisce la scena
 
       for (auto& boid : flock.get_boids()) {
