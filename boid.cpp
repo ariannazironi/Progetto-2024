@@ -11,7 +11,7 @@
 namespace sim {
 
 Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, view_angle_() {};
-Boid::Boid(Vector position, Vector velocity, const float view_angle)
+Boid::Boid(Vector position, Vector velocity, float view_angle)
     : position_(position), velocity_(velocity), view_angle_(view_angle) {}
 
 Vector Boid::get_pos() const { return position_; };
@@ -137,13 +137,24 @@ float Boid::get_rotation_angle() const {
   return angle + 90.0f;
 }
 
-sf::CircleShape& Boid::set_shape() {
+sf::CircleShape& Boid::set_shape_boid() {
   boidshape_.setPointCount(3);       // Imposta come triangolo
   boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
   boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
   boidshape_.setFillColor(sf::Color::Green); 
+  boidshape_.setScale(1.f, 1.5f); // Imposta un colore
+  return boidshape_;
+};
+
+sf::CircleShape& Boid::set_shape_predator() {
+  boidshape_.setPointCount(3);       // Imposta come triangolo
+  boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
+  boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
+  boidshape_.setPosition(position_.get_x(), position_.get_y());
+  boidshape_.setRotation(get_rotation_angle());
+  boidshape_.setFillColor(sf::Color::Red); 
   boidshape_.setScale(1.f, 1.5f); // Imposta un colore
   return boidshape_;
 };

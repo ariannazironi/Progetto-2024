@@ -12,12 +12,12 @@ class Boid {
  private:
   Vector position_;
   Vector velocity_;
-  const float view_angle_;
+  float view_angle_;
   sf::CircleShape boidshape_;
 
  public:
   Boid();
-  Boid(Vector position, Vector velocity, const float view_angle);
+  Boid(Vector position, Vector velocity, float view_angle);
   Vector get_pos() const;
   Vector get_vel() const;
   float get_angle() const;
@@ -35,13 +35,8 @@ class Boid {
   void border(const float x_max, const float y_max);
   float get_rotation_angle() const;
   void set_position(const Vector& new_pos);
-  sf::CircleShape& set_shape();
-  /*void set_radius(float radius);
-  void set_point_count();
-  void set_origin(float x_0, float y_0);
-  void set_fill_color(const sf::Color& color);
-  void set_position(const Vector& new_pos);
-  void set_rotation(); */
+  sf::CircleShape& set_shape_boid();
+  sf::CircleShape& set_shape_predator();
 };
 
 }  // namespace sim

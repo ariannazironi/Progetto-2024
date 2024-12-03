@@ -18,11 +18,6 @@ int main() {
   const float x_max = 600.0f;  // Larghezza della finestra
   const float y_max = 600.0f;  // Altezza della finestra
 
-  const float vx_min = -10.0f;
-  const float vy_min = -10.0f;
-  const float vx_max = 10.0f;
-  const float vy_max = 10.0f;
-
   sim::Flock flock(100.0f, 40.0f, 0.8f, 0.5f, 0.001f, 20.0f, 10.0f);
 
   std::random_device rd;
@@ -34,27 +29,58 @@ int main() {
       if (event.type == sf::Event::Closed) {
         window.close();
       }
-      if (event.type == sf::Event::MouseButtonPressed &&
-          event.mouseButton.button == sf::Mouse::Left) {
-        const sf::Vector2i position = sf::Mouse::getPosition(window);
-        const float positionf_x = static_cast<float>(position.x);
-        const float positionf_y = static_cast<float>(position.y);
-        const sim::Vector position_f{positionf_x, positionf_y};
-        const sim::Vector speed{velocity_distribution(gen),
-                                velocity_distribution(gen)};
-        sim::Boid boid{position_f, speed, 180.0f};
-        boid.set_position(position_f);
-        flock.add_boids(boid);
+      
+      switch (event.type) {
+        case sf::Event::MouseButtonPressed:
+          {
+            const sf::Vector2i position = sf::Mouse::getPosition(window);
+            const float positionf_x = static_cast<float>(position.x);
+            const float positionf_y = static_cast<float>(position.y);
+            const sim::Vector position_f{positionf_x, positionf_y};
+            const sim::Vector speed{velocity_distribution(gen), velocity_distribution(gen)};
+            
+            switch (event.mouseButton.button) {
+              case sf::Mouse::Left:
+                // Se clicchi con il tasto sinistro, aggiungi un boid
+                {
+                  sim::Boid boid{position_f, speed, 180.0f};
+                  boid.set_position(position_f);
+                  flock.add_boids(boid);
+                }
+                break;
+
+              case sf::Mouse::Right:
+                // Se clicchi con il tasto destro, aggiungi un predatore
+                {
+                  sim::Boid predator{position_f, speed, 180.0f};
+                  predator.set_position(position_f);
+                  flock.add_predators(predator);
+                }
+                break;
+
+              default:
+                break; 
+            }
+          }
+          break;
+
+        default:
+          break; 
       }
     }
+    
     const float delta_t = 0.1f;
-
+    flock.update_predator(delta_t, x_max, y_max);
     flock.update_boids(delta_t, x_max, y_max);
-
+    
     window.clear(sf::Color::Black);  // pulisce la scena
 
     for (auto& boid : flock.get_boids()) {
-      window.draw(boid.set_shape());
+      window.draw(boid.set_shape_boid());
+    }
+
+    for( auto& predator : flock.get_predators()) {
+    window.draw(predator.set_shape_predator());
     }
     window.display();
   }

@@ -24,6 +24,7 @@ class Flock {
   const float max_speed_;
   const float min_speed_;
   std::vector<Boid> boids_;
+  std::vector<Boid> predators_;
 
  public:
   Flock(const float distance, const float ds_parameter, const float s_parameter,
@@ -32,12 +33,13 @@ class Flock {
 
   void add_boids(const Boid& new_boid);
   std::vector<Boid> get_boids() const;
-
+  void add_predators(const Boid& new_predator);
+  std::vector<Boid> get_predators() const;
   void update_boids(const float& delta_t, const float x_max, const float y_max);
 
-  void update_predator(Boid& predator, const float& delta_t, const float x_max, const float y_max);
+  void update_predator(const float& delta_t, const float x_max, const float y_max);
 
-  Boid find_prey(const Boid& predator);
+  Boid find_prey(Boid predator);
 
   Vector find_separation(const Boid& chosen_boid) const;
   Vector find_alignment(const Boid& chosen_boid) const;
