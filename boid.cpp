@@ -163,5 +163,8 @@ void Boid::set_position(const Vector& new_pos) {
   const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
   boidshape_.setPosition(boid_pos);
 }
+void Boid::set_velocity(const Vector& new_vel){
+  velocity_ = new_vel;
+};
 
 };  // namespace sim
