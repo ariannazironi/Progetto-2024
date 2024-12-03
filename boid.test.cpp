@@ -18,10 +18,10 @@ TEST_CASE("Testing Boid class") {
   const sim::Vector pos3(2., 2.);
   const sim::Vector vel3(7., 2.5);
 
-  const sim::Boid b0(pos0, vel0);
-  sim::Boid b1(pos1, vel1);
-  sim::Boid b2(pos2, vel2);
-  sim::Boid b3(pos3, vel3);
+  const sim::Boid b0(pos0, vel0, 100.f);
+  sim::Boid b1(pos1, vel1, 100.f);
+  sim::Boid b2(pos2, vel2, 100.f);
+  sim::Boid b3(pos3, vel3, 100.f);
 
   const std::vector<sim::Boid> boids{b0, b1, b2, b3};
   auto near = b0.find_near(boids, 5.);
@@ -34,11 +34,13 @@ TEST_CASE("Testing Boid class") {
     CHECK(b0.get_pos().get_y() == 0.);
     CHECK(b0.get_vel().get_x() == 2.);
     CHECK(b0.get_vel().get_y() == 0.);
+    CHECK(b0.get_angle() == 100.);
 
     CHECK(b1.get_pos().get_x() == 3.);
     CHECK(b1.get_pos().get_y() == 4.);
     CHECK(b1.get_vel().get_x() == 1.);
     CHECK(b1.get_vel().get_y() == 1.);
+    CHECK(b0.get_angle() == 100.);
   }
 
   SUBCASE("Testing find_near method") {

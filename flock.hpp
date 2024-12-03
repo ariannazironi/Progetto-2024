@@ -2,6 +2,7 @@
 #define FLOCK_HPP
 
 #include <vector>
+
 #include "boid.hpp"
 
 namespace sim {
@@ -14,7 +15,7 @@ struct Statistics {
 };
 
 class Flock {
-  private:
+ private:
   const float closeness_parameter_;
   const float distance_of_separation_;
   const float separation_parameter_;
@@ -31,22 +32,21 @@ class Flock {
   void add_boids(const Boid& new_boid);
   std::vector<Boid> get_boids() const;
 
-  void update_boids(const float& delta_t, const float x_min, const float x_max, const float y_min,
-                  const float y_max);
+  void update_boids(const float& delta_t, const float x_max, const float y_max);
 
   Vector find_separation(const Boid& chosen_boid) const;
   Vector find_alignment(const Boid& chosen_boid) const;
   Vector find_cohesion(const Boid& chosen_boid) const;
   Vector find_deltav(const Boid& chosen_boid) const;
 
-  Boid generate_random_boid(float x_min, float x_max, float y_min,
-                                 float y_max, float vx_min, float vx_max,
-                                 float vy_min, float vy_max);
+  Boid generate_random_boid(float x_min, float x_max, float y_min, float y_max,
+                            float vx_min, float vx_max, float vy_min,
+                            float vy_max);
 
   Statistics state() const;
-
+  
 };
 
-} 
+}  // namespace sim
 
 #endif

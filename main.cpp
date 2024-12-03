@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 #include <random>
 #include <vector>
 
@@ -9,27 +10,32 @@
 #include "vector.hpp"
 
 int main() {
-  sf::Clock clock;
   sf::RenderWindow window(
       sf::VideoMode(600, 600),
       "Boid Simulation");  // apro finestra nera 600 x 600 con titolo dato
+  //window.setVerticalSyncEnabled(false);
+  window.setFramerateLimit(60);
+  sim::Flock flock(130.0f, 20.0f, 3.2f, 1.4f, 0.6f, 20.0f);
+  // Limita il frame rate a 60 FPS
 
+<<<<<<< HEAD
   sim::Flock flock(150.0f, 50.0f, 2.0f, 0.2f, 0.3f, 20.0f);
 
   const float x_min = 0.0f;
+=======
+>>>>>>> 4f46219cf92d506a007508e5d3c0c378454a140f
   const float x_max = 600.0f;  // Larghezza della finestra
-  const float y_min = 0.0f;
-  const float y_max = 600.0f;     // Altezza della finestra
+  const float y_max = 600.0f;  // Altezza della finestra
 
+<<<<<<< HEAD
   for (int i = 0; i < 20; ++i) {  // Aggiungi 10 boid casuali
     sim::Boid b = flock.generate_random_boid(0, 600, 0, 600, -2, 2, -2, 2);
+=======
+  for (int i = 0; i < 10; ++i) {  // Aggiungi 10 boid casuali
+    sim::Boid b = flock.generate_random_boid(0, 600, 0, 600, -5, 5, -5, 5);
+>>>>>>> 4f46219cf92d506a007508e5d3c0c378454a140f
     flock.add_boids(b);
   };
-
-  sf::CircleShape boid_shape(5);
-  boid_shape.setFillColor(sf::Color::White);
-
-  const float time_step = 0.1f;
 
   while (window.isOpen()) {
     sf::Event event;
@@ -38,18 +44,60 @@ int main() {
       if (event.type == sf::Event::Closed) window.close();
     }
 
-    float delta_t = clock.restart().asSeconds();
+    float delta_t = 0.1f;
 
-    flock.update_boids(delta_t, x_min, x_max, y_min, y_max);
+    flock.update_boids(delta_t, x_max, y_max);
 
     window.clear(sf::Color::Black);  // pulisce la scena
 
     for (const auto& boid : flock.get_boids()) {
       auto pos = boid.get_pos();
-      boid_shape.setPosition(pos.get_x(), pos.get_y());
-      window.draw(boid_shape);
+      auto vel = boid.get_vel();
+
+      // Definizione delle dimensioni del triangolo (relativo alla posizione del
+      // boid)
+      const sf::Vector2f point1(0, -7);  // Punta del triangolo
+      const sf::Vector2f point2(-5, 5);  // Base sinistra
+      const sf::Vector2f point3(5, 5);   // Base destra
+
+      
+      float angle = 0;
+      if (vel.norm_vector() > 0) {
+        angle = std::atan2(vel.get_y(), vel.get_x()) * 180.0f / 3.14159f;
+      }
+
+    // Arrotondamento dell'angolo
+    angle = std::round(angle * 10.0f) / 10.0f;
+
+      // Posizione centrale del triangolo
+      sf::Vector2f center(pos.get_x(), pos.get_y());
+
+      // Calcola i punti ruotati rispetto al centro
+      sf::Transform rotation;
+      rotation.rotate(angle, center);  // Rotazione attorno al centro
+
+      // Crea i tre lati del triangolo
+      sf::VertexArray triangle(sf::Lines, 6);
+      triangle[0].position = rotation.transformPoint(center + point1);
+      triangle[1].position = rotation.transformPoint(center + point2);
+
+      triangle[2].position = rotation.transformPoint(center + point2);
+      triangle[3].position = rotation.transformPoint(center + point3);
+
+      triangle[4].position = rotation.transformPoint(center + point3);
+      triangle[5].position = rotation.transformPoint(center + point1);
+
+      triangle[0].color = sf::Color::Green;
+      triangle[1].color = sf::Color::Green;
+      triangle[2].color = sf::Color::Green;
+      triangle[3].color = sf::Color::Green;
+      triangle[4].color = sf::Color::Green;
+      triangle[5].color = sf::Color::Green;
+
+      window.draw(triangle);
     }
-    window.display();  // metto su display ciò che disegno
+    window.display();
   }
-  return 0;
+    return 0;
+
 }
