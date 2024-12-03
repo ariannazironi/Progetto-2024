@@ -35,6 +35,10 @@ class Flock {
 
   void update_boids(const float& delta_t, const float x_max, const float y_max);
 
+  void update_predator(Boid& predator, const float& delta_t, const float x_max, const float y_max);
+
+  Boid find_prey(const Boid& predator);
+
   Vector find_separation(const Boid& chosen_boid) const;
   Vector find_alignment(const Boid& chosen_boid) const;
   Vector find_cohesion(const Boid& chosen_boid) const;

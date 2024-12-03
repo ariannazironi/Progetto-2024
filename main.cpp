@@ -18,11 +18,16 @@ int main() {
   const float x_max = 600.0f;  // Larghezza della finestra
   const float y_max = 600.0f;  // Altezza della finestra
 
-  sim::Flock flock(100.0f, 15.0f, 1.5f, 1.0f, 0.2f, 20.0f, 5.0f);
+  const float vx_min = -10.0f;
+  const float vy_min = -10.0f;
+  const float vx_max = 10.0f;
+  const float vy_max = 10.0f;
+
+  sim::Flock flock(100.0f, 40.0f, 0.8f, 0.5f, 0.001f, 20.0f, 10.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
-  std::uniform_real_distribution<float> velocity_distribution(-5.0f, 5.0f);
+  std::uniform_real_distribution<float> velocity_distribution(-15.0f, 15.0f);
 
   while (window.isOpen()) {
     while (window.pollEvent(event)) {

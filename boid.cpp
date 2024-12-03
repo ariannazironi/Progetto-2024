@@ -143,7 +143,8 @@ sf::CircleShape& Boid::set_shape() {
   boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setFillColor(sf::Color::White);  // Imposta un colore
+  boidshape_.setFillColor(sf::Color::Green); 
+  boidshape_.setScale(1.f, 1.5f); // Imposta un colore
   return boidshape_;
 };
 
