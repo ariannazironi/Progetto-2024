@@ -32,9 +32,9 @@ class Flock {
         const float max_speed, const float min_speed);
 
   void add_boids(const Boid& new_boid);
-  std::vector<Boid> get_boids() const;
+  const std::vector<Boid>& get_boids() const;
   void add_predators(const Boid& new_predator);
-  std::vector<Boid> get_predators() const;
+  const std::vector<Boid>& get_predators() const;
   void update_boids(const float& delta_t, const float x_max, const float y_max);
 
   void update_predator(const float& delta_t, const float x_max, const float y_max);

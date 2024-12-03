@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <cmath>
 #include <cassert>
+#include <cmath>
 #include <iostream>
 #include <numeric>
 
@@ -133,35 +133,32 @@ void Boid::border(const float x_max, const float y_max) {
   }
 }
 float Boid::get_rotation_angle() const {
-    float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
 }
 
-sf::CircleShape& Boid::set_shape_boid() {
-  boidshape_.setPointCount(3);       // Imposta come triangolo
-  boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
-  boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
-  boidshape_.setPosition(position_.get_x(), position_.get_y());
-  boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setFillColor(sf::Color::Green); 
-  boidshape_.setScale(1.f, 1.5f); // Imposta un colore
-  return boidshape_;
-};
-
-sf::CircleShape& Boid::set_shape_predator() {
-  boidshape_.setPointCount(3);       // Imposta come triangolo
-  boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
-  boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
-  boidshape_.setPosition(position_.get_x(), position_.get_y());
-  boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setFillColor(sf::Color::Red); 
-  boidshape_.setScale(1.f, 1.5f); // Imposta un colore
-  return boidshape_;
-};
-
-void Boid::set_position(const Vector& new_pos) {
-  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
-  boidshape_.setPosition(boid_pos);
+sf::CircleShape Boid::set_shape_boid() const {
+  sf::CircleShape shape;
+  shape.setPointCount(3);
+  shape.setRadius(5.0f);
+  shape.setOrigin(5.0f, 5.0f);
+  shape.setPosition(position_.get_x(), position_.get_y());
+  shape.setRotation(get_rotation_angle());
+  shape.setFillColor(sf::Color::Green);
+  shape.setScale(1.f, 1.5f);
+  return shape;  // Restituisce una copia sicura
 }
+
+sf::CircleShape Boid::set_shape_predator() const {
+  sf::CircleShape shape;
+  shape.setPointCount(3);       // Imposta come triangolo
+  shape.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
+  shape.setOrigin(5.0f, 5.0f);  // Centra l'origine
+  shape.setPosition(position_.get_x(), position_.get_y());
+  shape.setRotation(get_rotation_angle());
+  shape.setFillColor(sf::Color::Red);
+  shape.setScale(1.f, 1.5f);  // Imposta un colore
+  return shape;
+};
 
 };  // namespace sim
