@@ -32,7 +32,30 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     boid.change_pos(delta_pos);
     boid.border(x_max - 10.0f, y_max - 10.0f);
   }
-}
+};
+
+Boid Flock::find_prey(const Boid& predator) {
+  float min_distance = 300.0f;
+  const Boid* closest_prey = nullptr;
+  for (const auto& boid : boids_) {
+    float distance = predator.get_pos().distance(boid.get_pos());
+    if (distance < min_distance) {
+      min_distance = distance;
+      closest_prey = &boid;
+    }
+  }
+  return *closest_prey;
+};
+
+void Flock::update_predator(Boid& predator, const float& delta_t,
+                            const float x_max, const float y_max) {
+  Boid prey = this->find_prey(predator);
+  Vector chase_vel =
+      (prey.get_pos() - predator.get_pos()) * (closeness_parameter_);
+  predator.change_vel(chase_vel);
+  const Vector delta_pos = predator.get_vel() * delta_t;
+  predator.change_pos(delta_pos);
+};
 
 std::vector<Boid> Flock::get_boids() const { return boids_; };
 
@@ -71,24 +94,6 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
 
   return delta_velocity;
 };
-
-/*Boid Flock::generate_random_boid(float x_min, float x_max, float y_min,
-                                 float y_max, float vx_min, float vx_max,
-                                 float vy_min, float vy_max) {
-  // Generatore casuale
-  std::random_device rd;  // Seed
-  std::default_random_engine gen(rd());
-
-  // Distribuzioni uniformi per posizione e velocità
-  std::uniform_real_distribution<float> dist_x(x_min, x_max);
-  std::uniform_real_distribution<float> dist_y(y_min, y_max);
-  std::uniform_real_distribution<float> dist_vx(vx_min, vx_max);
-  std::uniform_real_distribution<float> dist_vy(vy_min, vy_max);
-
-  // Crea un boid con valori casuali
-  return sim::Boid(sim::Vector(dist_x(gen), dist_y(gen)),
-                   sim::Vector(dist_vx(gen), dist_vy(gen)), 180.0f);
-} */
 
 Statistics Flock::state() const {
   size_t n = boids_.size();
