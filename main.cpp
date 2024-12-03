@@ -13,91 +13,50 @@ int main() {
   sf::RenderWindow window(
       sf::VideoMode(600, 600),
       "Boid Simulation");  // apro finestra nera 600 x 600 con titolo dato
-  //window.setVerticalSyncEnabled(false);
-  window.setFramerateLimit(60);
-  sim::Flock flock(130.0f, 20.0f, 3.2f, 1.4f, 0.6f, 20.0f);
-  // Limita il frame rate a 60 FPS
+  sf::Event event;
 
-<<<<<<< HEAD
-  sim::Flock flock(150.0f, 50.0f, 2.0f, 0.2f, 0.3f, 20.0f);
-
-  const float x_min = 0.0f;
-=======
->>>>>>> 4f46219cf92d506a007508e5d3c0c378454a140f
   const float x_max = 600.0f;  // Larghezza della finestra
   const float y_max = 600.0f;  // Altezza della finestra
 
-<<<<<<< HEAD
-  for (int i = 0; i < 20; ++i) {  // Aggiungi 10 boid casuali
-    sim::Boid b = flock.generate_random_boid(0, 600, 0, 600, -2, 2, -2, 2);
-=======
-  for (int i = 0; i < 10; ++i) {  // Aggiungi 10 boid casuali
-    sim::Boid b = flock.generate_random_boid(0, 600, 0, 600, -5, 5, -5, 5);
->>>>>>> 4f46219cf92d506a007508e5d3c0c378454a140f
-    flock.add_boids(b);
-  };
+  const float vx_min = -10.0f;
+  const float vy_min = -10.0f;
+  const float vx_max = 10.0f;
+  const float vy_max = 10.0f;
+
+  sim::Flock flock(100.0f, 15.0f, 1.5f, 1.0f, 0.2f, 20.0f, 5.0f);
+
+  std::random_device rd;
+  std::default_random_engine gen(rd());
+  std::uniform_real_distribution<float> velocity_distribution(-5.0f, 5.0f);
 
   while (window.isOpen()) {
-    sf::Event event;
-
     while (window.pollEvent(event)) {
-      if (event.type == sf::Event::Closed) window.close();
+      if (event.type == sf::Event::Closed) {
+        window.close();
+      }
+      if (event.type == sf::Event::MouseButtonPressed &&
+          event.mouseButton.button == sf::Mouse::Left) {
+        const sf::Vector2i position = sf::Mouse::getPosition(window);
+        const float positionf_x = static_cast<float>(position.x);
+        const float positionf_y = static_cast<float>(position.y);
+        const sim::Vector position_f{positionf_x, positionf_y};
+        const sim::Vector speed{velocity_distribution(gen),
+                                velocity_distribution(gen)};
+        sim::Boid boid{position_f, speed, 180.0f};
+        boid.set_position(position_f);
+        flock.add_boids(boid);
+      }
     }
-
-    float delta_t = 0.1f;
+    const float delta_t = 0.1f;
 
     flock.update_boids(delta_t, x_max, y_max);
 
     window.clear(sf::Color::Black);  // pulisce la scena
 
-    for (const auto& boid : flock.get_boids()) {
-      auto pos = boid.get_pos();
-      auto vel = boid.get_vel();
-
-      // Definizione delle dimensioni del triangolo (relativo alla posizione del
-      // boid)
-      const sf::Vector2f point1(0, -7);  // Punta del triangolo
-      const sf::Vector2f point2(-5, 5);  // Base sinistra
-      const sf::Vector2f point3(5, 5);   // Base destra
-
-      
-      float angle = 0;
-      if (vel.norm_vector() > 0) {
-        angle = std::atan2(vel.get_y(), vel.get_x()) * 180.0f / 3.14159f;
-      }
-
-    // Arrotondamento dell'angolo
-    angle = std::round(angle * 10.0f) / 10.0f;
-
-      // Posizione centrale del triangolo
-      sf::Vector2f center(pos.get_x(), pos.get_y());
-
-      // Calcola i punti ruotati rispetto al centro
-      sf::Transform rotation;
-      rotation.rotate(angle, center);  // Rotazione attorno al centro
-
-      // Crea i tre lati del triangolo
-      sf::VertexArray triangle(sf::Lines, 6);
-      triangle[0].position = rotation.transformPoint(center + point1);
-      triangle[1].position = rotation.transformPoint(center + point2);
-
-      triangle[2].position = rotation.transformPoint(center + point2);
-      triangle[3].position = rotation.transformPoint(center + point3);
-
-      triangle[4].position = rotation.transformPoint(center + point3);
-      triangle[5].position = rotation.transformPoint(center + point1);
-
-      triangle[0].color = sf::Color::Green;
-      triangle[1].color = sf::Color::Green;
-      triangle[2].color = sf::Color::Green;
-      triangle[3].color = sf::Color::Green;
-      triangle[4].color = sf::Color::Green;
-      triangle[5].color = sf::Color::Green;
-
-      window.draw(triangle);
+    for (auto& boid : flock.get_boids()) {
+      window.draw(boid.set_shape());
     }
     window.display();
   }
-    return 0;
-
+  return 0;
 }

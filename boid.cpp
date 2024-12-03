@@ -10,31 +10,30 @@
 
 namespace sim {
 
-Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, view_angle(){};
+Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, view_angle_() {};
 Boid::Boid(Vector position, Vector velocity, const float view_angle)
-    : position_(position), velocity_(velocity), view_angle(view_angle) {};
+    : position_(position), velocity_(velocity), view_angle_(view_angle) {}
 
 Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
-float Boid::get_angle() const {return view_angle;};
+float Boid::get_angle() const { return view_angle_; };
 
 float Boid::diff_angle(const Boid& other) const {
-    sim::Vector direction = other.get_pos() - position_;
-    const float dot_product = velocity_.product(direction);
-    const float norm_direction = direction.norm_vector();
-    const float norm_velocity = velocity_.norm_vector();
-    
-    if (norm_velocity == 0.0f || norm_direction == 0.0f) {
-        return 0.0f;
-    }
-    else{
+  Vector direction = other.get_pos() - position_;
+  const float dot_product = velocity_.product(direction);
+  const float norm_direction = direction.norm_vector();
+  const float norm_velocity = velocity_.norm_vector();
+
+  if (norm_velocity == 0.0f || norm_direction == 0.0f) {
+    return 0.0f;
+  } else {
     float cos_angle = dot_product / (norm_direction * norm_velocity);
     cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
     float rad_angle = std::acos(cos_angle);
     const float degree_angle = (rad_angle * 180.f) / M_PI;
 
     return degree_angle;
-    }
+  }
 }
 
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
@@ -43,7 +42,8 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
 
   for (const auto& boid : boids) {
     Vector x = boid.get_pos();
-    if (x.distance(position_) > 0 && x.distance(position_) < distance && diff_angle(boid) <= view_angle) {
+    if (x.distance(position_) > 0 && x.distance(position_) < distance &&
+        diff_angle(boid) <= view_angle_) {
       near.push_back(boid);
     }
   }
@@ -102,6 +102,12 @@ void Boid::limit_velocity(const float max_speed) {
   }
 }
 
+void Boid::min_velocity(const float min_speed) {
+  if (velocity_.norm_vector() < min_speed) {
+    velocity_ = velocity_ * 2;
+  }
+}
+
 void Boid::change_vel(const Vector& delta_velocity) {
   velocity_ += delta_velocity;
 }
@@ -126,12 +132,34 @@ void Boid::border(const float x_max, const float y_max) {
     velocity_.set_y(-2.0f * velocity_.get_y());
   }
 }
+float Boid::get_rotation_angle() const {
+  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+  return angle + 90.0f;
+}
 
-/*float Boid::get_vel_angle () const {
-  if(velocity_.get_x() >= 0.f && velocity_.get_y() >= 0.f) {
-    const float angle = std::atan(std::abs(velocity_.get_y()/velocity_.get_x()))
-  * (180.f/M_PI)
-  } */
+sf::CircleShape& Boid::set_shape() {
+  boidshape_.setPointCount(3);       // Imposta come triangolo
+  boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
+  boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
+  boidshape_.setPosition(position_.get_x(), position_.get_y());
+  boidshape_.setRotation(get_rotation_angle());
+  boidshape_.setFillColor(sf::Color::White);  // Imposta un colore
+  return boidshape_;
 };
 
- // namespace sim
+void Boid::set_position(const Vector& new_pos) {
+  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
+  boidshape_.setPosition(boid_pos);
+}
+/*void Boid::set_point_count() { boidshape_.setPointCount(3); };
+void Boid::set_radius(float radius) { boidshape_.setRadius(radius); }
+void Boid::set_fill_color(const sf::Color& color) {
+  boidshape_.setFillColor(color);
+}
+void Boid::set_origin(float x_0, float y_0) { boidshape_.setOrigin(x_0, y_0); };
+void Boid::set_position(const Vector& new_pos) {
+  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
+  boidshape_.setPosition(boid_pos);
+}
+void Boid::set_rotation() { boidshape_.setRotation(get_rotation_angle()); };*/
+};  // namespace sim
