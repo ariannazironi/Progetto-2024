@@ -143,7 +143,8 @@ sf::CircleShape& Boid::set_shape() {
   boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setFillColor(sf::Color::White);  // Imposta un colore
+  boidshape_.setFillColor(sf::Color::Green); 
+  boidshape_.setScale(1.f, 1.5f); // Imposta un colore
   return boidshape_;
 };
 
@@ -151,15 +152,5 @@ void Boid::set_position(const Vector& new_pos) {
   const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
   boidshape_.setPosition(boid_pos);
 }
-/*void Boid::set_point_count() { boidshape_.setPointCount(3); };
-void Boid::set_radius(float radius) { boidshape_.setRadius(radius); }
-void Boid::set_fill_color(const sf::Color& color) {
-  boidshape_.setFillColor(color);
-}
-void Boid::set_origin(float x_0, float y_0) { boidshape_.setOrigin(x_0, y_0); };
-void Boid::set_position(const Vector& new_pos) {
-  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
-  boidshape_.setPosition(boid_pos);
-}
-void Boid::set_rotation() { boidshape_.setRotation(get_rotation_angle()); };*/
+
 };  // namespace sim
