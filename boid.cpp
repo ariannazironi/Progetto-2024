@@ -133,7 +133,7 @@ void Boid::border(const float x_max, const float y_max) {
   }
 }
 float Boid::get_rotation_angle() const {
-  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+    float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
 }
 
@@ -151,15 +151,5 @@ void Boid::set_position(const Vector& new_pos) {
   const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
   boidshape_.setPosition(boid_pos);
 }
-/*void Boid::set_point_count() { boidshape_.setPointCount(3); };
-void Boid::set_radius(float radius) { boidshape_.setRadius(radius); }
-void Boid::set_fill_color(const sf::Color& color) {
-  boidshape_.setFillColor(color);
-}
-void Boid::set_origin(float x_0, float y_0) { boidshape_.setOrigin(x_0, y_0); };
-void Boid::set_position(const Vector& new_pos) {
-  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
-  boidshape_.setPosition(boid_pos);
-}
-void Boid::set_rotation() { boidshape_.setRotation(get_rotation_angle()); };*/
+
 };  // namespace sim
