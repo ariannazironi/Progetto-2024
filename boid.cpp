@@ -148,6 +148,9 @@ sf::CircleShape Boid::set_shape_boid() const {
   shape.setScale(1.f, 1.5f);
   return shape;  // Restituisce una copia sicura
 }
+void Boid::set_velocity(const Vector& new_vel){
+  velocity_ = new_vel;
+};
 
 sf::CircleShape Boid::set_shape_predator() const {
   sf::CircleShape shape;

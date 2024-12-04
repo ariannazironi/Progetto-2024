@@ -35,8 +35,9 @@ class Boid {
   void border(const float x_max, const float y_max);
   float get_rotation_angle() const;
   void set_position(const Vector& new_pos);
-  sf::CircleShape set_shape_boid() const;
-  sf::CircleShape set_shape_predator() const;
+  void set_velocity(const Vector& new_vel);
+  sf::CircleShape& set_shape_boid();
+  sf::CircleShape& set_shape_predator();
 };
 
 }  // namespace sim
