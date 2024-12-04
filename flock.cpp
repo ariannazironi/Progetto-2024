@@ -36,19 +36,24 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     boid.border(x_max, y_max);
   }
 };
-void Flock::update_predator(const float& delta_t, const float x_max,
-                            const float y_max) {
-  for (auto& predator : predators_) {
-    Boid prey = find_prey(predator);
-    Vector chase_vel =
-        (prey.get_pos() - predator.get_pos()) * (separation_parameter_ * 0.5);
-    predator.set_velocity(chase_vel);
-    predator.limit_velocity(max_speed_);
-    predator.min_velocity(min_speed_);
-    const Vector delta_pos = predator.get_vel() * delta_t;
-    predator.change_pos(delta_pos);
-    predator.border(x_max, y_max);
-  }
+void Flock::update_predator( const float& delta_t,
+                            const float x_max, const float y_max) {
+ for (auto& predator : predators_){
+  Boid prey = find_prey(predator);
+  Vector chase_vel =
+      (prey.get_pos() - predator.get_pos()) * (separation_parameter_);
+  predator.set_velocity(chase_vel);
+  auto near_predator = predator.find_near(predators_, closeness_parameter_);
+  assert(near_predator.size() <= predators_.size());
+  Vector v = predator.separation(separation_parameter_, distance_of_separation_,
+                                near_predator);
+  predator.change_vel(v);
+  predator.limit_velocity(max_speed_);
+  predator.min_velocity(min_speed_);
+  const Vector delta_pos = predator.get_vel() * delta_t;
+  predator.change_pos(delta_pos);
+  predator.border(x_max, y_max);
+                            }
 };
 
 Boid Flock::find_prey(const Boid& predator) {
@@ -71,12 +76,11 @@ Vector Flock::find_separation(const Boid& chosen_boid) const {
   assert(near_boid.size() <= boids_.size());
   null = chosen_boid.separation(separation_parameter_, distance_of_separation_,
                                 near_boid);
-  for (auto& predator : predators_) {
-    float predator_dist = chosen_boid.get_pos().distance(predator.get_pos());
-    if (predator_dist < distance_of_separation_) {
-      null += (predator.get_pos() - chosen_boid.get_pos()) *
-              (-separation_parameter_);
-    }
+  for (auto& predator : predators_){
+  float predator_dist = chosen_boid.get_pos().distance(predator.get_pos());
+  if (predator_dist < distance_of_separation_) {
+    null += (predator.get_pos() - chosen_boid.get_pos()) * 1.5f* (- separation_parameter_);
+  }
   }
   return null;
 }
