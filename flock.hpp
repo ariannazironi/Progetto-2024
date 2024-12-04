@@ -28,16 +28,17 @@ class Flock {
 
  public:
   Flock(const float distance, const float ds_parameter, const float s_parameter,
-        const float a_parameter, const float c_parameter,
-        const float max_speed, const float min_speed);
+        const float a_parameter, const float c_parameter, const float max_speed,
+        const float min_speed);
 
   void add_boids(const Boid& new_boid);
-  const std::vector<Boid>& get_boids() const;
+  std::vector<Boid> get_boids() const;
   void add_predators(const Boid& new_predator);
-  const std::vector<Boid>& get_predators() const;
+  std::vector<Boid> get_predators() const;
   void update_boids(const float& delta_t, const float x_max, const float y_max);
 
-  void update_predator(const float& delta_t, const float x_max, const float y_max);
+  void update_predator(const float& delta_t, const float x_max,
+                       const float y_max);
 
   Boid find_prey(const Boid& predator);
 
@@ -51,7 +52,6 @@ class Flock {
                             float vy_max);
 
   Statistics state() const;
-  
 };
 
 }  // namespace sim
