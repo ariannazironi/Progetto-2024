@@ -7,39 +7,6 @@
 #include "doctest.h"
 #include "vector.hpp"
 
-TEST_CASE("Testing diff angle method") {
-  SUBCASE("Boid ahead the other") {
-    const sim::Vector pos1{4.f, 4.f};
-    const sim::Vector vel1{3.f, -1.f};
-    const sim::Vector pos2{5.f, 1.f};
-    const sim::Vector vel2{-1.f, -1.f};
-
-    const sim::Boid b1{pos1, vel1, 100.f};
-    const sim::Boid b2{pos2, vel2, 150.f};
-    const std::vector<sim::Boid> boids{b1, b2};
-    float diff_angle = b1.diff_angle(b2);
-    auto near = b1.find_near(boids, 10.);
-
-    CHECK(diff_angle == doctest::Approx(53.13).epsilon(0.01));
-    CHECK(near.size() == 1);
-  }
-
-  SUBCASE("Boid behind the other:") {
-    const sim::Vector pos1{3.f, 3.f};
-    const sim::Vector vel1{-2.f, -1.f};
-    const sim::Vector pos2{5.f, 5.f};
-    const sim::Vector vel2{-1.f, -1.f};
-
-    const sim::Boid b1{pos1, vel1, 150.f};
-    const sim::Boid b2{pos2, vel2, 100.f};
-    const std::vector<sim::Boid> boids{b1, b2};
-    float diff_angle = b1.diff_angle(b2);
-    auto near = b1.find_near(boids, 10.);
-
-    CHECK(diff_angle == doctest::Approx(161.565).epsilon(0.001));
-    CHECK(near.size() == 0);
-  }
-}
 
 TEST_CASE("Testing Boid class") {
   const sim::Vector pos0{0., 0.};
@@ -181,7 +148,55 @@ TEST_CASE("Testing Boid class") {
     CHECK(b1.get_pos().get_x() == doctest::Approx(5.0f).epsilon(0.1));
     CHECK(b1.get_pos().get_y() == doctest::Approx(10.0f).epsilon(0.01));
   }
+
+  SUBCASE("Testing set_velolcity method"){
+    sim::Vector new_vel_0 = {3.5f , 1.2f};
+    sim::Vector new_vel_1 = {2.5f , 3.7f};
+
+    b0.set_velocity(new_vel_0);
+    b1.set_velocity(new_vel_1);
+
+    CHECK(b0.get_vel().get_x() == doctest::Approx(3.5f).epsilon(0.1));
+    CHECK(b0.get_vel().get_y() == doctest::Approx(1.2f).epsilon(0.1));
+    CHECK(b1.get_vel().get_x() == doctest::Approx(2.5f).epsilon(0.1));
+    CHECK(b1.get_vel().get_y() == doctest::Approx(3.7f).epsilon(0.01));
+  }
 }
+
+TEST_CASE("Testing diff angle method") {
+  SUBCASE("Boid ahead the other") {
+    const sim::Vector pos1{4.f, 4.f};
+    const sim::Vector vel1{3.f, -1.f};
+    const sim::Vector pos2{5.f, 1.f};
+    const sim::Vector vel2{-1.f, -1.f};
+
+    const sim::Boid b1{pos1, vel1, 100.f};
+    const sim::Boid b2{pos2, vel2, 150.f};
+    const std::vector<sim::Boid> boids{b1, b2};
+    float diff_angle = b1.diff_angle(b2);
+    auto near = b1.find_near(boids, 10.);
+
+    CHECK(diff_angle == doctest::Approx(53.13).epsilon(0.01));
+    CHECK(near.size() == 1);
+  }
+
+  SUBCASE("Boid behind the other:") {
+    const sim::Vector pos1{3.f, 3.f};
+    const sim::Vector vel1{-2.f, -1.f};
+    const sim::Vector pos2{5.f, 5.f};
+    const sim::Vector vel2{-1.f, -1.f};
+
+    const sim::Boid b1{pos1, vel1, 150.f};
+    const sim::Boid b2{pos2, vel2, 100.f};
+    const std::vector<sim::Boid> boids{b1, b2};
+    float diff_angle = b1.diff_angle(b2);
+    auto near = b1.find_near(boids, 10.);
+
+    CHECK(diff_angle == doctest::Approx(161.565).epsilon(0.001));
+    CHECK(near.size() == 0);
+  }
+}
+
 
 TEST_CASE("Testing the get_rotation_angle() method") {
   SUBCASE("Both components of velocity are positive") {
@@ -215,4 +230,14 @@ TEST_CASE("Testing the get_rotation_angle() method") {
 
     CHECK(b4.get_rotation_angle() ==doctest::Approx(-56.31).epsilon(0.01) );
   }
+}
+
+TEST_CASE("Testing the operator==") {
+    const sim::Vector v1{3.f, 1.f};
+    const sim::Vector v2{2.f, 2.f};
+
+    const sim::Boid b1{v1, v2, 180.f};
+    const sim::Boid b2{v1, v2, 180.f};
+
+    CHECK(b1 == b2);
 }

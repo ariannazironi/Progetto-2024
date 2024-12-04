@@ -47,10 +47,6 @@ class Flock {
   Vector find_cohesion(const Boid& chosen_boid) const;
   Vector find_deltav(const Boid& chosen_boid) const;
 
-  Boid generate_random_boid(float x_min, float x_max, float y_min, float y_max,
-                            float vx_min, float vx_max, float vy_min,
-                            float vy_max);
-
   Statistics state() const;
 };
 
