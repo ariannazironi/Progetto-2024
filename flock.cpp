@@ -48,7 +48,7 @@ void Flock::update_predator(const float& delta_t, const float x_max,
     Vector v = predator.separation(separation_parameter_,
                                    distance_of_separation_, near_predator);
     predator.change_vel(v);
-    predator.limit_velocity(max_speed_);
+    predator.limit_velocity(0.7 * max_speed_);
     predator.min_velocity(min_speed_);
     const Vector delta_pos = predator.get_vel() * delta_t;
     predator.change_pos(delta_pos);
@@ -91,7 +91,7 @@ Vector Flock::find_separation(const Boid& chosen_boid) const {
   for (auto& predator : predators_) {
     float predator_dist = chosen_boid.get_pos().distance(predator.get_pos());
     if (predator_dist < distance_of_separation_) {
-      null += (predator.get_pos() - chosen_boid.get_pos()) * 1.5f *
+      null += (predator.get_pos() - chosen_boid.get_pos()) *
               (-separation_parameter_);
     }
   }

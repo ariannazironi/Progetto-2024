@@ -36,6 +36,7 @@ class Boid {
   float get_rotation_angle() const;
   void set_position(const Vector& new_pos);
   void set_velocity(const Vector& new_vel);
+  bool operator==(const Boid& other_boid) const;
   sf::CircleShape& set_shape_boid();
   sf::CircleShape& set_shape_predator();
 };

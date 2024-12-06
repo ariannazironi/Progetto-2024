@@ -137,6 +137,12 @@ float Boid::get_rotation_angle() const {
   return angle + 90.0f;
 }
 
+bool Boid::operator==(const Boid& other_boid) const {
+  return (position_ == other_boid.position_ &&
+          velocity_ == other_boid.velocity_ &&
+          view_angle_ == other_boid.view_angle_);
+};
+
 sf::CircleShape& Boid::set_shape_boid() {
   boidshape_.setPointCount(3);       // Imposta come triangolo
   boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
