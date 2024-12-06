@@ -16,7 +16,7 @@ int main() {
   const float x_max = 600.0f;  // Larghezza della finestra
   const float y_max = 600.0f;  // Altezza della finestra
 
-  sim::Flock flock(100.0f, 40.0f, 0.8f, 0.5f, 0.001f, 10.0f, 10.0f);
+  sim::Flock flock(100.0f, 40.0f, 0.2f, 0.5f, 0.001f, 10.0f, 10.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());

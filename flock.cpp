@@ -60,6 +60,12 @@ Boid Flock::find_prey(const Boid& predator) {
   float min_distance = 600.0f;
   Boid closest_prey;
 
+  auto it = std::find_if(boids_.begin(), boids_.end(), [&](const Boid& boid) {
+   return predator.get_pos().distance(boid.get_pos()) < min_distance;
+  } ) ;
+  if (it != boids_.end()) {
+    return *it;
+  }
   std::find_if(boids_.begin(), boids_.end(), [&](const Boid& boid) {
     float distance = predator.get_pos().distance(boid.get_pos());
 
