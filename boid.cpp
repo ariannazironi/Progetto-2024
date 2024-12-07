@@ -116,7 +116,7 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-void Boid::border(const float x_max, const float y_max) {
+/*void Boid::border(const float x_max, const float y_max) {
   if (position_.get_x() <= 0.) {
     position_.set_x(0.);
     velocity_.set_x(-2.0f * velocity_.get_x());
@@ -131,7 +131,20 @@ void Boid::border(const float x_max, const float y_max) {
     position_.set_y(y_max);
     velocity_.set_y(-2.0f * velocity_.get_y());
   }
-}
+} */
+
+void Boid::border(const float x_max, const float y_max) {
+  if (position_.get_x() <= 0.) {
+    position_.set_x(x_max);
+  } else if (position_.get_x() >= x_max) {
+    position_.set_x(0.);
+  }
+  if (position_.get_y() <= 0.) {
+    position_.set_y(y_max);
+  } else if (position_.get_y() >= y_max) {
+    position_.set_y(0.);
+  }
+} 
 float Boid::get_rotation_angle() const {
   float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;

@@ -27,7 +27,15 @@ void Flock::add_predators(const Boid& new_predator) {
 
 void Flock::update_boids(const float& delta_t, const float x_max,
                          const float y_max) {
+  const float predator_distance = 170.0f;
   for (auto& boid : boids_) {
+    for (const auto& predator : predators_) {
+      float distance = boid.get_pos().distance(predator.get_pos());
+      if (distance < predator_distance) {
+        Vector escape_vel = (boid.get_pos() - predator.get_pos());
+        boid.change_vel(escape_vel * 1.3f);
+      }
+    }
     boid.change_vel(find_deltav(boid));
     boid.limit_velocity(max_speed_);
     boid.min_velocity(min_speed_);
@@ -41,15 +49,15 @@ void Flock::update_predator(const float& delta_t, const float x_max,
   for (auto& predator : predators_) {
     Boid prey = find_prey(predator);
     Vector chase_vel =
-        (prey.get_pos() - predator.get_pos()) * (separation_parameter_);
-    predator.set_velocity(chase_vel);
+        (prey.get_pos() - predator.get_pos()) * separation_parameter_;
+    predator.set_velocity(chase_vel * 2.0f);
     auto near_predator = predator.find_near(predators_, closeness_parameter_);
     assert(near_predator.size() <= predators_.size());
     Vector v = predator.separation(separation_parameter_,
                                    distance_of_separation_, near_predator);
     predator.change_vel(v);
-    predator.limit_velocity(0.7 * max_speed_);
-    predator.min_velocity(min_speed_);
+    predator.limit_velocity(0.5f * max_speed_);
+    predator.min_velocity(min_speed_ * 1.5f);
     const Vector delta_pos = predator.get_vel() * delta_t;
     predator.change_pos(delta_pos);
     predator.border(x_max, y_max);
@@ -57,15 +65,9 @@ void Flock::update_predator(const float& delta_t, const float x_max,
 };
 
 Boid Flock::find_prey(const Boid& predator) {
-  float min_distance = 600.0f;
+  float min_distance = 500.0f;
   Boid closest_prey;
 
-  auto it = std::find_if(boids_.begin(), boids_.end(), [&](const Boid& boid) {
-   return predator.get_pos().distance(boid.get_pos()) < min_distance;
-  } ) ;
-  if (it != boids_.end()) {
-    return *it;
-  }
   std::find_if(boids_.begin(), boids_.end(), [&](const Boid& boid) {
     float distance = predator.get_pos().distance(boid.get_pos());
 

@@ -10,19 +10,39 @@
 #include "vector.hpp"
 
 int main() {
-  sf::RenderWindow window(sf::VideoMode(600, 600), "Boid Simulation");
+  sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
+  sf::RenderWindow window(
+      sf::VideoMode(desktopMode.width - 20, desktopMode.height - 80),
+      "Boid Simulation", sf::Style::Default);
+  window.setPosition(sf::Vector2i(0, 0));
+  sf::Texture skyTexture;
+  // window.setFramerateLimit(200);
+
+  if (!skyTexture.loadFromFile("cielo.jpg")) {
+    std::cerr << "Errore: impossibile caricare l'immagine del cielo."
+              << std::endl;
+    return -1;
+  }
+  sf::Sprite skySprite;
+
+  skySprite.setTexture(skyTexture);
+
+  sf::Vector2u windowSize = window.getSize();
+  sf::Vector2u textureSize = skyTexture.getSize();
+  skySprite.setScale(static_cast<float>(windowSize.x) / textureSize.x,
+                     static_cast<float>(windowSize.y) / textureSize.y);
   sf::Event event;
 
-  const float x_max = 600.0f;  // Larghezza della finestra
-  const float y_max = 600.0f;  // Altezza della finestra
-
-  sim::Flock flock(100.0f, 40.0f, 0.2f, 0.5f, 0.001f, 10.0f, 10.0f);
+  sim::Flock flock(50.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 60.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
-  std::uniform_real_distribution<float> velocity_distribution(-10.0f, 10.0f);
+  std::uniform_real_distribution<float> velocity_distribution(-50.0f, 50.0f);
+
+  sf::Clock clock;
 
   while (window.isOpen()) {
+    sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
         window.close();
@@ -70,12 +90,15 @@ int main() {
           break;
       }
     }
-    const float delta_t = 0.1f;
 
-    flock.update_boids(delta_t, x_max, y_max);
-    flock.update_predator(delta_t, x_max, y_max);
+    float delta_t = clock.restart().asSeconds();
 
-    window.clear(sf::Color::Black);  // pulisce la scena
+    flock.update_boids(delta_t , windowSize.x, windowSize.y);
+    flock.update_predator(delta_t , windowSize.x, windowSize.y);
+
+    window.clear();  // pulisce la scena
+
+    // window.draw(skySprite);
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape_boid());

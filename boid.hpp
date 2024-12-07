@@ -39,6 +39,7 @@ class Boid {
   bool operator==(const Boid& other_boid) const;
   sf::CircleShape& set_shape_boid();
   sf::CircleShape& set_shape_predator();
+  
 };
 
 }  // namespace sim
