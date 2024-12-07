@@ -252,9 +252,9 @@ TEST_CASE("Testing predators") {
   const sim::Vector vel1{1.f, 1.f};
 
   const sim::Vector pos2(-4.f, 1.f);
-  const sim::Vector vel2(11.f, -6.f);
+  const sim::Vector vel2(8.f, -3.f);
 
-  const sim::Vector pos3(0.f, 3.f);
+  const sim::Vector pos3(0.f, 5.f);
   const sim::Vector vel3(5.f, 0.f);
 
   sim::Boid b1(pos0, vel0, 100.f );
@@ -266,7 +266,7 @@ TEST_CASE("Testing predators") {
 
   const float distance_of_separation_ = 4.0f;
 
-  const float separation_parameter_ = 0.1f;
+  const float separation_parameter_ = 0.2f;
 
   const float allignment_parameter_ = 0.2f;
 
@@ -299,6 +299,17 @@ TEST_CASE("Testing predators") {
     CHECK(prey_1 == b2);
     CHECK(prey_2 == b1);
 
+  }
+
+   SUBCASE("Testing update method:") {
+    const float delta_t = 0.5f;
+    flock.update_predator(delta_t,300.f,300.f);
+    auto updated_predators = flock.get_predators();
+
+    CHECK(updated_predators[1].get_vel().get_x() == doctest::Approx(0.8f).epsilon(0.1));
+    CHECK(updated_predators[1].get_vel().get_y() == doctest::Approx(-1.2f).epsilon(0.1));
+    CHECK(updated_predators[1].get_pos().get_x() == doctest::Approx(0.4f).epsilon(0.1));
+    CHECK(updated_predators[1].get_pos().get_y() == doctest::Approx(4.4f).epsilon(0.01));
   }
 }
 
