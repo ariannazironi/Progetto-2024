@@ -10,77 +10,102 @@
 #include "vector.hpp"
 
 int main() {
+  sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
   sf::RenderWindow window(
-      sf::VideoMode(600, 600),
-      "Boid Simulation");  // apro finestra nera 600 x 600 con titolo dato
+      sf::VideoMode(desktopMode.width - 20, desktopMode.height - 80),
+      "Boid Simulation", sf::Style::Default);
+  window.setPosition(sf::Vector2i(0, 0));
+  sf::Texture skyTexture;
+  // window.setFramerateLimit(200);
+
+  if (!skyTexture.loadFromFile("cielo.jpg")) {
+    std::cerr << "Errore: impossibile caricare l'immagine del cielo."
+              << std::endl;
+    return -1;
+  }
+  sf::Sprite skySprite;
+
+  skySprite.setTexture(skyTexture);
+
+  sf::Vector2u windowSize = window.getSize();
+  sf::Vector2u textureSize = skyTexture.getSize();
+  skySprite.setScale(static_cast<float>(windowSize.x) / textureSize.x,
+                     static_cast<float>(windowSize.y) / textureSize.y);
   sf::Event event;
 
-  const float x_max = 600.0f;  // Larghezza della finestra
-  const float y_max = 600.0f;  // Altezza della finestra
-
-  sim::Flock flock(100.0f, 40.0f, 0.8f, 0.5f, 0.001f, 20.0f, 10.0f);
+  sim::Flock flock(50.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 60.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
-  std::uniform_real_distribution<float> velocity_distribution(-15.0f, 15.0f);
+  std::uniform_real_distribution<float> velocity_distribution(-50.0f, 50.0f);
+
+  sf::Clock clock;
 
   while (window.isOpen()) {
+    sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
         window.close();
       }
-      
+
       switch (event.type) {
-        case sf::Event::MouseButtonPressed:
-          {
-            const sf::Vector2i position = sf::Mouse::getPosition(window);
-            const float positionf_x = static_cast<float>(position.x);
-            const float positionf_y = static_cast<float>(position.y);
-            const sim::Vector position_f{positionf_x, positionf_y};
-            const sim::Vector speed{velocity_distribution(gen), velocity_distribution(gen)};
-            
-            switch (event.mouseButton.button) {
-              case sf::Mouse::Left:
-                // Se clicchi con il tasto sinistro, aggiungi un boid
-                {
-                  sim::Boid boid{position_f, speed, 180.0f};
-                  boid.set_position(position_f);
-                  flock.add_boids(boid);
-                }
-                break;
+        case sf::Event::MouseButtonPressed: {
+          switch (event.mouseButton.button) {
+            case sf::Mouse::Left:
+              // Se clicchi con il tasto sinistro, aggiungi un boid
+              {
+                const sf::Vector2i position = sf::Mouse::getPosition(window);
+                const float positionf_x = static_cast<float>(position.x);
+                const float positionf_y = static_cast<float>(position.y);
+                const sim::Vector position_f{positionf_x, positionf_y};
+                const sim::Vector speed{velocity_distribution(gen),
+                                        velocity_distribution(gen)};
+                sim::Boid boid{position_f, speed, 180.0f};
+                boid.set_position(position_f);
+                flock.add_boids(boid);
+              }
+              break;
 
-              case sf::Mouse::Right:
-                // Se clicchi con il tasto destro, aggiungi un predatore
-                {
-                  sim::Boid predator{position_f, speed, 180.0f};
-                  predator.set_position(position_f);
-                  flock.add_predators(predator);
-                }
-                break;
+            case sf::Mouse::Right:
+              // Se clicchi con il tasto destro, aggiungi un predatore
+              {
+                const sf::Vector2i position = sf::Mouse::getPosition(window);
+                const float positionf_x = static_cast<float>(position.x);
+                const float positionf_y = static_cast<float>(position.y);
+                const sim::Vector position_f{positionf_x, positionf_y};
+                const sim::Vector speed{velocity_distribution(gen),
+                                        velocity_distribution(gen)};
+                sim::Boid predator{position_f, speed, 180.0f};
+                predator.set_position(position_f);
+                flock.add_predators(predator);
+              }
+              break;
 
-              default:
-                break; 
-            }
+            default:
+              break;
           }
-          break;
+        } break;
 
         default:
-          break; 
+          break;
       }
     }
-    
-    const float delta_t = 0.1f;
-    flock.update_predator(delta_t, x_max, y_max);
-    flock.update_boids(delta_t, x_max, y_max);
-    
-    window.clear(sf::Color::Black);  // pulisce la scena
+
+    float delta_t = clock.restart().asSeconds();
+
+    flock.update_boids(delta_t , windowSize.x, windowSize.y);
+    flock.update_predator(delta_t , windowSize.x, windowSize.y);
+
+    window.clear();  // pulisce la scena
+
+    // window.draw(skySprite);
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape_boid());
     }
 
-    for( auto& predator : flock.get_predators()) {
-    window.draw(predator.set_shape_predator());
+    for (auto& predator : flock.get_predators()) {
+      window.draw(predator.set_shape_predator());
     }
     window.display();
   }
