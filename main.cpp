@@ -33,11 +33,11 @@ int main() {
                      static_cast<float>(windowSize.y) / textureSize.y);
   sf::Event event;
 
-  sim::Flock flock(50.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 60.0f, 30.0f);
+  sim::Flock flock(50.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
-  std::uniform_real_distribution<float> velocity_distribution(-50.0f, 50.0f);
+  std::uniform_real_distribution<float> velocity_distribution(-100.0f, 100.0f);
 
   sf::Clock clock;
 

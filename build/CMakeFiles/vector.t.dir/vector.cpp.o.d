@@ -1,6 +1,6 @@
-CMakeFiles/vector.t.dir/vector.cpp.o: \
- /home/arianna-zironi/progetto24/vector.cpp /usr/include/stdc-predef.h \
- /home/arianna-zironi/progetto24/vector.hpp /usr/include/c++/11/cassert \
+CMakeFiles/vector.t.dir/vector.cpp.o: /home/fra/progetto/vector.cpp \
+ /usr/include/stdc-predef.h /home/fra/progetto/vector.hpp \
+ /usr/include/c++/11/cassert \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

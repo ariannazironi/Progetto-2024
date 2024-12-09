@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arianna-zironi/progetto24
+CMAKE_SOURCE_DIR = /home/fra/progetto
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arianna-zironi/progetto24/build
+CMAKE_BINARY_DIR = /home/fra/progetto/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/vector.t.dir/depend.make
@@ -69,79 +69,50 @@ include CMakeFiles/vector.t.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/vector.t.dir/flags.make
 
-CMakeFiles/vector.t.dir/boid.cpp.o: CMakeFiles/vector.t.dir/flags.make
-CMakeFiles/vector.t.dir/boid.cpp.o: ../boid.cpp
-CMakeFiles/vector.t.dir/boid.cpp.o: CMakeFiles/vector.t.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/vector.t.dir/boid.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.t.dir/boid.cpp.o -MF CMakeFiles/vector.t.dir/boid.cpp.o.d -o CMakeFiles/vector.t.dir/boid.cpp.o -c /home/arianna-zironi/progetto24/boid.cpp
+CMakeFiles/vector.t.dir/vector.cpp.o: CMakeFiles/vector.t.dir/flags.make
+CMakeFiles/vector.t.dir/vector.cpp.o: ../vector.cpp
+CMakeFiles/vector.t.dir/vector.cpp.o: CMakeFiles/vector.t.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/vector.t.dir/vector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.t.dir/vector.cpp.o -MF CMakeFiles/vector.t.dir/vector.cpp.o.d -o CMakeFiles/vector.t.dir/vector.cpp.o -c /home/fra/progetto/vector.cpp
 
-CMakeFiles/vector.t.dir/boid.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vector.t.dir/boid.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/boid.cpp > CMakeFiles/vector.t.dir/boid.cpp.i
+CMakeFiles/vector.t.dir/vector.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vector.t.dir/vector.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fra/progetto/vector.cpp > CMakeFiles/vector.t.dir/vector.cpp.i
 
-CMakeFiles/vector.t.dir/boid.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vector.t.dir/boid.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/boid.cpp -o CMakeFiles/vector.t.dir/boid.cpp.s
+CMakeFiles/vector.t.dir/vector.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vector.t.dir/vector.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fra/progetto/vector.cpp -o CMakeFiles/vector.t.dir/vector.cpp.s
 
 CMakeFiles/vector.t.dir/vector.test.cpp.o: CMakeFiles/vector.t.dir/flags.make
 CMakeFiles/vector.t.dir/vector.test.cpp.o: ../vector.test.cpp
 CMakeFiles/vector.t.dir/vector.test.cpp.o: CMakeFiles/vector.t.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/vector.t.dir/vector.test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.t.dir/vector.test.cpp.o -MF CMakeFiles/vector.t.dir/vector.test.cpp.o.d -o CMakeFiles/vector.t.dir/vector.test.cpp.o -c /home/arianna-zironi/progetto24/vector.test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/vector.t.dir/vector.test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.t.dir/vector.test.cpp.o -MF CMakeFiles/vector.t.dir/vector.test.cpp.o.d -o CMakeFiles/vector.t.dir/vector.test.cpp.o -c /home/fra/progetto/vector.test.cpp
 
 CMakeFiles/vector.t.dir/vector.test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vector.t.dir/vector.test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/vector.test.cpp > CMakeFiles/vector.t.dir/vector.test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fra/progetto/vector.test.cpp > CMakeFiles/vector.t.dir/vector.test.cpp.i
 
 CMakeFiles/vector.t.dir/vector.test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vector.t.dir/vector.test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/vector.test.cpp -o CMakeFiles/vector.t.dir/vector.test.cpp.s
-
-CMakeFiles/vector.t.dir/vector.cpp.o: CMakeFiles/vector.t.dir/flags.make
-CMakeFiles/vector.t.dir/vector.cpp.o: ../vector.cpp
-CMakeFiles/vector.t.dir/vector.cpp.o: CMakeFiles/vector.t.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/vector.t.dir/vector.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.t.dir/vector.cpp.o -MF CMakeFiles/vector.t.dir/vector.cpp.o.d -o CMakeFiles/vector.t.dir/vector.cpp.o -c /home/arianna-zironi/progetto24/vector.cpp
-
-CMakeFiles/vector.t.dir/vector.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vector.t.dir/vector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/vector.cpp > CMakeFiles/vector.t.dir/vector.cpp.i
-
-CMakeFiles/vector.t.dir/vector.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vector.t.dir/vector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/vector.cpp -o CMakeFiles/vector.t.dir/vector.cpp.s
-
-CMakeFiles/vector.t.dir/boid.test.cpp.o: CMakeFiles/vector.t.dir/flags.make
-CMakeFiles/vector.t.dir/boid.test.cpp.o: ../boid.test.cpp
-CMakeFiles/vector.t.dir/boid.test.cpp.o: CMakeFiles/vector.t.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/vector.t.dir/boid.test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.t.dir/boid.test.cpp.o -MF CMakeFiles/vector.t.dir/boid.test.cpp.o.d -o CMakeFiles/vector.t.dir/boid.test.cpp.o -c /home/arianna-zironi/progetto24/boid.test.cpp
-
-CMakeFiles/vector.t.dir/boid.test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vector.t.dir/boid.test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/boid.test.cpp > CMakeFiles/vector.t.dir/boid.test.cpp.i
-
-CMakeFiles/vector.t.dir/boid.test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vector.t.dir/boid.test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/boid.test.cpp -o CMakeFiles/vector.t.dir/boid.test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fra/progetto/vector.test.cpp -o CMakeFiles/vector.t.dir/vector.test.cpp.s
 
 # Object files for target vector.t
 vector_t_OBJECTS = \
-"CMakeFiles/vector.t.dir/boid.cpp.o" \
-"CMakeFiles/vector.t.dir/vector.test.cpp.o" \
 "CMakeFiles/vector.t.dir/vector.cpp.o" \
-"CMakeFiles/vector.t.dir/boid.test.cpp.o"
+"CMakeFiles/vector.t.dir/vector.test.cpp.o"
 
 # External object files for target vector.t
 vector_t_EXTERNAL_OBJECTS =
 
-vector.t: CMakeFiles/vector.t.dir/boid.cpp.o
-vector.t: CMakeFiles/vector.t.dir/vector.test.cpp.o
 vector.t: CMakeFiles/vector.t.dir/vector.cpp.o
-vector.t: CMakeFiles/vector.t.dir/boid.test.cpp.o
+vector.t: CMakeFiles/vector.t.dir/vector.test.cpp.o
 vector.t: CMakeFiles/vector.t.dir/build.make
+vector.t: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1
+vector.t: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1
+vector.t: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
 vector.t: CMakeFiles/vector.t.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable vector.t"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable vector.t"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/vector.t.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -153,6 +124,6 @@ CMakeFiles/vector.t.dir/clean:
 .PHONY : CMakeFiles/vector.t.dir/clean
 
 CMakeFiles/vector.t.dir/depend:
-	cd /home/arianna-zironi/progetto24/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arianna-zironi/progetto24 /home/arianna-zironi/progetto24 /home/arianna-zironi/progetto24/build /home/arianna-zironi/progetto24/build /home/arianna-zironi/progetto24/build/CMakeFiles/vector.t.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/fra/progetto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fra/progetto /home/fra/progetto /home/fra/progetto/build /home/fra/progetto/build /home/fra/progetto/build/CMakeFiles/vector.t.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vector.t.dir/depend
 

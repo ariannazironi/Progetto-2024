@@ -85,7 +85,7 @@ TEST_CASE("Testing three close boids") {
 }
 
 TEST_CASE("Testing no close boids") {
-  const sim::Vector pos0{0.f, 0.f};
+  const sim::Vector pos0{0.f, 1.f};
   const sim::Vector vel0{2.f, 0.f};
 
   const sim::Vector pos1{4.f, 3.7f};
@@ -152,7 +152,7 @@ TEST_CASE("Testing no close boids") {
     CHECK(updated_boids[0].get_vel().get_x() == doctest::Approx(2.f).epsilon(0.001));
     CHECK(updated_boids[0].get_vel().get_y() == doctest::Approx(0.f).epsilon(0.001));
     CHECK(updated_boids[0].get_pos().get_x() == doctest::Approx(1.f).epsilon(0.001));
-    CHECK(updated_boids[0].get_pos().get_y() == doctest::Approx(0.f).epsilon(0.001));
+    CHECK(updated_boids[0].get_pos().get_y() == doctest::Approx(1.f).epsilon(0.001));
 
     CHECK(updated_boids[1].get_vel().get_x() == doctest::Approx(1.f).epsilon(0.001));
     CHECK(updated_boids[1].get_vel().get_y() == doctest::Approx(1.f).epsilon(0.001));

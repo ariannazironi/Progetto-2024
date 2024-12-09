@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/arianna-zironi/progetto24
-BuildDirectory: /home/arianna-zironi/progetto24/build
+SourceDirectory: /home/fra/progetto
+BuildDirectory: /home/fra/progetto/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: LAPTOP-3J1JDIQR
+Site: frapc
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Linux-c++
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/arianna-zironi/progetto24"
+ConfigureCommand: "/usr/bin/cmake" "/home/fra/progetto"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 

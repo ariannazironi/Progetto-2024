@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arianna-zironi/progetto24
+CMAKE_SOURCE_DIR = /home/fra/progetto
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arianna-zironi/progetto24/build
+CMAKE_BINARY_DIR = /home/fra/progetto/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/boids.dir/depend.make
@@ -72,76 +72,79 @@ include CMakeFiles/boids.dir/flags.make
 CMakeFiles/boids.dir/boid.cpp.o: CMakeFiles/boids.dir/flags.make
 CMakeFiles/boids.dir/boid.cpp.o: ../boid.cpp
 CMakeFiles/boids.dir/boid.cpp.o: CMakeFiles/boids.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/boids.dir/boid.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/boid.cpp.o -MF CMakeFiles/boids.dir/boid.cpp.o.d -o CMakeFiles/boids.dir/boid.cpp.o -c /home/arianna-zironi/progetto24/boid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/boids.dir/boid.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/boid.cpp.o -MF CMakeFiles/boids.dir/boid.cpp.o.d -o CMakeFiles/boids.dir/boid.cpp.o -c /home/fra/progetto/boid.cpp
 
 CMakeFiles/boids.dir/boid.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boids.dir/boid.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/boid.cpp > CMakeFiles/boids.dir/boid.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fra/progetto/boid.cpp > CMakeFiles/boids.dir/boid.cpp.i
 
 CMakeFiles/boids.dir/boid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boids.dir/boid.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/boid.cpp -o CMakeFiles/boids.dir/boid.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fra/progetto/boid.cpp -o CMakeFiles/boids.dir/boid.cpp.s
+
+CMakeFiles/boids.dir/main.cpp.o: CMakeFiles/boids.dir/flags.make
+CMakeFiles/boids.dir/main.cpp.o: ../main.cpp
+CMakeFiles/boids.dir/main.cpp.o: CMakeFiles/boids.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/boids.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/main.cpp.o -MF CMakeFiles/boids.dir/main.cpp.o.d -o CMakeFiles/boids.dir/main.cpp.o -c /home/fra/progetto/main.cpp
+
+CMakeFiles/boids.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boids.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fra/progetto/main.cpp > CMakeFiles/boids.dir/main.cpp.i
+
+CMakeFiles/boids.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boids.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fra/progetto/main.cpp -o CMakeFiles/boids.dir/main.cpp.s
+
+CMakeFiles/boids.dir/flock.cpp.o: CMakeFiles/boids.dir/flags.make
+CMakeFiles/boids.dir/flock.cpp.o: ../flock.cpp
+CMakeFiles/boids.dir/flock.cpp.o: CMakeFiles/boids.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/boids.dir/flock.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/flock.cpp.o -MF CMakeFiles/boids.dir/flock.cpp.o.d -o CMakeFiles/boids.dir/flock.cpp.o -c /home/fra/progetto/flock.cpp
+
+CMakeFiles/boids.dir/flock.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boids.dir/flock.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fra/progetto/flock.cpp > CMakeFiles/boids.dir/flock.cpp.i
+
+CMakeFiles/boids.dir/flock.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boids.dir/flock.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fra/progetto/flock.cpp -o CMakeFiles/boids.dir/flock.cpp.s
 
 CMakeFiles/boids.dir/vector.cpp.o: CMakeFiles/boids.dir/flags.make
 CMakeFiles/boids.dir/vector.cpp.o: ../vector.cpp
 CMakeFiles/boids.dir/vector.cpp.o: CMakeFiles/boids.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/boids.dir/vector.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/vector.cpp.o -MF CMakeFiles/boids.dir/vector.cpp.o.d -o CMakeFiles/boids.dir/vector.cpp.o -c /home/arianna-zironi/progetto24/vector.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/boids.dir/vector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/vector.cpp.o -MF CMakeFiles/boids.dir/vector.cpp.o.d -o CMakeFiles/boids.dir/vector.cpp.o -c /home/fra/progetto/vector.cpp
 
 CMakeFiles/boids.dir/vector.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boids.dir/vector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/vector.cpp > CMakeFiles/boids.dir/vector.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fra/progetto/vector.cpp > CMakeFiles/boids.dir/vector.cpp.i
 
 CMakeFiles/boids.dir/vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boids.dir/vector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/vector.cpp -o CMakeFiles/boids.dir/vector.cpp.s
-
-CMakeFiles/boids.dir/vector.test.cpp.o: CMakeFiles/boids.dir/flags.make
-CMakeFiles/boids.dir/vector.test.cpp.o: ../vector.test.cpp
-CMakeFiles/boids.dir/vector.test.cpp.o: CMakeFiles/boids.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/boids.dir/vector.test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/vector.test.cpp.o -MF CMakeFiles/boids.dir/vector.test.cpp.o.d -o CMakeFiles/boids.dir/vector.test.cpp.o -c /home/arianna-zironi/progetto24/vector.test.cpp
-
-CMakeFiles/boids.dir/vector.test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boids.dir/vector.test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/vector.test.cpp > CMakeFiles/boids.dir/vector.test.cpp.i
-
-CMakeFiles/boids.dir/vector.test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boids.dir/vector.test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/vector.test.cpp -o CMakeFiles/boids.dir/vector.test.cpp.s
-
-CMakeFiles/boids.dir/boid.test.cpp.o: CMakeFiles/boids.dir/flags.make
-CMakeFiles/boids.dir/boid.test.cpp.o: ../boid.test.cpp
-CMakeFiles/boids.dir/boid.test.cpp.o: CMakeFiles/boids.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/boids.dir/boid.test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/boids.dir/boid.test.cpp.o -MF CMakeFiles/boids.dir/boid.test.cpp.o.d -o CMakeFiles/boids.dir/boid.test.cpp.o -c /home/arianna-zironi/progetto24/boid.test.cpp
-
-CMakeFiles/boids.dir/boid.test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/boids.dir/boid.test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/arianna-zironi/progetto24/boid.test.cpp > CMakeFiles/boids.dir/boid.test.cpp.i
-
-CMakeFiles/boids.dir/boid.test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/boids.dir/boid.test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/arianna-zironi/progetto24/boid.test.cpp -o CMakeFiles/boids.dir/boid.test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fra/progetto/vector.cpp -o CMakeFiles/boids.dir/vector.cpp.s
 
 # Object files for target boids
 boids_OBJECTS = \
 "CMakeFiles/boids.dir/boid.cpp.o" \
-"CMakeFiles/boids.dir/vector.cpp.o" \
-"CMakeFiles/boids.dir/vector.test.cpp.o" \
-"CMakeFiles/boids.dir/boid.test.cpp.o"
+"CMakeFiles/boids.dir/main.cpp.o" \
+"CMakeFiles/boids.dir/flock.cpp.o" \
+"CMakeFiles/boids.dir/vector.cpp.o"
 
 # External object files for target boids
 boids_EXTERNAL_OBJECTS =
 
 boids: CMakeFiles/boids.dir/boid.cpp.o
+boids: CMakeFiles/boids.dir/main.cpp.o
+boids: CMakeFiles/boids.dir/flock.cpp.o
 boids: CMakeFiles/boids.dir/vector.cpp.o
-boids: CMakeFiles/boids.dir/vector.test.cpp.o
-boids: CMakeFiles/boids.dir/boid.test.cpp.o
 boids: CMakeFiles/boids.dir/build.make
+boids: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1
+boids: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1
+boids: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
 boids: CMakeFiles/boids.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/arianna-zironi/progetto24/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable boids"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/fra/progetto/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable boids"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/boids.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -153,6 +156,6 @@ CMakeFiles/boids.dir/clean:
 .PHONY : CMakeFiles/boids.dir/clean
 
 CMakeFiles/boids.dir/depend:
-	cd /home/arianna-zironi/progetto24/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arianna-zironi/progetto24 /home/arianna-zironi/progetto24 /home/arianna-zironi/progetto24/build /home/arianna-zironi/progetto24/build /home/arianna-zironi/progetto24/build/CMakeFiles/boids.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/fra/progetto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fra/progetto /home/fra/progetto /home/fra/progetto/build /home/fra/progetto/build /home/fra/progetto/build/CMakeFiles/boids.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/boids.dir/depend
 
