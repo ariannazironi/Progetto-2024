@@ -55,7 +55,7 @@ void Flock::update_predator(const float& delta_t, const float x_max,
     Vector v = predator.separation(separation_parameter_,
                                    distance_of_separation_, near_predator);
     predator.change_vel(v);
-    predator.limit_velocity(0.5f * max_speed_);
+    predator.limit_velocity(max_speed_);
     predator.min_velocity(min_speed_ * 1.5f);
     const Vector delta_pos = predator.get_vel() * delta_t;
     predator.change_pos(delta_pos);

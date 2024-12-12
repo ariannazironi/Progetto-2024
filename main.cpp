@@ -17,12 +17,6 @@ int main() {
   window.setPosition(sf::Vector2i(0, 0));
   sf::Texture skyTexture;
   // window.setFramerateLimit(200);
-
-  if (!skyTexture.loadFromFile("cielo.jpg")) {
-    std::cerr << "Errore: impossibile caricare l'immagine del cielo."
-              << std::endl;
-    return -1;
-  }
   sf::Sprite skySprite;
 
   skySprite.setTexture(skyTexture);
@@ -33,13 +27,14 @@ int main() {
                      static_cast<float>(windowSize.y) / textureSize.y);
   sf::Event event;
 
-  sim::Flock flock(50.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
+  sim::Flock flock(100.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
   std::uniform_real_distribution<float> velocity_distribution(-100.0f, 100.0f);
 
   sf::Clock clock;
+  sf::Clock clock2;
 
   while (window.isOpen()) {
     sf::Event event;
@@ -96,9 +91,21 @@ int main() {
     flock.update_boids(delta_t , windowSize.x, windowSize.y);
     flock.update_predator(delta_t , windowSize.x, windowSize.y);
 
-    window.clear();  // pulisce la scena
+    sf::Time time_passed = clock2.getElapsedTime();
 
-    // window.draw(skySprite);
+    const sim::Statistics flock_state = flock.state();
+
+    if (time_passed.asSeconds() >= 2.f) {
+      std::cout << "Medium velocity: " << flock_state.mean_speed<< " +/- "
+                << flock_state.dev_speed << ";       "
+                << "Medium distance among boids: "
+                << flock_state.mean_dist << " +/- "
+                << flock_state.dev_dist << ";\n";
+
+      clock2.restart();
+    }
+
+    window.clear(sf::Color::Blue);  // pulisce la scena
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape_boid());
