@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/arianna-zironi/progetto24/boid.cpp" "CMakeFiles/boids.dir/boid.cpp.o" "gcc" "CMakeFiles/boids.dir/boid.cpp.o.d"
-  "/home/arianna-zironi/progetto24/boid.test.cpp" "CMakeFiles/boids.dir/boid.test.cpp.o" "gcc" "CMakeFiles/boids.dir/boid.test.cpp.o.d"
-  "/home/arianna-zironi/progetto24/vector.cpp" "CMakeFiles/boids.dir/vector.cpp.o" "gcc" "CMakeFiles/boids.dir/vector.cpp.o.d"
-  "/home/arianna-zironi/progetto24/vector.test.cpp" "CMakeFiles/boids.dir/vector.test.cpp.o" "gcc" "CMakeFiles/boids.dir/vector.test.cpp.o.d"
+  "/home/fra/progetto/boid.cpp" "CMakeFiles/boids.dir/boid.cpp.o" "gcc" "CMakeFiles/boids.dir/boid.cpp.o.d"
+  "/home/fra/progetto/flock.cpp" "CMakeFiles/boids.dir/flock.cpp.o" "gcc" "CMakeFiles/boids.dir/flock.cpp.o.d"
+  "/home/fra/progetto/main.cpp" "CMakeFiles/boids.dir/main.cpp.o" "gcc" "CMakeFiles/boids.dir/main.cpp.o.d"
+  "/home/fra/progetto/vector.cpp" "CMakeFiles/boids.dir/vector.cpp.o" "gcc" "CMakeFiles/boids.dir/vector.cpp.o.d"
   )
 
 # Targets to which this target links.

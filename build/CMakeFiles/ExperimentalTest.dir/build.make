@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arianna-zironi/progetto24
+CMAKE_SOURCE_DIR = /home/fra/progetto
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arianna-zironi/progetto24/build
+CMAKE_BINARY_DIR = /home/fra/progetto/build
 
 # Utility rule file for ExperimentalTest.
 
@@ -82,6 +82,6 @@ CMakeFiles/ExperimentalTest.dir/clean:
 .PHONY : CMakeFiles/ExperimentalTest.dir/clean
 
 CMakeFiles/ExperimentalTest.dir/depend:
-	cd /home/arianna-zironi/progetto24/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arianna-zironi/progetto24 /home/arianna-zironi/progetto24 /home/arianna-zironi/progetto24/build /home/arianna-zironi/progetto24/build /home/arianna-zironi/progetto24/build/CMakeFiles/ExperimentalTest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/fra/progetto/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fra/progetto /home/fra/progetto /home/fra/progetto/build /home/fra/progetto/build /home/fra/progetto/build/CMakeFiles/ExperimentalTest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ExperimentalTest.dir/depend
 

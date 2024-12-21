@@ -27,11 +27,10 @@ void Flock::add_predators(const Boid& new_predator) {
 
 void Flock::update_boids(const float& delta_t, const float x_max,
                          const float y_max) {
-  const float predator_distance = 150.0f;
   for (auto& boid : boids_) {
     for (const auto& predator : predators_) {
       float distance = boid.get_pos().distance(predator.get_pos());
-      if (distance < predator_distance) {
+      if (distance < distance_of_separation_) {
         Vector escape_vel = (boid.get_pos() - predator.get_pos());
         boid.change_vel(escape_vel);
       }
@@ -50,13 +49,13 @@ void Flock::update_predator(const float& delta_t, const float x_max,
     Boid prey = find_prey(predator);
     Vector chase_vel =
         (prey.get_pos() - predator.get_pos()) * separation_parameter_;
-    predator.set_velocity(chase_vel * 2.0f);
+    predator.set_velocity(chase_vel );
     auto near_predator = predator.find_near(predators_, closeness_parameter_);
     assert(near_predator.size() <= predators_.size());
     Vector v = predator.separation(separation_parameter_,
                                    distance_of_separation_, near_predator);
     predator.change_vel(v);
-    predator.limit_velocity(0.5f * max_speed_);
+    predator.limit_velocity(max_speed_);
     predator.min_velocity(min_speed_ * 1.5f);
     const Vector delta_pos = predator.get_vel() * delta_t;
     predator.change_pos(delta_pos);
