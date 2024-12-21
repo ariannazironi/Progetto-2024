@@ -96,9 +96,9 @@ int main() {
     flock.update_boids(delta_t , windowSize.x, windowSize.y);
     flock.update_predator(delta_t , windowSize.x, windowSize.y);
 
-    window.clear();  // pulisce la scena
+    window.clear(sf::Color::Blue);  // pulisce la scena
 
-    // window.draw(skySprite);
+    //window.draw(skySprite);
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape_boid());

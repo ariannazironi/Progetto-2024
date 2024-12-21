@@ -27,13 +27,13 @@ void Flock::add_predators(const Boid& new_predator) {
 
 void Flock::update_boids(const float& delta_t, const float x_max,
                          const float y_max) {
-  const float predator_distance = 170.0f;
+  const float predator_distance = 150.0f;
   for (auto& boid : boids_) {
     for (const auto& predator : predators_) {
       float distance = boid.get_pos().distance(predator.get_pos());
       if (distance < predator_distance) {
         Vector escape_vel = (boid.get_pos() - predator.get_pos());
-        boid.change_vel(escape_vel * 1.3f);
+        boid.change_vel(escape_vel);
       }
     }
     boid.change_vel(find_deltav(boid));
