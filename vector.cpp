@@ -5,7 +5,7 @@
 
 namespace sim {
 
-Vector::Vector() {};
+Vector::Vector() : x_{0.0f}, y_{0.0f} {};
 Vector::Vector(float x, float y) : x_{x}, y_{y} {};
 
 float Vector::get_x() const { return x_; };
@@ -19,14 +19,13 @@ Vector Vector::operator+(const Vector& vec2) const {
 }
 
 Vector Vector::operator+=(const Vector& vec2) {
-  x_ = x_ + vec2.x_;
-  y_ = y_ + vec2.y_;
+  x_ += vec2.x_;
+  y_ += vec2.y_;
   return *this;
 }
 
 Vector Vector::operator-(const Vector& vec2) const {
-  Vector neg_vector = {-vec2.x_, -vec2.y_};
-  return *this + neg_vector;
+  return Vector(x_ - vec2.x_, y_ - vec2.y_);
 }
 
 float Vector::distance(const Vector& vec2) const {
@@ -43,11 +42,11 @@ float Vector::norm_vector() const {
   return norm;
 }
 
-bool Vector::operator!=(const Vector& vec2) const {
+bool Vector::operator!=(const Vector& vec2) const {  // l'abbiamo mai usato?
   return (x_ != vec2.x_ || y_ != vec2.y_);
 }
 
-bool Vector::operator==(const Vector& vec2) const {
+bool Vector::operator==(const Vector& vec2) const {  // l'abbiamo mai usato?
   return (x_ == vec2.x_ && y_ == vec2.y_);
 }
 
@@ -56,8 +55,7 @@ Vector Vector::operator*(float scalar) const {
 }
 
 float Vector::product(const Vector& vec2) const {
-  const Vector result = {x_ * vec2.x_, y_ * vec2.y_};
-  const float product = result.x_ + result.y_;
+  const float product = x_ * vec2.x_ + y_ * vec2.y_;
   return product;
 }
 
