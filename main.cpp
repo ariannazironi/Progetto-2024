@@ -108,11 +108,11 @@ int main() {
     window.clear(sf::Color::Blue);  // pulisce la scena
 
     for (auto& boid : flock.get_boids()) {
-      window.draw(boid.set_shape_boid());
+      window.draw(boid.set_shape(false));
     }
 
     for (auto& predator : flock.get_predators()) {
-      window.draw(predator.set_shape_predator());
+      window.draw(predator.set_shape(true));
     }
     window.display();
   }
