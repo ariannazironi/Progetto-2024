@@ -157,12 +157,12 @@ bool Boid::operator==(const Boid& other_boid) const {
 };
 
 sf::CircleShape Boid::set_shape(bool is_predator) {
-  boidshape_.setPointCount(3);       // Imposta come triangolo
-  boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
-  boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
+  boidshape_.setPointCount(3);   
+  boidshape_.setRadius(5.0f);       
+  boidshape_.setOrigin(5.0f, 5.0f);  
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setScale(1.f, 1.5f);  // Imposta un colore
+  boidshape_.setScale(1.f, 1.5f); 
   if(is_predator) {
     boidshape_.setFillColor(sf::Color::Red);
   } else {

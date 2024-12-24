@@ -16,7 +16,6 @@ int main() {
       "Boid Simulation", sf::Style::Default);
   window.setPosition(sf::Vector2i(0, 0));
   sf::Texture skyTexture;
-  // window.setFramerateLimit(200);
   sf::Sprite skySprite;
 
   skySprite.setTexture(skyTexture);
@@ -105,7 +104,7 @@ int main() {
       clock2.restart();
     }
 
-    window.clear(sf::Color::Blue);  // pulisce la scena
+    window.clear(sf::Color::Blue); 
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape(false));

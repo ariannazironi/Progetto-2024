@@ -124,12 +124,6 @@ TEST_CASE("Testing norm_vector") {
   };
 }
 
-TEST_CASE("Testing operator!=") {
-    const sim::Vector v1{2,3};
-    const sim::Vector v2{2,4};
-    CHECK(v1 != v2);
-}
-
 TEST_CASE("Testing operator ==") {
     const sim::Vector v1{2,3};
     const sim::Vector v2{2,3};

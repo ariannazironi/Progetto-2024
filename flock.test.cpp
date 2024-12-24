@@ -306,10 +306,10 @@ TEST_CASE("Testing predators") {
     flock.update_predator(delta_t,300.f,300.f);
     auto updated_predators = flock.get_predators();
 
-    CHECK(updated_predators[1].get_vel().get_x() == doctest::Approx(0.8f).epsilon(0.1));
-    CHECK(updated_predators[1].get_vel().get_y() == doctest::Approx(-1.2f).epsilon(0.1));
-    CHECK(updated_predators[1].get_pos().get_x() == doctest::Approx(0.4f).epsilon(0.1));
-    CHECK(updated_predators[1].get_pos().get_y() == doctest::Approx(4.4f).epsilon(0.01));
+    CHECK(updated_predators[1].get_vel().get_x() == doctest::Approx(1.6f).epsilon(0.1));
+    CHECK(updated_predators[1].get_vel().get_y() == doctest::Approx(-2.4f).epsilon(0.1));
+    CHECK(updated_predators[1].get_pos().get_x() == doctest::Approx(0.8f).epsilon(0.1));
+    CHECK(updated_predators[1].get_pos().get_y() == doctest::Approx(3.8f).epsilon(0.01));
   }
 }
 

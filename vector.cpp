@@ -42,11 +42,7 @@ float Vector::norm_vector() const {
   return norm;
 }
 
-bool Vector::operator!=(const Vector& vec2) const {  // l'abbiamo mai usato?
-  return (x_ != vec2.x_ || y_ != vec2.y_);
-}
-
-bool Vector::operator==(const Vector& vec2) const {  // l'abbiamo mai usato?
+bool Vector::operator==(const Vector& vec2) const { 
   return (x_ == vec2.x_ && y_ == vec2.y_);
 }
 
