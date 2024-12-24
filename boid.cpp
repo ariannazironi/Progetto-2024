@@ -10,7 +10,7 @@
 
 namespace sim {
 
-Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, view_angle_() {};
+Boid::Boid() : position_{Vector{}}, velocity_{Vector{}}, view_angle_(0.f) {};
 Boid::Boid(Vector position, Vector velocity, float view_angle)
     : position_(position), velocity_(velocity), view_angle_(view_angle) {}
 
@@ -41,8 +41,8 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
   std::vector<Boid> near;
 
   for (const auto& boid : boids) {
-    Vector x = boid.get_pos();
-    if (x.distance(position_) > 0 && x.distance(position_) < distance &&
+    float dist = boid.get_pos().distance(position_);
+    if (dist > 0 && dist < distance &&
         diff_angle(boid) <= view_angle_) {
       near.push_back(boid);
     }
@@ -55,8 +55,8 @@ Vector Boid::separation(const float s_parameter, const float ds_parameter,
   if (near.size() != 0) {
     Vector v1{0., 0.};
 
-    for (auto it = near.begin(); it != near.end(); it++) {
-      Vector x1 = it->get_pos();
+    for (const auto& boid : near) {
+      Vector x1 = boid.get_pos();
       if (x1.distance(position_) < ds_parameter) {
         v1 += (x1 - position_) * (-s_parameter);
       }
@@ -156,25 +156,18 @@ bool Boid::operator==(const Boid& other_boid) const {
           view_angle_ == other_boid.view_angle_);
 };
 
-sf::CircleShape& Boid::set_shape_boid() {
+sf::CircleShape Boid::set_shape(bool is_predator) {
   boidshape_.setPointCount(3);       // Imposta come triangolo
   boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
   boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setFillColor(sf::Color::Green);
   boidshape_.setScale(1.f, 1.5f);  // Imposta un colore
-  return boidshape_;
-};
-
-sf::CircleShape& Boid::set_shape_predator() {
-  boidshape_.setPointCount(3);       // Imposta come triangolo
-  boidshape_.setRadius(5.0f);        // Imposta un raggio (dimensione del boid)
-  boidshape_.setOrigin(5.0f, 5.0f);  // Centra l'origine
-  boidshape_.setPosition(position_.get_x(), position_.get_y());
-  boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setFillColor(sf::Color::Red);
-  boidshape_.setScale(1.f, 1.5f);  // Imposta un colore
+  if(is_predator) {
+    boidshape_.setFillColor(sf::Color::Red);
+  } else {
+    boidshape_.setFillColor(sf::Color::Green);
+  }
   return boidshape_;
 };
 

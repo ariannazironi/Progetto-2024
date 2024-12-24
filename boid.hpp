@@ -18,9 +18,11 @@ class Boid {
  public:
   Boid();
   Boid(Vector position, Vector velocity, float view_angle);
+
   Vector get_pos() const;
   Vector get_vel() const;
   float get_angle() const;
+
   float diff_angle(const Boid& other) const;
   std::vector<Boid> find_near(const std::vector<Boid>& boids,
                               const float distance) const;
@@ -37,8 +39,7 @@ class Boid {
   void set_position(const Vector& new_pos);
   void set_velocity(const Vector& new_vel);
   bool operator==(const Boid& other_boid) const;
-  sf::CircleShape& set_shape_boid();
-  sf::CircleShape& set_shape_predator();
+  sf::CircleShape set_shape(bool is_predator);
   
 };
 
