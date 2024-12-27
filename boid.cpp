@@ -38,12 +38,11 @@ float Boid::diff_angle(const Boid& other) const {
 
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
                                   const float distance) const {
+  assert(distance > 0);
   std::vector<Boid> near;
-
   for (const auto& boid : boids) {
     float dist = boid.get_pos().distance(position_);
-    if (dist > 0 && dist < distance &&
-        diff_angle(boid) <= view_angle_) {
+    if (dist > 0 && dist < distance && diff_angle(boid) <= view_angle_) {
       near.push_back(boid);
     }
   }
@@ -144,7 +143,7 @@ void Boid::border(const float x_max, const float y_max) {
   } else if (position_.get_y() >= y_max) {
     position_.set_y(0.);
   }
-} 
+}
 float Boid::get_rotation_angle() const {
   float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
@@ -157,13 +156,13 @@ bool Boid::operator==(const Boid& other_boid) const {
 };
 
 sf::CircleShape Boid::set_shape(bool is_predator) {
-  boidshape_.setPointCount(3);   
-  boidshape_.setRadius(5.0f);       
-  boidshape_.setOrigin(5.0f, 5.0f);  
+  boidshape_.setPointCount(3);
+  boidshape_.setRadius(5.0f);
+  boidshape_.setOrigin(5.0f, 5.0f);
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setScale(1.f, 1.5f); 
-  if(is_predator) {
+  boidshape_.setScale(1.f, 1.5f);
+  if (is_predator) {
     boidshape_.setFillColor(sf::Color::Red);
   } else {
     boidshape_.setFillColor(sf::Color::Green);

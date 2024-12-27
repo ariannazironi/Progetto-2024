@@ -15,16 +15,15 @@ int main() {
       sf::VideoMode(desktopMode.width - 20, desktopMode.height - 80),
       "Boid Simulation", sf::Style::Default);
   window.setPosition(sf::Vector2i(0, 0));
+
   sf::Texture skyTexture;
   sf::Sprite skySprite;
-
   skySprite.setTexture(skyTexture);
 
   sf::Vector2u windowSize = window.getSize();
   sf::Vector2u textureSize = skyTexture.getSize();
   skySprite.setScale(static_cast<float>(windowSize.x) / textureSize.x,
                      static_cast<float>(windowSize.y) / textureSize.y);
-  sf::Event event;
 
   sim::Flock flock(100.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
 
@@ -87,24 +86,23 @@ int main() {
 
     float delta_t = clock.restart().asSeconds();
 
-    flock.update_boids(delta_t , windowSize.x, windowSize.y);
-    flock.update_predator(delta_t , windowSize.x, windowSize.y);
+    flock.update_boids(delta_t, windowSize.x, windowSize.y);
+    flock.update_predator(delta_t, windowSize.x, windowSize.y);
 
     sf::Time time_passed = clock2.getElapsedTime();
 
     const sim::Statistics flock_state = flock.state();
 
     if (time_passed.asSeconds() >= 2.f) {
-      std::cout << "Medium velocity: " << flock_state.mean_speed<< " +/- "
+      std::cout << "Medium velocity: " << flock_state.mean_speed << " +/- "
                 << flock_state.dev_speed << ";       "
-                << "Medium distance among boids: "
-                << flock_state.mean_dist << " +/- "
-                << flock_state.dev_dist << ";\n";
+                << "Medium distance among boids: " << flock_state.mean_dist
+                << " +/- " << flock_state.dev_dist << ";\n";
 
       clock2.restart();
     }
 
-    window.clear(sf::Color::Blue); 
+    window.clear(sf::Color::Blue);
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape(false));
@@ -113,6 +111,7 @@ int main() {
     for (auto& predator : flock.get_predators()) {
       window.draw(predator.set_shape(true));
     }
+
     window.display();
   }
   return 0;
