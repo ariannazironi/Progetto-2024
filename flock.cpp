@@ -97,29 +97,13 @@ void Flock::update_boids(const float& delta_t, const float x_max,
 };
 
 Boid Flock::find_prey(const Boid& predator) {
-  return *std::min_element(boids_.begin(), boids_.end(),
+  auto prey = *std::min_element(boids_.begin(), boids_.end(),
                            [&](const Boid& a, const Boid& b) {
                              return predator.get_pos().distance(a.get_pos()) <
                                     predator.get_pos().distance(b.get_pos());
                            });
-}
-/*Boid Flock::find_prey(const Boid& predator) {
-  float min_distance = 500.0f;
-  Boid closest_prey;
-
-  std::find_if(boids_.begin(), boids_.end(), [&](const Boid& boid) {
-    float distance = predator.get_pos().distance(boid.get_pos());
-
-    if (distance < min_distance) {
-      min_distance = distance;
-      closest_prey = boid;
-    }
-
-    return false;
-  });
-
-  return closest_prey;
-} */
+  return prey;
+};
 
 void Flock::update_predator(const float& delta_t, const float x_max,
                             const float y_max) {
