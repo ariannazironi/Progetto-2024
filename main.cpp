@@ -33,7 +33,6 @@ int main() {
   window.setPosition(sf::Vector2i(0, 0));
 
   sf::Vector2u windowSize = window.getSize();
-  sf::Event event;
 
   sim::Flock flock(100.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
 
