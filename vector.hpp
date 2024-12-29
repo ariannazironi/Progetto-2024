@@ -16,7 +16,7 @@ class Vector {
   void set_x(const float new_x);
   void set_y(const float new_y);
   Vector operator+(const Vector&) const;
-  Vector operator+=(const Vector&);
+  Vector& operator+=(const Vector&);
   Vector operator-(const Vector&) const;
   float distance(const Vector&) const;
   float norm_vector() const;

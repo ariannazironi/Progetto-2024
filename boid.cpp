@@ -115,23 +115,6 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-/*void Boid::border(const float x_max, const float y_max) {
-  if (position_.get_x() <= 0.) {
-    position_.set_x(0.);
-    velocity_.set_x(-2.0f * velocity_.get_x());
-  } else if (position_.get_x() >= x_max) {
-    position_.set_x(x_max);
-    velocity_.set_x(-2.0f * velocity_.get_x());
-  }
-  if (position_.get_y() <= 0.) {
-    position_.set_y(0.);
-    velocity_.set_y(-2.0f * velocity_.get_y());
-  } else if (position_.get_y() >= y_max) {
-    position_.set_y(y_max);
-    velocity_.set_y(-2.0f * velocity_.get_y());
-  }
-} */
-
 void Boid::border(const float x_max, const float y_max) {
   if (position_.get_x() <= 0.) {
     position_.set_x(x_max);
@@ -144,6 +127,22 @@ void Boid::border(const float x_max, const float y_max) {
     position_.set_y(0.);
   }
 }
+/*void Boid::border(const float x_max, const float y_max) {
+    // Controllo e rimbalzo sul bordo orizzontale (lato sinistro e destro)
+    if (position_.get_x() <= 0.) {
+        velocity_.set_x(std::fabs(velocity_.get_x()));  // Inverti la velocità lungo l'asse x
+    } else if (position_.get_x() >= x_max) {
+        velocity_.set_x(-std::fabs(velocity_.get_x())); // Inverti la velocità lungo l'asse x
+    }
+
+    // Controllo e rimbalzo sul bordo verticale (lato superiore e inferiore)
+    if (position_.get_y() <= 0.) {
+        velocity_.set_y(std::fabs(velocity_.get_y()));  // Inverti la velocità lungo l'asse y
+    } else if (position_.get_y() >= y_max) {
+        velocity_.set_y(-std::fabs(velocity_.get_y())); // Inverti la velocità lungo l'asse y
+    }
+}*/
+
 float Boid::get_rotation_angle() const {
   float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
@@ -174,6 +173,5 @@ void Boid::set_position(const Vector& new_pos) {
   const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
   boidshape_.setPosition(boid_pos);
 }
-void Boid::set_velocity(const Vector& new_vel) { velocity_ = new_vel; };
 
 };  // namespace sim

@@ -157,19 +157,6 @@ TEST_CASE("Testing Boid class") {
     CHECK(b1.get_pos().get_x() == doctest::Approx(5.0f).epsilon(0.1));
     CHECK(b1.get_pos().get_y() == doctest::Approx(10.0f).epsilon(0.01));
   }
-
-  SUBCASE("Testing set_velolcity method:"){
-    sim::Vector new_vel_0 = {3.5f , 1.2f};
-    sim::Vector new_vel_1 = {2.5f , 3.7f};
-
-    b0.set_velocity(new_vel_0);
-    b1.set_velocity(new_vel_1);
-
-    CHECK(b0.get_vel().get_x() == doctest::Approx(3.5f).epsilon(0.1));
-    CHECK(b0.get_vel().get_y() == doctest::Approx(1.2f).epsilon(0.1));
-    CHECK(b1.get_vel().get_x() == doctest::Approx(2.5f).epsilon(0.1));
-    CHECK(b1.get_vel().get_y() == doctest::Approx(3.7f).epsilon(0.01));
-  }
 }
 
 TEST_CASE("Testing diff angle method") {

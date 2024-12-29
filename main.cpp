@@ -1,38 +1,47 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
+
+#include <chrono>
 #include <iostream>
 #include <random>
-#include <vector>
+#include <thread>
 
-#include "boid.hpp"
 #include "flock.hpp"
-#include "vector.hpp"
 
 int main() {
+  std::cout << "Boid Simulation, instructions:\n";
+  std::cout << "1. Click the left mouse button to add a Boid.\n";
+  std::cout << "2. Click the right mouse button to add a predator.\n";
+  std::cout << "3. Close the window to stop the simulation.\n";
+
+  sf::Clock delay_clock;
+
+  while (delay_clock.getElapsedTime().asSeconds() < 3.0f) {
+    std::cout << "The simulation will start in "
+              << (3 - (int)delay_clock.getElapsedTime().asSeconds())
+              << " seconds...\r";
+    std::cout.flush();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  }
+
+  std::cout << std::endl;
+  std::cout << std::endl;
+
   sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
   sf::RenderWindow window(
       sf::VideoMode(desktopMode.width - 20, desktopMode.height - 80),
       "Boid Simulation", sf::Style::Default);
   window.setPosition(sf::Vector2i(0, 0));
 
-  sf::Texture skyTexture;
-  sf::Sprite skySprite;
-  skySprite.setTexture(skyTexture);
-
   sf::Vector2u windowSize = window.getSize();
-  sf::Vector2u textureSize = skyTexture.getSize();
-  skySprite.setScale(static_cast<float>(windowSize.x) / textureSize.x,
-                     static_cast<float>(windowSize.y) / textureSize.y);
 
-  sim::Flock flock(100.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
+  sim::Flock flock(100.0f, 30.0f, 0.05f, 0.5f, 0.0005f, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
   std::uniform_real_distribution<float> velocity_distribution(-100.0f, 100.0f);
 
   sf::Clock clock;
-  sf::Clock clock2;
+  sf::Clock statistics_clock;
 
   while (window.isOpen()) {
     sf::Event event;
@@ -89,7 +98,7 @@ int main() {
     flock.update_boids(delta_t, windowSize.x, windowSize.y);
     flock.update_predator(delta_t, windowSize.x, windowSize.y);
 
-    sf::Time time_passed = clock2.getElapsedTime();
+    sf::Time time_passed = statistics_clock.getElapsedTime();
 
     const sim::Statistics flock_state = flock.state();
 
@@ -99,7 +108,7 @@ int main() {
                 << "Medium distance among boids: " << flock_state.mean_dist
                 << " +/- " << flock_state.dev_dist << ";\n";
 
-      clock2.restart();
+      statistics_clock.restart();
     }
 
     window.clear(sf::Color::Blue);
