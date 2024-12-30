@@ -23,15 +23,16 @@ Flock::Flock(const float distance, const float ds_parameter,
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 void Flock::add_predators(const Boid& new_predator) {
   predators_.push_back(new_predator);
-};
+}
 
 std::vector<Boid> Flock::get_boids() const { return boids_; };
 std::vector<Boid> Flock::get_predators() const { return predators_; };
 
 Vector Flock::find_separation(const Boid& chosen_boid) const {
-  Vector null{};
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
   assert(near_boid.size() <= boids_.size());
+  
+  Vector null{};
   null = chosen_boid.separation(separation_parameter_, distance_of_separation_,
                                 near_boid);
   for (auto& predator : predators_) {
@@ -45,9 +46,10 @@ Vector Flock::find_separation(const Boid& chosen_boid) const {
 }
 
 Vector Flock::find_alignment(const Boid& chosen_boid) const {
-  Vector null{};
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
   assert(near_boid.size() <= boids_.size());
+
+  Vector null{};
   null = chosen_boid.alignment(allignment_parameter_, near_boid);
 
   return null;
@@ -56,6 +58,7 @@ Vector Flock::find_alignment(const Boid& chosen_boid) const {
 Vector Flock::find_cohesion(const Boid& chosen_boid) const {
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
   assert(near_boid.size() <= boids_.size());
+
   Vector null{};
   null = chosen_boid.cohesion(cohesion_parameter_, near_boid);
 
@@ -68,7 +71,7 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
                                 find_cohesion(chosen_boid);
 
   return delta_velocity;
-};
+}
 
 void Flock::update_entity(Boid& entity, const Vector delta_v,
                           const float& delta_t, const float x_max,
@@ -94,16 +97,17 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     Vector delta_v = escape_vel + find_deltav(boid);
     update_entity(boid, delta_v, delta_t, x_max, y_max);
   }
-};
+}
 
 Boid Flock::find_prey(const Boid& predator) const {
+  assert(!boids_.empty());
   auto prey = *std::min_element(boids_.begin(), boids_.end(),
                            [&](const Boid& a, const Boid& b) {
                              return predator.get_pos().distance(a.get_pos()) <
                                     predator.get_pos().distance(b.get_pos());
                            });
   return prey;
-};
+}
 
 void Flock::update_predator(const float& delta_t, const float x_max,
                             const float y_max) {
@@ -114,12 +118,13 @@ void Flock::update_predator(const float& delta_t, const float x_max,
 
     auto near_predator = predator.find_near(predators_, closeness_parameter_);
     assert(near_predator.size() <= predators_.size());
+    
     Vector separation_vel = predator.separation(
         separation_parameter_, distance_of_separation_, near_predator);
     Vector delta_v = chase_vel + separation_vel;
     update_entity(predator, delta_v, delta_t, x_max, y_max);
   }
-};
+}
 
 Statistics Flock::state() const {
   size_t n = boids_.size();
@@ -168,4 +173,4 @@ Statistics Flock::state() const {
   }
 }
 
-}  // namespace sim
+}  

@@ -9,9 +9,9 @@
 
 int main() {
   std::cout << "Boid Simulation, instructions:\n";
-  std::cout << "1. Click the left mouse button to add a Boid.\n";
-  std::cout << "2. Click the right mouse button to add a predator.\n";
-  std::cout << "3. Close the window to stop the simulation.\n";
+  std::cout << "1. First, click the left mouse button to add a Boid.\n";
+  std::cout << "2. Then, click the right mouse button to add a predator.\n";
+  std::cout << "3. Finally, close the window to stop the simulation.\n";
 
   sf::Clock delay_clock;
 
@@ -54,7 +54,6 @@ int main() {
         case sf::Event::MouseButtonPressed: {
           switch (event.mouseButton.button) {
             case sf::Mouse::Left:
-              // Se clicchi con il tasto sinistro, aggiungi un boid
               {
                 const sf::Vector2i position = sf::Mouse::getPosition(window);
                 const float positionf_x = static_cast<float>(position.x);
@@ -69,7 +68,6 @@ int main() {
               break;
 
             case sf::Mouse::Right:
-              // Se clicchi con il tasto destro, aggiungi un predatore
               {
                 const sf::Vector2i position = sf::Mouse::getPosition(window);
                 const float positionf_x = static_cast<float>(position.x);
@@ -102,7 +100,7 @@ int main() {
 
     const sim::Statistics flock_state = flock.state();
 
-    if (time_passed.asSeconds() >= 2.f) {
+    if (flock.get_boids().size() >=2 && time_passed.asSeconds() >= 2.f) {
       std::cout << "Medium velocity: " << flock_state.mean_speed << " +/- "
                 << flock_state.dev_speed << ";       "
                 << "Medium distance among boids: " << flock_state.mean_dist

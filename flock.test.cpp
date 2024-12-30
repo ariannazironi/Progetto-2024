@@ -1,10 +1,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "flock.hpp"
-#include <vector>
 #include "boid.hpp"
-#include "doctest.h"
 #include "vector.hpp"
+
+#include <vector>
+#include "doctest.h"
 
 TEST_CASE("Testing three close boids") {
   const sim::Vector pos0{0.f, 0.f};
@@ -47,7 +48,7 @@ TEST_CASE("Testing three close boids") {
   flock.add_boids(b2);
   flock.add_boids(b3);
 
-  SUBCASE("Testing getter method:"){
+  SUBCASE("Testing getter method"){
     auto boids = flock.get_boids();
 
     CHECK(boids.size() == 4);
@@ -57,7 +58,7 @@ TEST_CASE("Testing three close boids") {
     CHECK(boids[3] == b3);
    }
 
-  SUBCASE("Testing find methods:") {
+  SUBCASE("Testing find methods") {
 
     CHECK(flock.find_separation(b0).get_x() == doctest::Approx(-0.2f).epsilon(0.1));
     CHECK(flock.find_separation(b0).get_y() == doctest::Approx(-0.2f).epsilon(0.1));
@@ -72,7 +73,7 @@ TEST_CASE("Testing three close boids") {
     CHECK(flock.find_deltav(b0).get_y() == doctest::Approx(1.033f).epsilon(0.001));
   }
 
-  SUBCASE("Testing update method:") {
+  SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
     flock.update_boids(delta_t,300.f,300.f);
     auto updated_boids = flock.get_boids();
@@ -120,7 +121,7 @@ TEST_CASE("Testing no close boids") {
   flock.add_boids(b1);
   flock.add_boids(b2);
 
-  SUBCASE("Testing getter method:"){
+  SUBCASE("Testing getter method") {
     auto boids = flock.get_boids();
 
     CHECK(boids.size() == 3);
@@ -129,7 +130,7 @@ TEST_CASE("Testing no close boids") {
     CHECK(boids[2] == b2);
    }
 
-  SUBCASE("Testing find methods:") {
+  SUBCASE("Testing find methods") {
 
     CHECK(flock.find_separation(b0).get_x() == doctest::Approx(0.f).epsilon(0.1));
     CHECK(flock.find_separation(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
@@ -144,7 +145,7 @@ TEST_CASE("Testing no close boids") {
     CHECK(flock.find_deltav(b0).get_y() == doctest::Approx(0.f).epsilon(0.1));
   }
 
-  SUBCASE("Testing update method:") {
+  SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
     flock.update_boids(delta_t,300.f,300.f);
     auto updated_boids = flock.get_boids();
@@ -207,7 +208,7 @@ TEST_CASE("Testing one close boids") {
   flock.add_boids(b2);
   flock.add_boids(b3);
 
-  SUBCASE("Testing getter method:"){
+  SUBCASE("Testing getter method"){
     auto boids = flock.get_boids();
 
     CHECK(boids.size() == 4);
@@ -217,7 +218,7 @@ TEST_CASE("Testing one close boids") {
     CHECK(boids[3] == b3);
    }
 
-  SUBCASE("Testing find methods:") {
+  SUBCASE("Testing find methods") {
 
     CHECK(flock.find_separation(b3).get_x() == doctest::Approx(-0.2f).epsilon(0.1));
     CHECK(flock.find_separation(b3).get_y() == doctest::Approx(0.f).epsilon(0.1));
@@ -232,7 +233,7 @@ TEST_CASE("Testing one close boids") {
     CHECK(flock.find_deltav(b3).get_y() == doctest::Approx(0.1f).epsilon(0.1));
   }
 
-  SUBCASE("Testing update method:") {
+  SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
     flock.update_boids(delta_t,300.f,300.f);
     auto updated_boids = flock.get_boids();
@@ -285,7 +286,7 @@ TEST_CASE("Testing predators") {
   flock.add_predators(p1);
   flock.add_predators(p2);
 
-   SUBCASE("Testing getter method:"){
+   SUBCASE("Testing getter method") {
     auto predators = flock.get_predators();
 
     CHECK(predators.size() == 2);
@@ -293,15 +294,14 @@ TEST_CASE("Testing predators") {
     CHECK(predators[1] == p2);
    }
 
-  SUBCASE("Testing fid_prey method:"){
+  SUBCASE("Testing fid_prey method") {
     const sim::Boid prey_1 = flock.find_prey(p1);
     const sim::Boid prey_2 = flock.find_prey(p2);
     CHECK(prey_1 == b2);
     CHECK(prey_2 == b1);
-
   }
 
-   SUBCASE("Testing update method:") {
+   SUBCASE("Testing update method") {
     const float delta_t = 0.5f;
     flock.update_predator(delta_t,300.f,300.f);
     auto updated_predators = flock.get_predators();
@@ -313,8 +313,8 @@ TEST_CASE("Testing predators") {
   }
 }
 
-TEST_CASE("Testing state method"){
-  SUBCASE("State with three boids:") {
+TEST_CASE("Testing state method") {
+  SUBCASE("State with three boids") {
     const sim::Vector pos1{2.f, 3.f};
     const sim::Vector vel1{5.f, 6.f};
     const sim::Vector pos2{4.f, 5.f};
@@ -338,7 +338,7 @@ TEST_CASE("Testing state method"){
     CHECK(state.dev_speed == doctest::Approx(3.05f).epsilon(0.01));
   }
 
-SUBCASE("State with two boids:") {
+SUBCASE("State with two boids") {
     const sim::Vector pos1{1.5f, 3.f};
     const sim::Vector vel1{2.f, 2.f};
     const sim::Vector pos2{4.f, 3.f};

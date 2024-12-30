@@ -55,4 +55,4 @@ float Vector::product(const Vector& vec2) const {
   return product;
 }
 
-}  // namespace sim
+}  
