@@ -40,12 +40,11 @@ float Boid::diff_angle(const Boid& other) const {
 
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
                                   const float distance) const {
+  assert(distance > 0);
   std::vector<Boid> near;
-
   for (const auto& boid : boids) {
     float dist = boid.get_pos().distance(position_);
-    if (dist > 0 && dist < distance &&
-        diff_angle(boid) <= view_angle_) {
+    if (dist > 0 && dist < distance && diff_angle(boid) <= view_angle_) {
       near.push_back(boid);
     }
   }
@@ -118,7 +117,6 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-
 void Boid::border(const float x_max, const float y_max) {
   if (position_.get_x() <= 0.) {
     position_.set_x(x_max);
@@ -130,7 +128,23 @@ void Boid::border(const float x_max, const float y_max) {
   } else if (position_.get_y() >= y_max) {
     position_.set_y(0.);
   }
-} 
+}
+/*void Boid::border(const float x_max, const float y_max) {
+    // Controllo e rimbalzo sul bordo orizzontale (lato sinistro e destro)
+    if (position_.get_x() <= 0.) {
+        velocity_.set_x(std::fabs(velocity_.get_x()));  // Inverti la velocità lungo l'asse x
+    } else if (position_.get_x() >= x_max) {
+        velocity_.set_x(-std::fabs(velocity_.get_x())); // Inverti la velocità lungo l'asse x
+    }
+
+    // Controllo e rimbalzo sul bordo verticale (lato superiore e inferiore)
+    if (position_.get_y() <= 0.) {
+        velocity_.set_y(std::fabs(velocity_.get_y()));  // Inverti la velocità lungo l'asse y
+    } else if (position_.get_y() >= y_max) {
+        velocity_.set_y(-std::fabs(velocity_.get_y())); // Inverti la velocità lungo l'asse y
+    }
+}*/
+
 float Boid::get_rotation_angle() const {
   float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
@@ -143,13 +157,13 @@ bool Boid::operator==(const Boid& other_boid) const {
 };
 
 sf::CircleShape Boid::set_shape(bool is_predator) {
-  boidshape_.setPointCount(3);   
-  boidshape_.setRadius(5.0f);       
-  boidshape_.setOrigin(5.0f, 5.0f);  
+  boidshape_.setPointCount(3);
+  boidshape_.setRadius(5.0f);
+  boidshape_.setOrigin(5.0f, 5.0f);
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setScale(1.f, 1.5f); 
-  if(is_predator) {
+  boidshape_.setScale(1.f, 1.5f);
+  if (is_predator) {
     boidshape_.setFillColor(sf::Color::Red);
   } else {
     boidshape_.setFillColor(sf::Color::Green);
