@@ -34,7 +34,7 @@ int main() {
 
   sf::Vector2u windowSize = window.getSize();
 
-  sim::Flock flock(100.0f, 30.0f, 0.05f, 0.5f, 0.0005f, 100.0f, 30.0f);
+  sim::Flock flock(100.0f, 30.0f, 0.5f, 0.5f, 0.0005f, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
