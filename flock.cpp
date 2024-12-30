@@ -23,7 +23,7 @@ Flock::Flock(const float distance, const float ds_parameter,
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 void Flock::add_predators(const Boid& new_predator) {
   predators_.push_back(new_predator);
-};
+}
 
 std::vector<Boid> Flock::get_boids() const { return boids_; };
 std::vector<Boid> Flock::get_predators() const { return predators_; };

@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 
-#include "flock.hpp"
-
 #include <chrono>
 #include <iostream>
 #include <random>
 #include <thread>
+
+#include "flock.hpp"
 
 int main() {
   std::cout << "Boid Simulation, instructions:\n";

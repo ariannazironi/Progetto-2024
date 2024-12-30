@@ -129,6 +129,7 @@ void Boid::border(const float x_max, const float y_max) {
     position_.set_y(0.);
   }
 }
+
 /*void Boid::border(const float x_max, const float y_max) {
     // Controllo e rimbalzo sul bordo orizzontale (lato sinistro e destro)
     if (position_.get_x() <= 0.) {
@@ -154,7 +155,7 @@ bool Boid::operator==(const Boid& other_boid) const {
   return (position_ == other_boid.position_ &&
           velocity_ == other_boid.velocity_ &&
           view_angle_ == other_boid.view_angle_);
-};
+}
 
 sf::CircleShape Boid::set_shape(bool is_predator) {
   boidshape_.setPointCount(3);
@@ -169,6 +170,11 @@ sf::CircleShape Boid::set_shape(bool is_predator) {
     boidshape_.setFillColor(sf::Color::Green);
   }
   return boidshape_;
+}
+
+void Boid::set_position(const Vector& new_pos) {
+  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
+  boidshape_.setPosition(boid_pos);
 }
 
 };  
