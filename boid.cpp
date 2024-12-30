@@ -29,9 +29,11 @@ float Boid::diff_angle(const Boid& other) const {
   } else {
     float cos_angle = dot_product / (norm_direction * norm_velocity);
     cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
+
     float rad_angle = std::acos(cos_angle);
     const float degree_angle = (rad_angle * 180.f) / M_PI;
-
+    assert(degree_angle <= 360.f && degree_angle >= 0.f);
+    
     return degree_angle;
   }
 }
