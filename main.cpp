@@ -37,7 +37,7 @@ int main() {
 
   std::random_device rd;
   std::default_random_engine gen(rd());
-  std::uniform_real_distribution<float> velocity_distribution(-50.0f, 50.0f);
+  std::uniform_real_distribution<float> velocity_distribution(-200.0f, 200.0f);
 
   sf::Clock clock;
 
@@ -98,7 +98,7 @@ int main() {
 
     window.clear();  // pulisce la scena
 
-    // window.draw(skySprite);
+    window.draw(skySprite);
 
     for (auto& boid : flock.get_boids()) {
       window.draw(boid.set_shape_boid());
