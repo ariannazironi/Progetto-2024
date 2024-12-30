@@ -18,24 +18,6 @@ Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
 float Boid::get_angle() const { return view_angle_; };
 
-float Boid::diff_angle(const Boid& other) const {
-  Vector direction = other.get_pos() - position_;
-  const float dot_product = velocity_.product(direction);
-  const float norm_direction = direction.norm_vector();
-  const float norm_velocity = velocity_.norm_vector();
-
-  if (norm_velocity == 0.0f || norm_direction == 0.0f) {
-    return 0.0f;
-  } else {
-    float cos_angle = dot_product / (norm_direction * norm_velocity);
-    cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
-    float rad_angle = std::acos(cos_angle);
-    const float degree_angle = (rad_angle * 180.f) / M_PI;
-
-    return degree_angle;
-  }
-}
-
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
                                   const float distance) const {
   std::vector<Boid> near;
@@ -116,6 +98,34 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
+float Boid::diff_angle(const Boid& other) const {
+  Vector direction = other.get_pos() - position_;
+  const float dot_product = velocity_.product(direction);
+  const float norm_direction = direction.norm_vector();
+  const float norm_velocity = velocity_.norm_vector();
+
+  if (norm_velocity == 0.0f || norm_direction == 0.0f) {
+    return 0.0f;
+  } else {
+    float cos_angle = dot_product / (norm_direction * norm_velocity);
+    cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
+    float rad_angle = std::acos(cos_angle);
+    const float degree_angle = (rad_angle * 180.f) / M_PI;
+
+    return degree_angle;
+  }
+}
+
+float Boid::get_rotation_angle() const {
+  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+  return angle + 90.0f;
+}
+
+bool Boid::operator==(const Boid& other_boid) const {
+  return (position_ == other_boid.position_ &&
+          velocity_ == other_boid.velocity_ &&
+          view_angle_ == other_boid.view_angle_);
+}
 
 void Boid::border(const float x_max, const float y_max) {
   if (position_.get_x() <= 0.) {
@@ -129,16 +139,11 @@ void Boid::border(const float x_max, const float y_max) {
     position_.set_y(0.);
   }
 } 
-float Boid::get_rotation_angle() const {
-  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
-  return angle + 90.0f;
-}
 
-bool Boid::operator==(const Boid& other_boid) const {
-  return (position_ == other_boid.position_ &&
-          velocity_ == other_boid.velocity_ &&
-          view_angle_ == other_boid.view_angle_);
-};
+void Boid::set_position(const Vector& new_pos) {
+  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
+  boidshape_.setPosition(boid_pos);
+}
 
 sf::CircleShape Boid::set_shape(bool is_predator) {
   boidshape_.setPointCount(3);   
@@ -153,11 +158,6 @@ sf::CircleShape Boid::set_shape(bool is_predator) {
     boidshape_.setFillColor(sf::Color::Green);
   }
   return boidshape_;
-};
-
-void Boid::set_position(const Vector& new_pos) {
-  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
-  boidshape_.setPosition(boid_pos);
 }
 
-};  // namespace sim
+};  

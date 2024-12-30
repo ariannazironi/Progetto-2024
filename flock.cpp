@@ -68,7 +68,7 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
                                 find_cohesion(chosen_boid);
 
   return delta_velocity;
-};
+}
 
 void Flock::update_entity(Boid& entity, const Vector delta_v,
                           const float& delta_t, const float x_max,
@@ -94,7 +94,7 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     Vector delta_v = escape_vel + find_deltav(boid);
     update_entity(boid, delta_v, delta_t, x_max, y_max);
   }
-};
+}
 
 Boid Flock::find_prey(const Boid& predator) const {
   auto prey = *std::min_element(boids_.begin(), boids_.end(),
@@ -103,7 +103,7 @@ Boid Flock::find_prey(const Boid& predator) const {
                                     predator.get_pos().distance(b.get_pos());
                            });
   return prey;
-};
+}
 
 void Flock::update_predator(const float& delta_t, const float x_max,
                             const float y_max) {
@@ -119,7 +119,7 @@ void Flock::update_predator(const float& delta_t, const float x_max,
     Vector delta_v = chase_vel + separation_vel;
     update_entity(predator, delta_v, delta_t, x_max, y_max);
   }
-};
+}
 
 Statistics Flock::state() const {
   size_t n = boids_.size();
@@ -168,4 +168,4 @@ Statistics Flock::state() const {
   }
 }
 
-}  // namespace sim
+}  

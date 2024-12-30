@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 
+#include "flock.hpp"
+
 #include <chrono>
 #include <iostream>
 #include <random>
 #include <thread>
-
-#include "flock.hpp"
 
 int main() {
   std::cout << "Boid Simulation, instructions:\n";
@@ -54,7 +54,6 @@ int main() {
         case sf::Event::MouseButtonPressed: {
           switch (event.mouseButton.button) {
             case sf::Mouse::Left:
-              // Se clicchi con il tasto sinistro, aggiungi un boid
               {
                 const sf::Vector2i position = sf::Mouse::getPosition(window);
                 const float positionf_x = static_cast<float>(position.x);
@@ -69,7 +68,6 @@ int main() {
               break;
 
             case sf::Mouse::Right:
-              // Se clicchi con il tasto destro, aggiungi un predatore
               {
                 const sf::Vector2i position = sf::Mouse::getPosition(window);
                 const float positionf_x = static_cast<float>(position.x);
