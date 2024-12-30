@@ -9,9 +9,9 @@
 
 int main() {
   std::cout << "Boid Simulation, instructions:\n";
-  std::cout << "1. Click the left mouse button to add a Boid.\n";
-  std::cout << "2. Click the right mouse button to add a predator.\n";
-  std::cout << "3. Close the window to stop the simulation.\n";
+  std::cout << "1. First, click the left mouse button to add a Boid.\n";
+  std::cout << "2. Then, click the right mouse button to add a predator.\n";
+  std::cout << "3. Finally, close the window to stop the simulation.\n";
 
   sf::Clock delay_clock;
 
@@ -34,7 +34,7 @@ int main() {
 
   sf::Vector2u windowSize = window.getSize();
 
-  sim::Flock flock(100.0f, 30.0f, 0.1f, 0.5f, 0.0001f, 100.0f, 30.0f);
+  sim::Flock flock(100.0f, 30.0f, 0.05f, 0.5f, 0.0005f, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
@@ -100,7 +100,7 @@ int main() {
 
     const sim::Statistics flock_state = flock.state();
 
-    if (time_passed.asSeconds() >= 2.f) {
+    if (flock.get_boids().size() >=2 && time_passed.asSeconds() >= 2.f) {
       std::cout << "Medium velocity: " << flock_state.mean_speed << " +/- "
                 << flock_state.dev_speed << ";       "
                 << "Medium distance among boids: " << flock_state.mean_dist
@@ -118,6 +118,7 @@ int main() {
     for (auto& predator : flock.get_predators()) {
       window.draw(predator.set_shape(true));
     }
+
     window.display();
   }
   return 0;

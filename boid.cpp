@@ -18,14 +18,33 @@ Vector Boid::get_pos() const { return position_; };
 Vector Boid::get_vel() const { return velocity_; };
 float Boid::get_angle() const { return view_angle_; };
 
+float Boid::diff_angle(const Boid& other) const {
+  Vector direction = other.get_pos() - position_;
+  const float dot_product = velocity_.product(direction);
+  const float norm_direction = direction.norm_vector();
+  const float norm_velocity = velocity_.norm_vector();
+
+  if (norm_velocity == 0.0f || norm_direction == 0.0f) {
+    return 0.0f;
+  } else {
+    float cos_angle = dot_product / (norm_direction * norm_velocity);
+    cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
+
+    float rad_angle = std::acos(cos_angle);
+    const float degree_angle = (rad_angle * 180.f) / M_PI;
+    assert(degree_angle <= 360.f && degree_angle >= 0.f);
+    
+    return degree_angle;
+  }
+}
+
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
                                   const float distance) const {
+  assert(distance > 0);
   std::vector<Boid> near;
-
   for (const auto& boid : boids) {
     float dist = boid.get_pos().distance(position_);
-    if (dist > 0 && dist < distance &&
-        diff_angle(boid) <= view_angle_) {
+    if (dist > 0 && dist < distance && diff_angle(boid) <= view_angle_) {
       near.push_back(boid);
     }
   }
@@ -98,35 +117,6 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-float Boid::diff_angle(const Boid& other) const {
-  Vector direction = other.get_pos() - position_;
-  const float dot_product = velocity_.product(direction);
-  const float norm_direction = direction.norm_vector();
-  const float norm_velocity = velocity_.norm_vector();
-
-  if (norm_velocity == 0.0f || norm_direction == 0.0f) {
-    return 0.0f;
-  } else {
-    float cos_angle = dot_product / (norm_direction * norm_velocity);
-    cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
-    float rad_angle = std::acos(cos_angle);
-    const float degree_angle = (rad_angle * 180.f) / M_PI;
-
-    return degree_angle;
-  }
-}
-
-float Boid::get_rotation_angle() const {
-  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
-  return angle + 90.0f;
-}
-
-bool Boid::operator==(const Boid& other_boid) const {
-  return (position_ == other_boid.position_ &&
-          velocity_ == other_boid.velocity_ &&
-          view_angle_ == other_boid.view_angle_);
-}
-
 void Boid::border(const float x_max, const float y_max) {
   if (position_.get_x() <= 0.) {
     position_.set_x(x_max);
@@ -138,21 +128,42 @@ void Boid::border(const float x_max, const float y_max) {
   } else if (position_.get_y() >= y_max) {
     position_.set_y(0.);
   }
-} 
+}
+/*void Boid::border(const float x_max, const float y_max) {
+    // Controllo e rimbalzo sul bordo orizzontale (lato sinistro e destro)
+    if (position_.get_x() <= 0.) {
+        velocity_.set_x(std::fabs(velocity_.get_x()));  // Inverti la velocità lungo l'asse x
+    } else if (position_.get_x() >= x_max) {
+        velocity_.set_x(-std::fabs(velocity_.get_x())); // Inverti la velocità lungo l'asse x
+    }
 
-void Boid::set_position(const Vector& new_pos) {
-  const sf::Vector2f boid_pos{new_pos.get_x(), new_pos.get_y()};
-  boidshape_.setPosition(boid_pos);
+    // Controllo e rimbalzo sul bordo verticale (lato superiore e inferiore)
+    if (position_.get_y() <= 0.) {
+        velocity_.set_y(std::fabs(velocity_.get_y()));  // Inverti la velocità lungo l'asse y
+    } else if (position_.get_y() >= y_max) {
+        velocity_.set_y(-std::fabs(velocity_.get_y())); // Inverti la velocità lungo l'asse y
+    }
+}*/
+
+float Boid::get_rotation_angle() const {
+  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+  return angle + 90.0f;
 }
 
+bool Boid::operator==(const Boid& other_boid) const {
+  return (position_ == other_boid.position_ &&
+          velocity_ == other_boid.velocity_ &&
+          view_angle_ == other_boid.view_angle_);
+};
+
 sf::CircleShape Boid::set_shape(bool is_predator) {
-  boidshape_.setPointCount(3);   
-  boidshape_.setRadius(5.0f);       
-  boidshape_.setOrigin(5.0f, 5.0f);  
+  boidshape_.setPointCount(3);
+  boidshape_.setRadius(5.0f);
+  boidshape_.setOrigin(5.0f, 5.0f);
   boidshape_.setPosition(position_.get_x(), position_.get_y());
   boidshape_.setRotation(get_rotation_angle());
-  boidshape_.setScale(1.f, 1.5f); 
-  if(is_predator) {
+  boidshape_.setScale(1.f, 1.5f);
+  if (is_predator) {
     boidshape_.setFillColor(sf::Color::Red);
   } else {
     boidshape_.setFillColor(sf::Color::Green);

@@ -18,7 +18,7 @@ Vector Vector::operator+(const Vector& vec2) const {
   return Vector(x_ + vec2.x_, y_ + vec2.y_);
 }
 
-Vector Vector::operator+=(const Vector& vec2) {
+Vector& Vector::operator+=(const Vector& vec2) {
   x_ += vec2.x_;
   y_ += vec2.y_;
   return *this;
