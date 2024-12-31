@@ -31,7 +31,7 @@ TEST_CASE("Testing operator +") {
 
 TEST_CASE("Testing operator +=") {
   SUBCASE("Positive components") {
-    sim::Vector v1{2,3}; //non lo dichiaro const perchè l'operatore += lo modifica
+    sim::Vector v1{2,3};
     const sim::Vector v2{1,1};
     v1 += v2;
     CHECK(v1.get_x() == doctest::Approx(3.0).epsilon(0.1));

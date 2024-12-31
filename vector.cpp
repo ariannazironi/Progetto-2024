@@ -14,18 +14,20 @@ float Vector::get_y() const { return y_; };
 void Vector::set_x(const float new_x) { x_ = new_x; };
 void Vector::set_y(const float new_y) { y_ = new_y; };
 
-Vector Vector::operator+(const Vector& vec2) const {
-  return Vector(x_ + vec2.x_, y_ + vec2.y_);
-}
-
 Vector& Vector::operator+=(const Vector& vec2) {
   x_ += vec2.x_;
   y_ += vec2.y_;
   return *this;
 }
 
+Vector Vector::operator+(const Vector& vec2) const {
+  Vector result= *this;
+  return result+= vec2;
+}
+
 Vector Vector::operator-(const Vector& vec2) const {
-  return Vector(x_ - vec2.x_, y_ - vec2.y_);
+  Vector neg_vec{-vec2.x_ , -vec2.y_};
+  return *this + neg_vec;
 }
 
 float Vector::distance(const Vector& vec2) const {
