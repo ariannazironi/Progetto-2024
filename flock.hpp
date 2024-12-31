@@ -2,7 +2,6 @@
 #define FLOCK_HPP
 
 #include <vector>
-
 #include "boid.hpp"
 
 namespace sim {
@@ -54,8 +53,9 @@ class Flock {
                        const float y_max);
 
   Statistics state() const;
+  
 };
 
-}  // namespace sim
+}  
 
 #endif

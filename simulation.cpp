@@ -1,7 +1,7 @@
+#include "flock.hpp"
+
 #include <fstream>
 #include <iostream>
-
-#include "flock.hpp"
 
 int main() {
   std::cout << "Boid Simulation: 5 Boids starting at the edges, moving toward "
@@ -15,10 +15,10 @@ int main() {
   sim::Vector pos4(800.0f, 600.0f);
   sim::Vector pos5(0.0f, 300.0f);
 
-  sim::Vector vel1(15.0f, 15.0f);
-  sim::Vector vel2(-10.0f, 15.0f);
-  sim::Vector vel3(15.0f, -20.0f);
-  sim::Vector vel4(-25.0f, -10.0f);
+  sim::Vector vel1(12.0f, 15.0f);
+  sim::Vector vel2(-20.0f, 5.0f);
+  sim::Vector vel3(15.0f, -30.0f);
+  sim::Vector vel4(-20.0f, -5.0f);
   sim::Vector vel5(10.0f, 0.0f);
 
   sim::Boid boid_1(pos1, vel1, 180.0f);
@@ -43,7 +43,7 @@ int main() {
                  "Speed Standard Deviation of Speed\n";
 
   float time_passed = 0.0f;
-  float simulation_time = 35.0f;  // Tempo di simulazione in secondi
+  float simulation_time = 35.0f;  
 
   while (time_passed < simulation_time) {
     float delta_t = 0.5f;
@@ -51,7 +51,6 @@ int main() {
 
     flock.update_boids(delta_t, 800, 600);
 
-    // Scrivi le statistiche ogni secondo
     if (time_passed >= 1.0f) {
       const sim::Statistics flock_state = flock.state();
       output_file << time_passed << " " << flock_state.mean_dist << " "

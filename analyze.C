@@ -25,15 +25,12 @@ void analyze() {
   std::vector<float> mean_dists;
   std::vector<float> mean_speeds;
 
-  // Salta la prima riga (intestazione)
   std::string line;
   std::getline(file, line);
 
-  // Leggi i dati riga per riga
   while (std::getline(file, line)) {
     std::istringstream stream(line);
 
-    // Leggi i dati da ciascuna riga
     if (stream >> time >> mean_dist >> dev_dist >> mean_speed >> dev_speed) {
       times.push_back(time);
       mean_speeds.push_back(mean_speed);
