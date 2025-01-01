@@ -38,7 +38,7 @@ int main() {
   std::random_device rd;
   std::default_random_engine gen(rd());
   std::uniform_real_distribution<float> velocity_distribution(-100.0f, 100.0f);
-  std::uniform_real_distribution<float> angle_distribution(90.0f, 180.0f);
+  std::uniform_real_distribution<float> angle_distribution(120.0f, 180.0f);
 
   sf::Clock clock;
   sf::Clock statistics_clock;
