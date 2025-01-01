@@ -12,6 +12,27 @@ int main() {
   std::cout << "2. Then, click the right mouse button to add a predator.\n";
   std::cout << "3. Finally, close the window to stop the simulation.\n";
 
+  std::cout
+      << "First, insert the following parameters: \n"
+      << "1) Closeness parameter (values permitted are between [40, 200]) : \n";
+  float closeness_parameter;
+  std::cin >> closeness_parameter;
+  std::cout << "2) Distance of separation (values permitted are [30, 60]): \n";
+  float distance_of_separation;
+  std::cin >> distance_of_separation;
+  std::cout << "3) Separation parameter (values permitted are between [0.01, "
+               "0.5]): \n";
+  float separation_parameter;
+  std::cin >> separation_parameter;
+  std::cout << "4) Allignement parameter (values permitted are between [0.4, "
+               "1.0]): \n";
+  float allignement_parameter;
+  std::cin >> allignement_parameter;
+  std::cout << "5) Cohesion parameter (values permitted are between [0.0001, "
+               "0.0005]): \n";
+  float cohesion_parameter;
+  std::cin >> cohesion_parameter;
+
   sf::Clock delay_clock;
 
   while (delay_clock.getElapsedTime().asSeconds() < 3.0f) {
@@ -33,7 +54,7 @@ int main() {
 
   sf::Vector2u windowSize = window.getSize();
 
-  sim::Flock flock(100.0f, 30.0f, 0.1f, 0.5f, 0.0005f, 100.0f, 30.0f);
+  sim::Flock flock(closeness_parameter, distance_of_separation, separation_parameter, allignement_parameter, cohesion_parameter, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
