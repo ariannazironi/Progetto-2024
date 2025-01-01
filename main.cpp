@@ -13,7 +13,7 @@ int main() {
   std::cout << "3. Finally, close the window to stop the simulation.\n";
 
   std::cout
-      << "First, insert the following parameters: \n"
+      << "Insert the following parameters: \n"
       << "1) Closeness parameter (values permitted are between [40, 200]) : \n";
   float closeness_parameter;
   std::cin >> closeness_parameter;
