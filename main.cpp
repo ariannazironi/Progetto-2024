@@ -43,8 +43,8 @@ int main() {
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
 
-  std::cout << std::endl;
-  std::cout << std::endl;
+  std::cout << '\n';
+  std::cout << '\n';
 
   sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
   sf::RenderWindow window(

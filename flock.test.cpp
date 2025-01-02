@@ -335,7 +335,7 @@ TEST_CASE("Testing predators") {
     CHECK(predators[1] == p2);
   }
 
-  SUBCASE("Testing fid_prey method") {
+  SUBCASE("Testing find_prey method") {
     const sim::Boid prey_1 = flock.find_prey(p1);
     const sim::Boid prey_2 = flock.find_prey(p2);
     CHECK(prey_1 == b2);

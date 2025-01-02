@@ -18,9 +18,9 @@ Flock::Flock(const float distance, const float ds_parameter,
       cohesion_parameter_(c_parameter),
       max_speed_(max_speed),
       min_speed_(min_speed) {
-        /*assert(closeness_parameter_ >= 60.f && closeness_parameter_ <= 200.f &&
-         distance_of_separation_ >= 30.f && distance_of_separation_ <= 50.f &&
-         separation_parameter_ >= 0.3f && separation_parameter_ <= 0.5f &&
+        /*assert(closeness_parameter_ >= 60.f && closeness_parameter_ <= 200.f
+         && distance_of_separation_ >= 30.f && distance_of_separation_ <= 50.f
+         && separation_parameter_ >= 0.3f && separation_parameter_ <= 0.5f &&
          alignment_parameter_ >= 0.4f && alignment_parameter_ <= 0.8f &&
          cohesion_parameter_ >= 0.0001f && cohesion_parameter_ <= 0.0004f);*/
       };
@@ -40,8 +40,9 @@ Vector Flock::find_separation(const Boid& chosen_boid) const {
   Vector v_separation{};
   v_separation = chosen_boid.separation(separation_parameter_,
                                         distance_of_separation_, near_boid);
-  for (auto& predator : predators_) {
-    float predator_dist = chosen_boid.get_pos().distance(predator.get_pos());
+  for (const auto& predator : predators_) {
+    const float predator_dist =
+        chosen_boid.get_pos().distance(predator.get_pos());
     if (predator_dist < distance_of_separation_) {
       v_separation += (predator.get_pos() - chosen_boid.get_pos()) *
                       (-separation_parameter_);
@@ -78,9 +79,8 @@ Vector Flock::find_deltav(const Boid& chosen_boid) const {
   return delta_velocity;
 }
 
-void Flock::update_entity(Boid& entity, const Vector delta_v,
-                          const float& delta_t, const float x_max,
-                          const float y_max) {
+void Flock::update_entity(Boid& entity, const Vector& delta_v, float delta_t,
+                          float x_max, float y_max) {
   entity.change_vel(delta_v);
   entity.limit_velocity(max_speed_);
   entity.min_velocity(min_speed_);
@@ -89,8 +89,7 @@ void Flock::update_entity(Boid& entity, const Vector delta_v,
   entity.border(x_max, y_max);
 }
 
-void Flock::update_boids(const float& delta_t, const float x_max,
-                         const float y_max) {
+void Flock::update_boids(float delta_t, float x_max, float y_max) {
   for (auto& boid : boids_) {
     Vector escape_vel{};
     for (const auto& predator : predators_) {
@@ -114,19 +113,18 @@ Boid Flock::find_prey(const Boid& predator) const {
   return *prey;
 }
 
-void Flock::update_predator(const float& delta_t, const float x_max,
-                            const float y_max) {
+void Flock::update_predator(float delta_t, float x_max, float y_max) {
   for (auto& predator : predators_) {
-    Boid prey = find_prey(predator);
-    Vector chase_vel =
+    const Boid prey = find_prey(predator);
+    const Vector chase_vel =
         (prey.get_pos() - predator.get_pos()) * separation_parameter_;
 
     auto near_predator = predator.find_near(predators_, closeness_parameter_);
     assert(near_predator.size() <= predators_.size());
 
-    Vector separation_vel = predator.separation(
+    const Vector separation_vel = predator.separation(
         separation_parameter_, distance_of_separation_, near_predator);
-    Vector delta_v = chase_vel + separation_vel;
+    const Vector delta_v = chase_vel + separation_vel;
     update_entity(predator, delta_v, delta_t, x_max, y_max);
   }
 }

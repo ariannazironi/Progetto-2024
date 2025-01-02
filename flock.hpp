@@ -2,6 +2,7 @@
 #define FLOCK_HPP
 
 #include <vector>
+
 #include "boid.hpp"
 
 namespace sim {
@@ -42,20 +43,18 @@ class Flock {
 
   Vector find_deltav(const Boid& chosen_boid) const;
 
-  void update_entity(Boid& entity, const Vector delta_v, const float& delta_t,
-                     const float x_max, const float y_max);
+  void update_entity(Boid& entity, const Vector& delta_v, float delta_t,
+                     float x_max, float y_max);
 
-  void update_boids(const float& delta_t, const float x_max, const float y_max);
+  void update_boids(float delta_t, float x_max, float y_max);
 
   Boid find_prey(const Boid& predator) const;
 
-  void update_predator(const float& delta_t, const float x_max,
-                       const float y_max);
+  void update_predator(float delta_t, float x_max, float y_max);
 
   Statistics state() const;
-  
 };
 
-}  //namespace sim
+}  // namespace sim
 
 #endif
