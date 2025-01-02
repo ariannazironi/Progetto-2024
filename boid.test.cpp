@@ -226,8 +226,8 @@ TEST_CASE("Testing the operator==") {
     const sim::Vector vel1{2.f, 2.f};
     const sim::Vector vel2{2.f, 2.f};
     const sim::Boid b1{pos1, vel1, 100.f};
-    const sim::Boid b2{pos2, vel2, 100.f};  // b2 è diverso da b1
+    const sim::Boid b2{pos2, vel2, 100.f};  
 
-    CHECK(!(b1 == b2));  // b1 e b2 non dovrebbero essere uguali
+    CHECK(!(b1 == b2));  
   }
 }
