@@ -12,13 +12,13 @@ TEST_CASE("Testing Boid class") {
   const sim::Vector pos0{0., 0.};
   const sim::Vector vel0{2., 0.};
 
-  const sim::Vector pos1{3., 4.};
+  const sim::Vector pos1{35., 50.};
   const sim::Vector vel1{1., 1.};
 
-  const sim::Vector pos2(1., 8.);
+  const sim::Vector pos2(30., 60.);
   const sim::Vector vel2(5., -6.);
 
-  const sim::Vector pos3(2., 2.);
+  const sim::Vector pos3(20., 20.);
   const sim::Vector vel3(7., 2.5);
 
   sim::Boid b0(pos0, vel0, 100.f);
@@ -27,10 +27,10 @@ TEST_CASE("Testing Boid class") {
   sim::Boid b3(pos3, vel3, 100.f);
 
   const std::vector<sim::Boid> boids{b0, b1, b2, b3};
-  auto near = b0.find_near(boids, 5.);
-  auto near_0 = b0.find_near(boids, 2.);
-  auto near_1 = b0.find_near(boids, 6.);
-  auto near_2 = b0.find_near(boids, 9.);
+  auto near = b0.find_near(boids, 60.);
+  auto near_0 = b0.find_near(boids, 20.);
+  auto near_1 = b0.find_near(boids, 65.);
+  auto near_2 = b0.find_near(boids, 70.);
 
   SUBCASE("Testing getters") {
     CHECK(b0.get_pos().get_x() == 0.);
@@ -39,8 +39,8 @@ TEST_CASE("Testing Boid class") {
     CHECK(b0.get_vel().get_y() == 0.);
     CHECK(b0.get_angle() == 100.);
 
-    CHECK(b1.get_pos().get_x() == 3.);
-    CHECK(b1.get_pos().get_y() == 4.);
+    CHECK(b1.get_pos().get_x() == 35.);
+    CHECK(b1.get_pos().get_y() == 50.);
     CHECK(b1.get_vel().get_x() == 1.);
     CHECK(b1.get_vel().get_y() == 1.);
     CHECK(b1.get_angle() == 100.);
@@ -63,21 +63,21 @@ TEST_CASE("Testing Boid class") {
   }
 
   SUBCASE("Testing separation method") {
-    sim::Vector separation_vector = b0.separation(1.0f, 5.0f, near);
-    CHECK(separation_vector.get_x() == doctest::Approx(-2.0f).epsilon(0.1));
-    CHECK(separation_vector.get_y() == doctest::Approx(-2.0f).epsilon(0.1));
+    sim::Vector separation_vector = b0.separation(0.5f, 30.f, near);
+    CHECK(separation_vector.get_x() == doctest::Approx(-10.0f).epsilon(0.1));
+    CHECK(separation_vector.get_y() == doctest::Approx(-10.0f).epsilon(0.1));
 
-    sim::Vector separation_vector_0 = b0.separation(1.0f, 5.0f, near_0);
+    sim::Vector separation_vector_0 = b0.separation(0.5f, 30.f, near_0);
     CHECK(separation_vector_0.get_x() == doctest::Approx(0.f).epsilon(0.1));
     CHECK(separation_vector_0.get_y() == doctest::Approx(0.f).epsilon(0.1));
 
-    sim::Vector separation_vector_1 = b0.separation(1.0f, 5.5f, near_1);
-    CHECK(separation_vector_1.get_x() == doctest::Approx(-5.0f).epsilon(0.1));
-    CHECK(separation_vector_1.get_y() == doctest::Approx(-6.0f).epsilon(0.1));
+    sim::Vector separation_vector_1 = b0.separation(0.5f, 65.f, near_1);
+    CHECK(separation_vector_1.get_x() == doctest::Approx(-27.5f).epsilon(0.1));
+    CHECK(separation_vector_1.get_y() == doctest::Approx(-35.f).epsilon(0.1));
 
-    sim::Vector separation_vector_2 = b0.separation(1.0f, 8.5f, near_2);
-    CHECK(separation_vector_2.get_x() == doctest::Approx(-6.0f).epsilon(0.1));
-    CHECK(separation_vector_2.get_y() == doctest::Approx(-14.0f).epsilon(0.1));
+    sim::Vector separation_vector_2 = b0.separation(0.5f, 65.f, near_2);
+    CHECK(separation_vector_2.get_x() == doctest::Approx(-27.5f).epsilon(0.1));
+    CHECK(separation_vector_2.get_y() == doctest::Approx(-35.f).epsilon(0.1));
   }
 
   SUBCASE("Testing alignment method") {
@@ -101,23 +101,23 @@ TEST_CASE("Testing Boid class") {
   }
 
   SUBCASE("Testing cohesion method") {
-    const float c = 2.0f;
+    const float c = 0.0004f;
 
     sim::Vector choesion_vector = b0.cohesion(c, near);
-    CHECK(choesion_vector.get_x() == doctest::Approx(4.0f).epsilon(0.1));
-    CHECK(choesion_vector.get_y() == doctest::Approx(4.0f).epsilon(0.1));
+    CHECK(choesion_vector.get_x() == doctest::Approx(0.008f).epsilon(0.001));
+    CHECK(choesion_vector.get_y() == doctest::Approx(0.008f).epsilon(0.001));
 
     sim::Vector choesion_vector_0 = b0.cohesion(c, near_0);
     CHECK(choesion_vector_0.get_x() == doctest::Approx(0.f).epsilon(0.1));
     CHECK(choesion_vector_0.get_y() == doctest::Approx(0.f).epsilon(0.1));
 
     sim::Vector choesion_vector_1 = b0.cohesion(c, near_1);
-    CHECK(choesion_vector_1.get_x() == doctest::Approx(5.0f).epsilon(0.1));
-    CHECK(choesion_vector_1.get_y() == doctest::Approx(6.0f).epsilon(0.1));
+    CHECK(choesion_vector_1.get_x() == doctest::Approx(0.011f).epsilon(0.001));
+    CHECK(choesion_vector_1.get_y() == doctest::Approx(0.014f).epsilon(0.001));
 
     sim::Vector choesion_vector_2 = b0.cohesion(c, near_2);
-    CHECK(choesion_vector_2.get_x() == doctest::Approx(4.0f).epsilon(0.1));
-    CHECK(choesion_vector_2.get_y() == doctest::Approx(9.33f).epsilon(0.01));
+    CHECK(choesion_vector_2.get_x() == doctest::Approx(0.011f).epsilon(0.001));
+    CHECK(choesion_vector_2.get_y() == doctest::Approx(0.017f).epsilon(0.001));
   }
 
   SUBCASE("Testing limit_velocity method") {
@@ -147,8 +147,8 @@ TEST_CASE("Testing Boid class") {
     b1.change_pos(new_pos);
     CHECK(b1.get_vel().get_x() == doctest::Approx(6.0f).epsilon(0.1));
     CHECK(b1.get_vel().get_y() == doctest::Approx(5.0f).epsilon(0.1));
-    CHECK(b1.get_pos().get_x() == doctest::Approx(5.0f).epsilon(0.1));
-    CHECK(b1.get_pos().get_y() == doctest::Approx(10.0f).epsilon(0.01));
+    CHECK(b1.get_pos().get_x() == doctest::Approx(37.f).epsilon(0.1));
+    CHECK(b1.get_pos().get_y() == doctest::Approx(56.f).epsilon(0.01));
   }
 }
 

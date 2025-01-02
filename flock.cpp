@@ -57,6 +57,7 @@ Vector Flock::find_alignment(const Boid& chosen_boid) const {
 
   Vector v_alignement{};
   v_alignement = chosen_boid.alignment(alignment_parameter_, near_boid);
+  v_alignement = chosen_boid.alignment(alignment_parameter_, near_boid);
 
   return v_alignement;
 }
