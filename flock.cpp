@@ -14,16 +14,16 @@ Flock::Flock(const float distance, const float ds_parameter,
     : closeness_parameter_(distance),
       distance_of_separation_(ds_parameter),
       separation_parameter_(s_parameter),
-      allignment_parameter_(a_parameter),
+      alignment_parameter_(a_parameter),
       cohesion_parameter_(c_parameter),
       max_speed_(max_speed),
       min_speed_(min_speed) {
-        /*assert(closeness_parameter_ >= 60.f && closeness_parameter_ <= 200.f
-         && distance_of_separation_ >= 30.f && distance_of_separation_ <= 50.f
-         && separation_parameter_ >= 0.3f && separation_parameter_ <= 0.5f &&
+  assert(closeness_parameter_ >= 60.f && closeness_parameter_ <= 200.f &&
+         distance_of_separation_ >= 30.f && distance_of_separation_ <= 50.f &&
+         separation_parameter_ >= 0.3f && separation_parameter_ <= 0.5f &&
          alignment_parameter_ >= 0.4f && alignment_parameter_ <= 0.8f &&
-         cohesion_parameter_ >= 0.0001f && cohesion_parameter_ <= 0.0004f);*/
-      };
+         cohesion_parameter_ >= 0.0001f && cohesion_parameter_ <= 0.0004f);
+};
 
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 void Flock::add_predators(const Boid& new_predator) {
@@ -56,7 +56,7 @@ Vector Flock::find_alignment(const Boid& chosen_boid) const {
   assert(near_boid.size() <= boids_.size());
 
   Vector v_alignement{};
-  v_alignement = chosen_boid.alignment(allignment_parameter_, near_boid);
+  v_alignement = chosen_boid.alignment(alignment_parameter_, near_boid);
 
   return v_alignement;
 }

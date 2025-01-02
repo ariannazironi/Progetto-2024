@@ -19,7 +19,7 @@ class Flock {
   const float closeness_parameter_;
   const float distance_of_separation_;
   const float separation_parameter_;
-  const float allignment_parameter_;
+  const float alignment_parameter_;
   const float cohesion_parameter_;
   const float max_speed_;
   const float min_speed_;
@@ -45,10 +45,7 @@ class Flock {
 
   void update_entity(Boid& entity, const Vector& delta_v, float delta_t,
                      float x_max, float y_max);
-  void update_entity(Boid& entity, const Vector& delta_v, float delta_t,
-                     float x_max, float y_max);
 
-  void update_boids(float delta_t, float x_max, float y_max);
   void update_boids(float delta_t, float x_max, float y_max);
 
   Boid find_prey(const Boid& predator) const;

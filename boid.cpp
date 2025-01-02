@@ -1,8 +1,8 @@
 #include "boid.hpp"
 
 #include <SFML/Graphics.hpp>
-//#include <SFML/System.hpp>
-//#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 #include <cassert>
 #include <cmath>
 #include <numeric>
@@ -68,8 +68,7 @@ Vector Boid::separation(float s_parameter, float ds_parameter,
   }
 }
 
-Vector Boid::alignment(float a_parameter,
-                       const std::vector<Boid>& near) const {
+Vector Boid::alignment(float a_parameter, const std::vector<Boid>& near) const {
   if (near.size() != 0) {
     const Vector v_sum = std::accumulate(
         near.begin(), near.end(), Vector{0., 0.},
@@ -82,8 +81,7 @@ Vector Boid::alignment(float a_parameter,
   }
 }
 
-Vector Boid::cohesion(float c_parameter,
-                      const std::vector<Boid>& near) const {
+Vector Boid::cohesion(float c_parameter, const std::vector<Boid>& near) const {
   if (near.size() != 0) {
     const Vector x_sum = std::accumulate(
         near.begin(), near.end(), Vector{0., 0.},
@@ -130,7 +128,8 @@ void Boid::border(float x_max, float y_max) {
 }
 
 float Boid::get_rotation_angle() const {
-  const float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+  const float angle =
+      atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
 }
 

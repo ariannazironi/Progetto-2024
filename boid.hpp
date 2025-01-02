@@ -24,12 +24,8 @@ class Boid {
   float get_angle() const;
 
   std::vector<Boid> find_near(const std::vector<Boid>&, float distance) const;
-  Vector separation(float s_parameter, const float ds_parameter,
+  Vector separation(float s_parameter, float ds_parameter,
                     std::vector<Boid> const&) const;
-  Vector alignment(float a_parameter, const std::vector<Boid>&) const;
-  Vector cohesion(float c_parameter, const std::vector<Boid>&) const;
-  void limit_velocity(float max_speed);
-  void min_velocity(float min_speed);
   Vector alignment(float a_parameter, const std::vector<Boid>&) const;
   Vector cohesion(float c_parameter, const std::vector<Boid>&) const;
   void limit_velocity(float max_speed);
@@ -39,7 +35,6 @@ class Boid {
   float diff_angle(const Boid& other) const;
   float get_rotation_angle() const;
   bool operator==(const Boid& other_boid) const;
-  void border(float x_max, float y_max);
   void border(float x_max, float y_max);
   void set_position(const Vector& new_pos);
   sf::CircleShape set_shape(bool is_predator);
