@@ -17,7 +17,13 @@ Flock::Flock(const float distance, const float ds_parameter,
       allignment_parameter_(a_parameter),
       cohesion_parameter_(c_parameter),
       max_speed_(max_speed),
-      min_speed_(min_speed) {};
+      min_speed_(min_speed) {
+        assert(closeness_parameter_ >= 50.f && closeness_parameter_ <= 200.f &&
+         distance_of_separation_ >= 30.f && distance_of_separation_ <= 40.f &&
+         separation_parameter_ >= 0.01f && separation_parameter_ <= 0.5f &&
+         allignment_parameter_ >= 0.4f && allignment_parameter_ <= 1.f &&
+         cohesion_parameter_ >= 0.0001f && cohesion_parameter_ <= 0.0005f);
+      };
 
 void Flock::add_boids(const Boid& new_boid) { boids_.push_back(new_boid); }
 void Flock::add_predators(const Boid& new_predator) {

@@ -14,10 +14,10 @@ int main() {
 
   std::cout
       << "Insert the following parameters: \n"
-      << "1) Closeness parameter (values permitted are between [40, 200]) : \n";
+      << "1) Closeness parameter (values permitted are between [50, 200]) : \n";
   float closeness_parameter;
   std::cin >> closeness_parameter;
-  std::cout << "2) Distance of separation (values permitted are [30, 60]): \n";
+  std::cout << "2) Distance of separation (values permitted are [30, 40]): \n";
   float distance_of_separation;
   std::cin >> distance_of_separation;
   std::cout << "3) Separation parameter (values permitted are between [0.01, "

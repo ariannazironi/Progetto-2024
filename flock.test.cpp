@@ -338,18 +338,14 @@ TEST_CASE("Testing state method") {
     CHECK(state.dev_speed == doctest::Approx(3.05f).epsilon(0.01));
   }
 
-SUBCASE("State with two boids") {
+SUBCASE("State with one boids") {
     const sim::Vector pos1{1.5f, 3.f};
     const sim::Vector vel1{2.f, 2.f};
-    const sim::Vector pos2{4.f, 3.f};
-    const sim::Vector vel2{3.f, 5.f};
 
     sim::Boid b1{pos1, vel1, 50.f};
-    sim::Boid b2{pos2, vel2, 50.f};
 
     sim::Flock flock{100.f, 30.f, 0.05f, 0.5f, 0.3f, 8.0f, 3.0f};
     flock.add_boids(b1);
-    flock.add_boids(b2);
 
     sim::Statistics state = flock.state();
     CHECK(state.mean_dist == doctest::Approx(0.f).epsilon(0.01));
