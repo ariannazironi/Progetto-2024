@@ -56,6 +56,6 @@ class Flock {
   
 };
 
-}  
+}  //namespace sim
 
 #endif
