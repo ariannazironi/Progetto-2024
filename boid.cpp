@@ -177,4 +177,4 @@ void Boid::set_position(const Vector& new_pos) {
   boidshape_.setPosition(boid_pos);
 }
 
-};  
+}
