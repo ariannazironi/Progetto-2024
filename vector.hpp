@@ -4,11 +4,11 @@
 namespace sim {
 
 class Vector {
-  private:
+ private:
   float x_;
   float y_;
 
-  public:
+ public:
   Vector();
   Vector(float x, float y);
   float get_x() const;
@@ -23,9 +23,8 @@ class Vector {
   bool operator==(const Vector&) const;
   Vector operator*(float scalar) const;
   float product(const Vector&) const;
-
 };
 
-}
+}  // namespace sim
 
 #endif

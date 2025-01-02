@@ -21,12 +21,12 @@ Vector& Vector::operator+=(const Vector& vec2) {
 }
 
 Vector Vector::operator+(const Vector& vec2) const {
-  Vector result= *this;
-  return result+= vec2;
+  Vector result = *this;
+  return result += vec2;
 }
 
 Vector Vector::operator-(const Vector& vec2) const {
-  Vector neg_vec{-vec2.x_ , -vec2.y_};
+  Vector neg_vec{-vec2.x_, -vec2.y_};
   return *this + neg_vec;
 }
 
@@ -44,7 +44,7 @@ float Vector::norm_vector() const {
   return norm;
 }
 
-bool Vector::operator==(const Vector& vec2) const { 
+bool Vector::operator==(const Vector& vec2) const {
   return (x_ == vec2.x_ && y_ == vec2.y_);
 }
 
@@ -57,4 +57,4 @@ float Vector::product(const Vector& vec2) const {
   return product;
 }
 
-}  
+}  // namespace sim

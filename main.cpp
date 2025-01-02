@@ -14,22 +14,22 @@ int main() {
 
   std::cout
       << "Insert the following parameters: \n"
-      << "1) Closeness parameter (values permitted are between [40, 200]) : \n";
+      << "1) Closeness parameter (values permitted are between [60, 200]) : \n";
   float closeness_parameter;
   std::cin >> closeness_parameter;
-  std::cout << "2) Distance of separation (values permitted are [30, 60]): \n";
+  std::cout << "2) Distance of separation (values permitted are [30, 50]): \n";
   float distance_of_separation;
   std::cin >> distance_of_separation;
-  std::cout << "3) Separation parameter (values permitted are between [0.01, "
+  std::cout << "3) Separation parameter (values permitted are between [0.3, "
                "0.5]): \n";
   float separation_parameter;
   std::cin >> separation_parameter;
-  std::cout << "4) Allignement parameter (values permitted are between [0.4, "
-               "1.0]): \n";
-  float allignement_parameter;
-  std::cin >> allignement_parameter;
+  std::cout << "4) Alignement parameter (values permitted are between [0.4, "
+               "0.8]): \n";
+  float alignement_parameter;
+  std::cin >> alignement_parameter;
   std::cout << "5) Cohesion parameter (values permitted are between [0.0001, "
-               "0.0005]): \n";
+               "0.0004]): \n";
   float cohesion_parameter;
   std::cin >> cohesion_parameter;
 
@@ -54,7 +54,9 @@ int main() {
 
   sf::Vector2u windowSize = window.getSize();
 
-  sim::Flock flock(closeness_parameter, distance_of_separation, separation_parameter, allignement_parameter, cohesion_parameter, 100.0f, 30.0f);
+  sim::Flock flock(closeness_parameter, distance_of_separation,
+                   separation_parameter, alignement_parameter,
+                   cohesion_parameter, 100.0f, 30.0f);
 
   std::random_device rd;
   std::default_random_engine gen(rd());
@@ -130,11 +132,11 @@ int main() {
 
     window.clear(sf::Color::Blue);
 
-    for (auto& boid : flock.get_boids()) {
+    for (auto boid : flock.get_boids()) {
       window.draw(boid.set_shape(false));
     }
 
-    for (auto& predator : flock.get_predators()) {
+    for (auto predator : flock.get_predators()) {
       window.draw(predator.set_shape(true));
     }
 

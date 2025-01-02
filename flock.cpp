@@ -1,9 +1,9 @@
 #include "flock.hpp"
 
+#include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <numeric>
-#include <algorithm>
 
 namespace sim {
 
@@ -30,38 +30,38 @@ std::vector<Boid> Flock::get_predators() const { return predators_; };
 Vector Flock::find_separation(const Boid& chosen_boid) const {
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
   assert(near_boid.size() <= boids_.size());
-  
-  Vector null{};
-  null = chosen_boid.separation(separation_parameter_, distance_of_separation_,
-                                near_boid);
+
+  Vector v_separation{};
+  v_separation = chosen_boid.separation(separation_parameter_,
+                                        distance_of_separation_, near_boid);
   for (auto& predator : predators_) {
     float predator_dist = chosen_boid.get_pos().distance(predator.get_pos());
     if (predator_dist < distance_of_separation_) {
-      null += (predator.get_pos() - chosen_boid.get_pos()) *
-              (-separation_parameter_);
+      v_separation += (predator.get_pos() - chosen_boid.get_pos()) *
+                      (-separation_parameter_);
     }
   }
-  return null;
+  return v_separation;
 }
 
 Vector Flock::find_alignment(const Boid& chosen_boid) const {
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
   assert(near_boid.size() <= boids_.size());
 
-  Vector null{};
-  null = chosen_boid.alignment(allignment_parameter_, near_boid);
+  Vector v_alignement{};
+  v_alignement = chosen_boid.alignment(allignment_parameter_, near_boid);
 
-  return null;
+  return v_alignement;
 }
 
 Vector Flock::find_cohesion(const Boid& chosen_boid) const {
   auto near_boid = chosen_boid.find_near(boids_, closeness_parameter_);
   assert(near_boid.size() <= boids_.size());
 
-  Vector null{};
-  null = chosen_boid.cohesion(cohesion_parameter_, near_boid);
+  Vector v_cohesion{};
+  v_cohesion = chosen_boid.cohesion(cohesion_parameter_, near_boid);
 
-  return null;
+  return v_cohesion;
 }
 
 Vector Flock::find_deltav(const Boid& chosen_boid) const {
@@ -89,7 +89,7 @@ void Flock::update_boids(const float& delta_t, const float x_max,
     Vector escape_vel{};
     for (const auto& predator : predators_) {
       float distance = boid.get_pos().distance(predator.get_pos());
-      if (distance < 150.0f) {
+      if (distance < closeness_parameter_) {
         escape_vel += (boid.get_pos() - predator.get_pos());
       }
     }
@@ -100,12 +100,12 @@ void Flock::update_boids(const float& delta_t, const float x_max,
 
 Boid Flock::find_prey(const Boid& predator) const {
   assert(!boids_.empty());
-  auto prey = *std::min_element(boids_.begin(), boids_.end(),
-                           [&](const Boid& a, const Boid& b) {
-                             return predator.get_pos().distance(a.get_pos()) <
-                                    predator.get_pos().distance(b.get_pos());
-                           });
-  return prey;
+  auto prey = std::min_element(
+      boids_.begin(), boids_.end(), [&](const Boid& a, const Boid& b) {
+        return predator.get_pos().distance(a.get_pos()) <
+               predator.get_pos().distance(b.get_pos());
+      });
+  return *prey;
 }
 
 void Flock::update_predator(const float& delta_t, const float x_max,
@@ -117,7 +117,7 @@ void Flock::update_predator(const float& delta_t, const float x_max,
 
     auto near_predator = predator.find_near(predators_, closeness_parameter_);
     assert(near_predator.size() <= predators_.size());
-    
+
     Vector separation_vel = predator.separation(
         separation_parameter_, distance_of_separation_, near_predator);
     Vector delta_v = chase_vel + separation_vel;
@@ -135,14 +135,14 @@ Statistics Flock::state() const {
 
     for (size_t i = 0; i < n; ++i) {
       for (size_t j = i + 1; j < n; ++j) {
-        float dist= boids_[i].get_pos().distance(boids_[j].get_pos());
+        float dist = boids_[i].get_pos().distance(boids_[j].get_pos());
         sum_dist += dist;
         sum_dist2 += std::pow(dist, 2);
       }
     }
 
     const float medium_dist = sum_dist / num_pairs;
-     
+
     const float medium_dist_2 = sum_dist2 / num_pairs;
 
     const float dev_dist = std::sqrt(medium_dist_2 - std::pow(medium_dist, 2));
@@ -169,4 +169,4 @@ Statistics Flock::state() const {
   }
 }
 
-}  
+}  // namespace sim

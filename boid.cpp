@@ -5,7 +5,6 @@
 #include <SFML/Window.hpp>
 #include <cassert>
 #include <cmath>
-#include <iostream>
 #include <numeric>
 
 namespace sim {
@@ -33,7 +32,7 @@ float Boid::diff_angle(const Boid& other) const {
     float rad_angle = std::acos(cos_angle);
     const float degree_angle = (rad_angle * 180.f) / M_PI;
     assert(degree_angle <= 360.f && degree_angle >= 0.f);
-    
+
     return degree_angle;
   }
 }
@@ -52,7 +51,7 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
 }
 
 Vector Boid::separation(const float s_parameter, const float ds_parameter,
-                        std::vector<Boid> const& near) const {
+                        const std::vector<Boid>& near) const {
   if (near.size() != 0) {
     Vector v1{0., 0.};
 
@@ -70,7 +69,7 @@ Vector Boid::separation(const float s_parameter, const float ds_parameter,
 }
 
 Vector Boid::alignment(const float a_parameter,
-                       std::vector<Boid> const& near) const {
+                       const std::vector<Boid>& near) const {
   if (near.size() != 0) {
     Vector v_sum = std::accumulate(
         near.begin(), near.end(), Vector{0., 0.},
@@ -84,7 +83,7 @@ Vector Boid::alignment(const float a_parameter,
 }
 
 Vector Boid::cohesion(const float c_parameter,
-                      std::vector<Boid> const& near) const {
+                      const std::vector<Boid>& near) const {
   if (near.size() != 0) {
     Vector x_sum = std::accumulate(
         near.begin(), near.end(), Vector{0., 0.},
@@ -130,22 +129,6 @@ void Boid::border(const float x_max, const float y_max) {
   }
 }
 
-/*void Boid::border(const float x_max, const float y_max) {
-    // Controllo e rimbalzo sul bordo orizzontale (lato sinistro e destro)
-    if (position_.get_x() <= 0.) {
-        velocity_.set_x(std::fabs(velocity_.get_x()));  // Inverti la velocità lungo l'asse x
-    } else if (position_.get_x() >= x_max) {
-        velocity_.set_x(-std::fabs(velocity_.get_x())); // Inverti la velocità lungo l'asse x
-    }
-
-    // Controllo e rimbalzo sul bordo verticale (lato superiore e inferiore)
-    if (position_.get_y() <= 0.) {
-        velocity_.set_y(std::fabs(velocity_.get_y()));  // Inverti la velocità lungo l'asse y
-    } else if (position_.get_y() >= y_max) {
-        velocity_.set_y(-std::fabs(velocity_.get_y())); // Inverti la velocità lungo l'asse y
-    }
-}*/
-
 float Boid::get_rotation_angle() const {
   float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
@@ -177,4 +160,4 @@ void Boid::set_position(const Vector& new_pos) {
   boidshape_.setPosition(boid_pos);
 }
 
-};  
+};  // namespace sim
