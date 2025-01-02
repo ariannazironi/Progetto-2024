@@ -29,7 +29,7 @@ float Boid::diff_angle(const Boid& other) const {
     float cos_angle = dot_product / (norm_direction * norm_velocity);
     cos_angle = std::clamp(cos_angle, -1.0f, 1.0f);
 
-    float rad_angle = std::acos(cos_angle);
+    const float rad_angle = std::acos(cos_angle);
     const float degree_angle = (rad_angle * 180.f) / M_PI;
     assert(degree_angle <= 360.f && degree_angle >= 0.f);
 
@@ -38,11 +38,11 @@ float Boid::diff_angle(const Boid& other) const {
 }
 
 std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
-                                  const float distance) const {
+                                  float distance) const {
   assert(distance > 0);
   std::vector<Boid> near;
   for (const auto& boid : boids) {
-    float dist = boid.get_pos().distance(position_);
+    const float dist = boid.get_pos().distance(position_);
     if (dist > 0 && dist < distance && diff_angle(boid) <= view_angle_) {
       near.push_back(boid);
     }
@@ -50,59 +50,59 @@ std::vector<Boid> Boid::find_near(const std::vector<Boid>& boids,
   return near;
 }
 
-Vector Boid::separation(const float s_parameter, const float ds_parameter,
+Vector Boid::separation(float s_parameter, float ds_parameter,
                         const std::vector<Boid>& near) const {
   if (near.size() != 0) {
     Vector v1{0., 0.};
 
     for (const auto& boid : near) {
-      Vector x1 = boid.get_pos();
+      const Vector x1 = boid.get_pos();
       if (x1.distance(position_) < ds_parameter) {
         v1 += (x1 - position_) * (-s_parameter);
       }
     }
     return v1;
   } else {
-    Vector null{0., 0.};
+    const Vector null{0., 0.};
     return null;
   }
 }
 
-Vector Boid::alignment(const float a_parameter,
+Vector Boid::alignment(float a_parameter,
                        const std::vector<Boid>& near) const {
   if (near.size() != 0) {
-    Vector v_sum = std::accumulate(
+    const Vector v_sum = std::accumulate(
         near.begin(), near.end(), Vector{0., 0.},
         [](Vector res, Boid const& b) { return res + b.get_vel(); });
-    Vector v2 = (v_sum * (1.0f / near.size()) - velocity_) * a_parameter;
+    const Vector v2 = (v_sum * (1.0f / near.size()) - velocity_) * a_parameter;
     return v2;
   } else {
-    Vector null = {0., 0.};
+    const Vector null = {0., 0.};
     return null;
   }
 }
 
-Vector Boid::cohesion(const float c_parameter,
+Vector Boid::cohesion(float c_parameter,
                       const std::vector<Boid>& near) const {
   if (near.size() != 0) {
-    Vector x_sum = std::accumulate(
+    const Vector x_sum = std::accumulate(
         near.begin(), near.end(), Vector{0., 0.},
         [](Vector res, Boid const& b) { return res + b.get_pos(); });
-    Vector v3 = (x_sum * (1.0f / near.size()) - position_) * c_parameter;
+    const Vector v3 = (x_sum * (1.0f / near.size()) - position_) * c_parameter;
     return v3;
   } else {
-    Vector null{0., 0.};
+    const Vector null{0., 0.};
     return null;
   }
 }
 
-void Boid::limit_velocity(const float max_speed) {
+void Boid::limit_velocity(float max_speed) {
   if (velocity_.norm_vector() > max_speed) {
     velocity_ = velocity_ * 0.5;
   }
 }
 
-void Boid::min_velocity(const float min_speed) {
+void Boid::min_velocity(float min_speed) {
   if (velocity_.norm_vector() < min_speed) {
     velocity_ = velocity_ * 2;
   }
@@ -116,7 +116,7 @@ void Boid::change_pos(const Vector& delta_position) {
   position_ += delta_position;
 }
 
-void Boid::border(const float x_max, const float y_max) {
+void Boid::border(float x_max, float y_max) {
   if (position_.get_x() <= 0.) {
     position_.set_x(x_max);
   } else if (position_.get_x() >= x_max) {
@@ -130,7 +130,7 @@ void Boid::border(const float x_max, const float y_max) {
 }
 
 float Boid::get_rotation_angle() const {
-  float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
+  const float angle = atan2(velocity_.get_y(), velocity_.get_x()) * 180.0f / M_PI;
   return angle + 90.0f;
 }
 
