@@ -30,11 +30,16 @@ class Boid {
   Vector cohesion(float c_parameter, const std::vector<Boid>&) const;
   void limit_velocity(float max_speed);
   void min_velocity(float min_speed);
+  Vector alignment(float a_parameter, const std::vector<Boid>&) const;
+  Vector cohesion(float c_parameter, const std::vector<Boid>&) const;
+  void limit_velocity(float max_speed);
+  void min_velocity(float min_speed);
   void change_vel(const Vector& delta_velocity);
   void change_pos(const Vector& delta_position);
   float diff_angle(const Boid& other) const;
   float get_rotation_angle() const;
   bool operator==(const Boid& other_boid) const;
+  void border(float x_max, float y_max);
   void border(float x_max, float y_max);
   void set_position(const Vector& new_pos);
   sf::CircleShape set_shape(bool is_predator);

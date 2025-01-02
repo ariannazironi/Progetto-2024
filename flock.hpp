@@ -45,7 +45,10 @@ class Flock {
 
   void update_entity(Boid& entity, const Vector& delta_v, float delta_t,
                      float x_max, float y_max);
+  void update_entity(Boid& entity, const Vector& delta_v, float delta_t,
+                     float x_max, float y_max);
 
+  void update_boids(float delta_t, float x_max, float y_max);
   void update_boids(float delta_t, float x_max, float y_max);
 
   Boid find_prey(const Boid& predator) const;
