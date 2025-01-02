@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall -Wextra CMakeFiles/boid.t.dir/boid.cpp.o CMakeFiles/boid.t.dir/vector.cpp.o CMakeFiles/boid.t.dir/boid.test.cpp.o -o boid.t  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1 

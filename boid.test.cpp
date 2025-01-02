@@ -1,11 +1,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "boid.hpp"
-#include "vector.hpp"
 
 #include <vector>
+
 #include "SFML/Graphics.hpp"
 #include "doctest.h"
+#include "vector.hpp"
 
 TEST_CASE("Testing Boid class") {
   const sim::Vector pos0{0., 0.};
@@ -137,7 +138,6 @@ TEST_CASE("Testing Boid class") {
     b1.min_velocity(2.5f);
     CHECK(b1.get_vel().get_x() == doctest::Approx(2.0f).epsilon(0.1));
     CHECK(b1.get_vel().get_y() == doctest::Approx(2.0f).epsilon(0.1));
-
   }
 
   SUBCASE("Testing change_vel and change_pos method") {
@@ -187,35 +187,47 @@ TEST_CASE("Testing get_rotation_angle() method") {
     const sim::Vector pos{2.f, 2.f};
     const sim::Vector vel{3.f, 2.f};
     const sim::Boid b1{pos, vel, 180.f};
-    CHECK(b1.get_rotation_angle() ==doctest::Approx(123.69).epsilon(0.01) );
+    CHECK(b1.get_rotation_angle() == doctest::Approx(123.69).epsilon(0.01));
   }
 
   SUBCASE("First component negative and second positive") {
     const sim::Vector pos{2.f, 2.f};
     const sim::Vector vel{-3.f, 2.f};
     const sim::Boid b2{pos, vel, 180.f};
-    CHECK(b2.get_rotation_angle() ==doctest::Approx(236.31).epsilon(0.01) );
+    CHECK(b2.get_rotation_angle() == doctest::Approx(236.31).epsilon(0.01));
   }
 
   SUBCASE("First component positive and the second negative") {
     const sim::Vector pos{2.f, 2.f};
     const sim::Vector vel{3.f, -2.f};
     const sim::Boid b3{pos, vel, 180.f};
-    CHECK(b3.get_rotation_angle() ==doctest::Approx(56.31).epsilon(0.01) );
+    CHECK(b3.get_rotation_angle() == doctest::Approx(56.31).epsilon(0.01));
   }
 
   SUBCASE("Both components negative") {
     const sim::Vector pos{2.f, 2.f};
     const sim::Vector vel{-3.f, -2.f};
     const sim::Boid b4{pos, vel, 180.f};
-    CHECK(b4.get_rotation_angle() ==doctest::Approx(-56.31).epsilon(0.01) );
+    CHECK(b4.get_rotation_angle() == doctest::Approx(-56.31).epsilon(0.01));
   }
 }
 
 TEST_CASE("Testing the operator==") {
+  SUBCASE("Equal boids") {
     const sim::Vector v1{3.f, 1.f};
     const sim::Vector v2{2.f, 2.f};
     const sim::Boid b1{v1, v2, 180.f};
     const sim::Boid b2{v1, v2, 180.f};
     CHECK(b1 == b2);
+  }
+  SUBCASE("Non-equal boids") {
+    const sim::Vector pos1{1.f, 1.f};
+    const sim::Vector pos2{3.f, 3.f};
+    const sim::Vector vel1{2.f, 2.f};
+    const sim::Vector vel2{2.f, 2.f};
+    const sim::Boid b1{pos1, vel1, 100.f};
+    const sim::Boid b2{pos2, vel2, 100.f};  // b2 è diverso da b1
+
+    CHECK(!(b1 == b2));  // b1 e b2 non dovrebbero essere uguali
+  }
 }

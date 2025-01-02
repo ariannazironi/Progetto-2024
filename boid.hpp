@@ -2,6 +2,7 @@
 #define BOID_HPP
 
 #include <vector>
+
 #include "SFML/Graphics.hpp"
 #include "vector.hpp"
 
@@ -22,12 +23,12 @@ class Boid {
   Vector get_vel() const;
   float get_angle() const;
 
-  std::vector<Boid> find_near(const std::vector<Boid>& boids,
+  std::vector<Boid> find_near(const std::vector<Boid>&,
                               const float distance) const;
   Vector separation(const float s_parameter, const float ds_parameter,
                     std::vector<Boid> const&) const;
-  Vector alignment(const float a_parameter, std::vector<Boid> const&) const;
-  Vector cohesion(const float c_parameter, std::vector<Boid> const&) const;
+  Vector alignment(const float a_parameter, const std::vector<Boid>&) const;
+  Vector cohesion(const float c_parameter, const std::vector<Boid>&) const;
   void limit_velocity(const float max_speed);
   void min_velocity(const float min_speed);
   void change_vel(const Vector& delta_velocity);
@@ -38,9 +39,8 @@ class Boid {
   void border(const float x_max, const float y_max);
   void set_position(const Vector& new_pos);
   sf::CircleShape set_shape(bool is_predator);
-  
 };
 
-}  
+}  // namespace sim
 
 #endif
