@@ -13,7 +13,7 @@ int main() {
   std::cout << "3. Finally, close the window to stop the simulation.\n";
 
   std::cout
-      << "First, insert the following parameters: \n"
+      << "Insert the following parameters: \n"
       << "1) Closeness parameter (values permitted are between [40, 200]) : \n";
   float closeness_parameter;
   std::cin >> closeness_parameter;
@@ -59,7 +59,7 @@ int main() {
   std::random_device rd;
   std::default_random_engine gen(rd());
   std::uniform_real_distribution<float> velocity_distribution(-100.0f, 100.0f);
-  std::uniform_real_distribution<float> angle_distribution(90.0f, 180.0f);
+  std::uniform_real_distribution<float> angle_distribution(120.0f, 180.0f);
 
   sf::Clock clock;
   sf::Clock statistics_clock;
