@@ -39,7 +39,7 @@ float Vector::distance(const Vector& vec2) const {
 }
 
 float Vector::norm_vector() const {
-  float const norm = std::sqrt((x_ * x_) + (y_ * y_));
+  const float norm = std::sqrt((x_ * x_) + (y_ * y_));
   assert(norm >= 0.);
   return norm;
 }

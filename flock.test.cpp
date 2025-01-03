@@ -364,12 +364,14 @@ TEST_CASE("Testing predators") {
     CHECK(updated_predators[0].get_pos().get_y() ==
           doctest::Approx(300.0f).epsilon(0.01));
 
-    CHECK(updated_predators[1].get_vel().get_x() == doctest::Approx(90.0f).epsilon(0.01));
-    CHECK(updated_predators[1].get_vel().get_y() == doctest::Approx(-15.0f).epsilon(0.01));
-    CHECK(updated_predators[1].get_pos().get_x() == doctest::Approx(145.0f).epsilon(0.01));
-    CHECK(updated_predators[1].get_pos().get_y() == doctest::Approx(192.5f).epsilon(0.01));
-
-
+    CHECK(updated_predators[1].get_vel().get_x() ==
+          doctest::Approx(90.0f).epsilon(0.01));
+    CHECK(updated_predators[1].get_vel().get_y() ==
+          doctest::Approx(-15.0f).epsilon(0.01));
+    CHECK(updated_predators[1].get_pos().get_x() ==
+          doctest::Approx(145.0f).epsilon(0.01));
+    CHECK(updated_predators[1].get_pos().get_y() ==
+          doctest::Approx(192.5f).epsilon(0.01));
   }
 }
 
@@ -430,5 +432,5 @@ TEST_CASE("Testing state method") {
     CHECK(state.dev_dist == doctest::Approx(0.f).epsilon(0.01));
     CHECK(state.mean_speed == doctest::Approx(0.f).epsilon(0.01));
     CHECK(state.dev_speed == doctest::Approx(0.f).epsilon(0.01));
-  } 
-} 
+  }
+}
